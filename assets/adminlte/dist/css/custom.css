@@ -1,0 +1,32 @@
+/*CUSTOM CSS*/
+
+.btnmodal_add
+{
+	float:right;
+	margin-right:40px;
+}
+.modal-header
+{
+	background: #b88333 !important;
+    color: #f6f6f6 !important;
+}
+.label-checkbox
+{
+	font-weight: 500;
+}
+.checkbox-midparent
+{
+	margin-left: 40px;
+}
+.checkbox-child
+{
+	margin-left: 70px;
+}
+
+/*menard custom css*/
+.focus_top{
+	outline:none;
+}
+.tcolor_red{
+        color:red;
+}
