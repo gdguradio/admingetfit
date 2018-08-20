@@ -7,8 +7,8 @@ class MasterDataScreen_ extends CI_Model{
         }
         $query = $this->db->select('A.*,A.SysID AS screenID,B.SysID as submenuID, B.SubMenuName AS submenuname, C.SysID AS menuID,C.MenuName AS menuname')
                 ->from('masterdatascreen as A')
-                ->join('masterdatasubmenu as B','B.SysID = A.SubMenuNameID','inner left')
-                ->join('masterdatamenu as C','C.SysID = B.MenuNameID','inner left')
+                ->join('masterdatasubmenu as B','B.SysID = A.SubMenuNameID','inner')
+                ->join('masterdatamenu as C','C.SysID = B.MenuNameID','inner')
                 ->get();
         if($query){
             if($query->num_rows() > 0){
@@ -51,7 +51,7 @@ class MasterDataScreen_ extends CI_Model{
         }
         $query = $this->db->select('A.SysID AS submenuID,B.sysID AS menuID,A.SubMenuName')
                 ->from('masterdatasubmenu as A')
-                ->join('masterdatamenu as B','B.SysID = A.MenuNameID','inner left')
+                ->join('masterdatamenu as B','B.SysID = A.MenuNameID','inner')
                 ->get();
         if($query){
             if($query->num_rows() > 0){

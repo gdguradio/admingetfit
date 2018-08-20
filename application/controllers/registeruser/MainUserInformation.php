@@ -161,35 +161,82 @@ class MainUserInformation extends CI_Controller {
                     if( $uniqueemail == TRUE ){
                         echo json_encode(array('error'=> TRUE,'message'=> 'Email Address already existing'));
                     }else{
-                        $params = array(
-                            'FirstName'=> $this->input->post('firstname'),
-                            'MiddleName'=> $this->input->post('middlename'),
-                            'LastName'=> $this->input->post('lastname'),
-                            'Suffix'=> $this->input->post('suffix'),
-                            'UserName'=> $this->input->post('username'),
-                            'Password'=> password_hash($this->input->post('password'),PASSWORD_DEFAULT),
-                            'EmailAddress'=> $this->input->post('email'),
-                            'LandLineNumber'=> $this->input->post('blocknumber'),
-                            'MobileNumber'=> $this->input->post('landlinenumber'),
-                            'BranchDetailsID'=> $this->input->post('branchname'),
-                            'PositionID'=> $this->input->post('positionname'),
-                            'MasterDataRoleID'=> $this->input->post('rolenameID'),
-                            'AddedBy'=>  $this->session->userdata('UserID'),
-                            'AddedDate'=> date('Y-m-d'),
-                            'LoginStatus'=> $this->input->post('loginstatus'),
-                            'DeleteStatus'=> $this->input->post('deletestatus')
-                        );
-            
-                        $query = $this->mainuserinformation->add_gymmainlogin($params);
-                        if($query){
-            
-                            echo json_encode(array('error'=> FALSE,'message'=> 'User added'));
+
+                        $username = $this->input->post('username');
+                        $photo = $this->uploadPhoto($username);
+                        if(!empty(form_error('photo'))){
+                            echo json_encode(array('error'=> TRUE,'message'=> form_error('photo')));
                         }else{
-                            echo json_encode(array('error'=> TRUE,'message'=> 'Failed'));
+                            $params = array(
+                                'FirstName'=> $this->input->post('firstname'),
+                                'MiddleName'=> $this->input->post('middlename'),
+                                'LastName'=> $this->input->post('lastname'),
+                                'Suffix'=> $this->input->post('suffix'),
+                                'UserName'=> $this->input->post('username'),
+                                'Password'=> password_hash($this->input->post('password'),PASSWORD_DEFAULT),
+                                'EmailAddress'=> $this->input->post('email'),
+                                'LandLineNumber'=> $this->input->post('blocknumber'),
+                                'MobileNumber'=> $this->input->post('landlinenumber'),
+                                'BranchDetailsID'=> $this->input->post('branchname'),
+                                'PositionID'=> $this->input->post('positionname'),
+                                'MasterDataRoleID'=> $this->input->post('rolenameID'),
+                                'UserPhoto'=> $photo,
+                                'AddedBy'=>  $this->session->userdata('UserID'),
+                                'AddedDate'=> date('Y-m-d'),
+                                'LoginStatus'=> $this->input->post('loginstatus'),
+                                'DeleteStatus'=> $this->input->post('deletestatus')
+                            );
+                
+                            $query = $this->mainuserinformation->add_gymmainlogin($params);
+                            if($query){
+                
+                                echo json_encode(array('error'=> FALSE,'message'=> 'User added'));
+                            }else{
+                                echo json_encode(array('error'=> TRUE,'message'=> 'Failed'));
+                            }
                         }
                     }
                 }
             }
         }
     }
+
+    public function uploadPhoto($name = 'new'){
+        $config['upload_path']          = './assets/UserPhoto/';
+        $config['allowed_types']    = 'png|jpeg|jpg';
+        $config['max_size']         = 2048;
+        // $config['encrypt_name']     = TRUE;//enncryp photo name
+        $config['file_name']            = $name;
+        $config['max_size'] = '30000'; // Added Max Size
+        $config['overwrite']        = TRUE;
+        $config['max_width']        = 0;
+        $config['max_height']       = 0;
+        
+        //load upload library
+        
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        
+        // check if folder exists
+        
+        if( ! is_dir($config['upload_path'])) {
+        @mkdir($config['upload_path'], 0755, true);
+        }
+        
+        if( ! empty($_FILES['photo']['name'])){
+            $this->load->library('upload', $config);
+            if ( ! $this->upload->do_upload('photo')){
+                return FALSE;
+            }
+            else{
+                return $this->upload->data('file_name');
+            }
+        }else{
+            return NULL;
+        }
+    }
 }
+
+
+
+

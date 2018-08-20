@@ -36,6 +36,14 @@ class FranchiseUserInformation_ extends CI_Model{
                 ->join('masterdataposition as C','C.SysID = A.positionID','inner')
                 // ->where('A.is_deleted','N')
                 ->get();
+
+
+        $query = $this->db->select('A.*,RoleName,PositionName')//,B.role_type,C.division_name,D.title
+                ->from('gymmainlogin as A')
+                ->join('masterdatarole as B','B.SysID = A.MasterDataRoleID','inner')
+                ->join('masterdataposition as C','C.SysID = A.positionID','inner')
+                // ->where('A.is_deleted','N')
+                ->get();        
         if($query){
             if($query->num_rows() > 0)
             {

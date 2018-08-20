@@ -160,7 +160,7 @@ class MasterDataRole_ extends CI_Model{
                 ->from('masterdatarolemapping')
                 ->where('ItemLevel',$level)
                 ->where('ItemSysID',$page_id)
-                ->where('MasterDataRoleID',$this->session->userdata('UserID'))
+                ->where('MasterDataRoleID',$this->session->userdata('roleID'))
                 ->get();
         if($query){
             if($query->num_rows() > 0){

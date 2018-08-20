@@ -57,12 +57,15 @@ $route['MainGymInformation/(:any)'] = 'registerbranch/MainGymInformation/$1';
 $route['FranchiseGymInformation/(:any)'] = 'registerbranch/FranchiseGymInformation/$1';
 
 //user routes
+$route['UserProfile/(:any)'] = 'registeruser/UserProfile/$1';
 $route['MainUserInformation/(:any)'] = 'registeruser/MainUserInformation/$1';
 $route['FranchiseUserInformation/(:any)'] = 'registeruser/FranchiseUserInformation/$1';
 
 // master data routes
 $route['MasterDataRole/(:any)'] = 'masterdata/MasterDataRole/$1';
 $route['MasterDataMenu/(:any)'] = 'masterdata/MasterDataMenu/$1';
+$route['MasterDataAdminImageGallery/(:any)'] = 'masterdata/MasterDataAdminImageGallery/$1';
+$route['MasterDataBulletinBoard/(:any)'] = 'masterdata/MasterDataBulletinBoard/$1';
 $route['MasterDataPosition/(:any)'] = 'masterdata/MasterDataPosition/$1';
 $route['MasterDataSubMenu/(:any)'] = 'masterdata/MasterDataSubMenu/$1';
 $route['MasterDataScreen/(:any)'] = 'masterdata/MasterDataScreen/$1';

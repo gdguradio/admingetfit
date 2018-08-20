@@ -272,6 +272,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <input type="text" class="form-control" id="email" placeholder="Enter Email Address">
                 </div>
                 <div class="form-group">
+                  <label for="photo">Profile Picture</label>
+                  <input class="form-control" type="file" id="photo" name="photo">
+                </div>
+                <div class="form-group">
                   <label for="landlinenumber">Landline Number <span class="tcolor_red"></span></label>
                   <input type="text" class="form-control" id="landlinenumber" placeholder="Enter Landline Number">
                 </div>
@@ -411,7 +415,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         const mobilenumber = $('#mobilenumber').val();
         const loginstatus = $(":radio[name='activitystatus']:checked").val();
         const deletestatus = $(":radio[name='deletestatus']:checked").val();
-
+        var photo = $('#photo')[0].files[0];
 
         formData.append('branchname',branchID);
         formData.append('positionname',positionID);
@@ -429,6 +433,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         formData.append('loginstatus',loginstatus);
         formData.append('deletestatus',deletestatus);
         formData.append('branchtype',branchtype);
+        formData.append('photo',photo);
         $.ajax({
             type:'POST',
             url: site_url + 'registeruser/MainUserInformation/insertGymLoginFromAjax' ,
@@ -468,6 +473,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         const mobilenumber = $('#mobilenumber').val();
         const loginstatus = $(":radio[name='activitystatus']:checked").val();
         const deletestatus = $(":radio[name='deletestatus']:checked").val();
+        var photo = $('#photo')[0].files[0];
 
         formData.append('branchname',branchID);
         formData.append('positionname',positionID);
@@ -484,6 +490,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         formData.append('loginstatus',loginstatus);
         formData.append('deletestatus',deletestatus);
         formData.append('branchtype',branchtype);
+        formData.append('photo',photo);
 
         $.ajax({
             type:'POST',

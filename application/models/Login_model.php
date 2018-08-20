@@ -27,11 +27,13 @@ class login_model extends CI_Model{
                     $row = $query->row();
                     //create a session
                     $fullname = $row->FirstName.' '.$row->LastName;
-
+                    // $roleID = $this->findRole($row->SysID);
+                    
                     $this->session->set_userdata(
                             array(
                                 "UserID"=> $row->SysID,
                                 "UserName"=> $username,
+                                "roleID"=> $row->MasterDataRoleID,
                                 "FullName"=> $fullname,
                                 "logged"=> 1)
                             );
@@ -44,7 +46,6 @@ class login_model extends CI_Model{
             }
         }
     }
-    
     public function find_password($username){
         $this->db->where('UserName',$username);
         $query = $this->db->get($this->table_name)->row();

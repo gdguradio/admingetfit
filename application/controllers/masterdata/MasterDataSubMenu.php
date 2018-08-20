@@ -37,6 +37,8 @@ class MasterDataSubMenu extends CI_Controller {
             "MasterDataSubMenu/submenulist",
             "MasterDataScreen/screenlist",
             "MasterDataRole/rolelist",
+            "MasterDataAdminImageGallery/imagelist",
+            "MasterDataBulletinBoard/bulletinboardlist",
             "MasterDataPosition/positionlist",
             "MainUserInformation/mainUserlist",
             "MainGymInformation/maingymlist",

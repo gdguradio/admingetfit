@@ -7,7 +7,7 @@ class MasterDataSubMenu_ extends CI_Model{
         }
         $query = $this->db->select('A.*,B.MenuName,A.FaIcon As SubFaIcon')
                 ->from('masterdatasubmenu as A')
-                ->join('masterdatamenu as B','B.SysID = A.MenuNameID','inner left')
+                ->join('masterdatamenu as B','B.SysID = A.MenuNameID','inner')
                 ->get();
         if($query){
             if($query->num_rows() > 0){

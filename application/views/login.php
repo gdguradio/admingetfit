@@ -49,7 +49,7 @@
     <?php echo form_open("Login");?>
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Username" name="username">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" class="form-control" placeholder="Password" name="password">
@@ -57,10 +57,12 @@
       </div>
       <div class="row">
         <!-- /.col -->
-        <div class="col-xs-4">
+        <div class="col-xs-6">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
         </div>
-       
+        <div class="col-xs-6">
+          <button type="button" class="btn btn-primary btn-block btn-flat">Reset Password</button>
+        </div>
         <!-- /.col -->
       </div>
       <div class="row">
