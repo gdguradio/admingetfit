@@ -56,7 +56,9 @@ class MasterDataRole_ extends CI_Model{
                 'ItemLevel' => $i['level'],
                 'ItemSysID' => $i['page_name'],
                 'ItemLink'=> $i['link'],
-                'RoleAccess' => $i['access']
+                'RoleAccess' => $i['access'],
+                'AddedBy' => $i['AddedBy'],
+                'AddedDate' => $i['AddedDate']
             ));
         }
         $this->db->insert_batch('masterdatarolemapping',$menu_list);
@@ -80,7 +82,9 @@ class MasterDataRole_ extends CI_Model{
                 'ItemLevel' => $i['level'],
                 'ItemSysID' => $i['page_name'],
                 'ItemLink'=> $i['link'],
-                'RoleAccess' => $i['access']
+                'RoleAccess' => $i['access'],
+                'UpdatedDate' => $i['UpdatedDate'],
+                'UpdatedBy' => $i['UpdatedBy']
             ));
         }
         $this->db->where('MasterDataRoleID',$id);

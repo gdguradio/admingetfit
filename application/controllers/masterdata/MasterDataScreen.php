@@ -89,7 +89,9 @@ class MasterDataScreen extends CI_Controller {
             'Description'   => $this->input->post('description'),
             'Link'   => $this->input->post('screenlink'),
             'SubMenuNameID'   => $this->input->post('submenuid'),
-            'FaIcon'   => $this->input->post('screenicon')
+            'FaIcon'   => $this->input->post('screenicon'),
+            'AddedBy'=>  $this->session->userdata('UserID'),
+            'AddedDate'=> date('Y-m-d')
         );
         $screen_list = $this->input->post('screen_list');
         if($this->masterdatascreen->screentype_checker($data_input['ScreenName']) == TRUE){
@@ -114,7 +116,9 @@ class MasterDataScreen extends CI_Controller {
             'Description'   => $this->input->post('description'),
             'Link'   => $this->input->post('screenlink'),
             'SubMenuNameID'   => $this->input->post('submenuid'),
-            'FaIcon'   => $this->input->post('screenicon')
+            'FaIcon'   => $this->input->post('screenicon'),
+            'UpdatedBy'=>  $this->session->userdata('UserID'),
+            'UpdatedDate'=> date('Y-m-d')
         );
         if($this->masterdatascreen->duplicate_checker('masterdatascreen','ScreenName',$data_input['ScreenName']) == TRUE){
             echo json_encode(array('error'=> TRUE,'message'=>  'Screen Name already existing!'));

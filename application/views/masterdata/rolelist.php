@@ -250,7 +250,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     call_alert_error('RoleModal',data.message);
                 }else{
                     loadRole();
-                    $('#RoleModal').find('div[data-menulevel = 2],div[data-menulevel = 3]').hide();
+                    $("input.menu_list").trigger("change");
                     call_alert_success('RoleModal',data.message,'1');
                 }
             }
@@ -292,6 +292,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 else
                 {
                     loadRole();
+                    $("input.menu_list").trigger("change");
                     call_alert_success('RoleModal',data.message,'1');
                 }
             }
@@ -318,6 +319,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 else
                 {
                     load_user();
+                    $("input.menu_list").trigger("change");
                     call_alert_success('myModal',data.message);
                 }
             }

@@ -8,8 +8,8 @@ class MainUserInformation_ extends CI_Model{
             return TRUE;
         }
     }
-    public function add_gymmainlogin($data_array,$table){
-        $query = $this->db->insert($table,$data_array);
+    public function add_gymmainlogin($data_array){
+        $query = $this->db->insert('gymmainlogin',$data_array);
         if($query)
         {
             return TRUE;
@@ -17,10 +17,10 @@ class MainUserInformation_ extends CI_Model{
     }
 
     
-    public function update_user($data_array,$id,$table){
+    public function update_user($data_array,$id){
         // print_r($data_array);
         $this->db->where('SysID',$id);
-        $query = $this->db->update($table,$data_array);
+        $query = $this->db->update('gymmainlogin',$data_array);
         if($query){
             return TRUE;
         }

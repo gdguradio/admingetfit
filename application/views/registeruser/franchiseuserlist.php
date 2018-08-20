@@ -326,8 +326,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#franchiseUserModal').on('shown.bs.modal', function (e) {
         // do something...
             action = $(e.relatedTarget).attr('data-action');
-            
-            console.log('user : ' + action)
             if(action === 'edit') {
                     $('#btnaddfranchiseuser').hide();
                     $('#btnupdatefranchiseuser').show();

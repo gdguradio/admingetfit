@@ -78,7 +78,9 @@ class MasterDataSubMenu extends CI_Controller {
             'HasChild'   => $this->input->post('haschild'),
             'Link'   => $this->input->post('submenulink'),
             'FaIcon'   => $this->input->post('submenuicon'),
-            'MenuNameID'   => $this->input->post('menuid')
+            'MenuNameID'   => $this->input->post('menuid'),
+            'AddedBy'=>  $this->session->userdata('UserID'),
+            'AddedDate'=> date('Y-m-d')
         );
         $submenu_list = $this->input->post('submenu_list');
         if($this->masterdatasubmenu->submenu_type_checker($data_input['SubMenuName']) == TRUE){
@@ -102,7 +104,9 @@ class MasterDataSubMenu extends CI_Controller {
             'HasChild'   => $this->input->post('haschild'),
             'Link'   => $this->input->post('submenulink'),
             'FaIcon'   => $this->input->post('submenuicon'),
-            'MenuNameID'   => $this->input->post('menuid')
+            'MenuNameID'   => $this->input->post('menuid'),
+            'UpdatedBy'=>  $this->session->userdata('UserID'),
+            'UpdatedDate'=> date('Y-m-d')
         );
         if($this->masterdatasubmenu->duplicate_checker('masterdatasubmenu','SubMenuName',$data_input['SubMenuName']) == TRUE){
             echo json_encode(array('error'=> TRUE,'message'=>  'Sub Menu Name already existing!'));

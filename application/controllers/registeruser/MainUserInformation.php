@@ -99,11 +99,6 @@ class MainUserInformation extends CI_Controller {
         $this->form_validation->set_rules('rolenameID','Role Name','required');
 
         $branchtype = $this->input->post('branchtype');
-        $table = "";
-        strtolower($branchtype) == "main" ? $table = "branchdetails" : $table = "gymfranchisedetails";
-
-
-
         if($this->form_validation->run() == FALSE){
             echo json_encode(array('error'=> TRUE,'message'=> 'All fields with * are required!'));
         }else{
@@ -131,7 +126,7 @@ class MainUserInformation extends CI_Controller {
                     'LoginStatus'=> $this->input->post('loginstatus'),
                     'DeleteStatus'=> $this->input->post('deletestatus')
                 );
-                $query = $this->mainuserinformation->update_user($params,$id,$table);
+                $query = $this->mainuserinformation->update_user($params,$id);
                 if($query){
                     echo json_encode(array('error'=> FALSE,'message'=> 'User updated'));
                 }else{
@@ -154,8 +149,6 @@ class MainUserInformation extends CI_Controller {
         $uniqueusername = $this->mainuserinformation->duplicate_checker('gymmainlogin','UserName',$this->input->post('username'));
         $uniqueemail = $this->mainuserinformation->duplicate_checker('gymmainlogin','EmailAddress',$this->input->post('email'));
         $branchtype = $this->input->post('branchtype');
-        $table = "";
-        strtolower($branchtype) == "main" ? $table = "gymmainlogin" : $table = "gymfranchiselogin";
         if($this->form_validation->run() == FALSE){
             echo json_encode(array('error'=> TRUE,'message'=> 'All fields with * are required!'));
         }else{
@@ -181,15 +174,13 @@ class MainUserInformation extends CI_Controller {
                             'BranchDetailsID'=> $this->input->post('branchname'),
                             'PositionID'=> $this->input->post('positionname'),
                             'MasterDataRoleID'=> $this->input->post('rolenameID'),
-            
-            
                             'AddedBy'=>  $this->session->userdata('UserID'),
                             'AddedDate'=> date('Y-m-d'),
                             'LoginStatus'=> $this->input->post('loginstatus'),
                             'DeleteStatus'=> $this->input->post('deletestatus')
                         );
             
-                        $query = $this->mainuserinformation->add_gymmainlogin($params,$table);
+                        $query = $this->mainuserinformation->add_gymmainlogin($params);
                         if($query){
             
                             echo json_encode(array('error'=> FALSE,'message'=> 'User added'));

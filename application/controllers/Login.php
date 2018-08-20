@@ -13,7 +13,20 @@ class Login extends CI_Controller {
         $data['title'] = 'Getfit247';
         $this->load->view('login',$data);
     }
+    public function indexadmin(){
+        $data['title'] = 'Getfit247';
+        $this->load->view('loginadmin',$data);
+    }
     public function login(){
+        $this->form_validation->set_rules('username','Username','trim');
+        $this->form_validation->set_rules('password','Password','trim|callback_authentication');
+        if($this->form_validation->run() == FALSE){
+            $this->index();
+        }else{
+            redirect('Welcome');
+        }
+    }
+    public function loginadmin(){
         $this->form_validation->set_rules('username','Username','trim');
         $this->form_validation->set_rules('password','Password','trim|callback_authentication');
         if($this->form_validation->run() == FALSE){

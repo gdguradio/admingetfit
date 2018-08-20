@@ -1,11 +1,11 @@
 
-  <!-- <footer class="main-footer">
+  <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      Powered by <b><a href="http://www.afieldinc.com">Afield Inc. Consulting</a></b>
+      Powered by <b><a href="http://www.getfit247.com">Getfit247</a></b>
     </div>
-    <strong>Copyright &copy; 2018 <a href="http://phcc.gov.ph">Philippine Competition Commission</a>.</strong> All rights
+    <strong>Copyright &copy; 2018 <a href="http://www.getfit247.com">Getfit247</a>.</strong> All rights
     reserved.
-  </footer> -->
+  </footer> 
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

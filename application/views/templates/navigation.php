@@ -76,9 +76,6 @@ $menu = $CI->masterdatarole->loadMenu();
     </nav>
   </header>
 
-
-
-
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -108,7 +105,7 @@ $menu = $CI->masterdatarole->loadMenu();
         <li class="header">MAIN NAVIGATION</li>
         <!-- start database menu -->
         <?php foreach ($menu as $m):?>
-        
+            <!-- menu -->
             <?php if($CI->masterdatarole->hasAccess($m->SysID,'menu') == 'yes'): ?>
                     <?php if ($m->HasChild == 'no'): ?>
                         <li><a href="<?= site_url($m->Link) ?>"><i class="<?=$m->FaIcon?>"></i> <?= $m->MenuName ?></a></li>
@@ -121,6 +118,7 @@ $menu = $CI->masterdatarole->loadMenu();
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
+                            <!-- submenu -->
                             <ul class="treeview-menu">
                                 <?php foreach ($m->child_list as $c): ?>
                                 <?php if($CI->masterdatarole->hasAccess($c->SysID,'submenu') == 'yes'): ?>
@@ -136,7 +134,7 @@ $menu = $CI->masterdatarole->loadMenu();
                                                         <i class="fa fa-angle-left pull-right"></i>
                                                     </span>
                                                 </a>
-                                                <!-- 3rd level menu -->
+                                                <!-- screen -->
                                                 <ul class="treeview-menu">
                                                     <?php foreach ($c->child_list as $cc): ?>
                                                     <?php if($CI->masterdatarole->hasAccess($cc->SysID,'screen') == 'yes'): ?>
@@ -154,131 +152,6 @@ $menu = $CI->masterdatarole->loadMenu();
             <?php endif; ?>
         <?php endforeach; ?>
         <!-- end database menu -->
-
-
-        <!-- first level menu without dropdown -->
-        <!-- <li><a href="<?=site_url();?>welcome"><i class="fa fa-dashboard"></i> Dashboard</a></li> -->
-        <!-- <li><a href="<?=site_url();?>welcome"><i class="fa fa-dashboard"></i> Main Gym Management</a></li> -->
-        <!-- main gym management start -->
-        <!-- <li class="treeview">
-          <a href="#">
-            <i class="fa fa-briefcase"></i>
-              <span>Main Gym Management</span>
-              <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu"> -->
-            <!-- User start -->
-            <!-- <li class="treeview">
-              <a href="#">
-                <i class="fa fa-address-book"></i> <span>Register Users</span>
-                <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview"><li><a href="<?= site_url('registeruser/MainUserInformation/mainUserlist') ?>"><i class=""></i>Main User List</a></li>
-              </ul>  
-            </li> -->
-            <!-- user end -->
-            <!-- branch start -->
-            <!-- <li class="treeview">
-              <a href="#">
-                <i class="fa fa-building-o"></i> <span>Register Branch</span>
-                <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview"><li><a href="<?= site_url('registerbranch/MainGymInformation/maingymlist') ?>"><i class=""></i>Main Branch</a></li>
-              </ul>  
-            </li> -->
-            <!-- branch end -->
-          <!-- </ul>
-        </li> -->
-        <!-- main gym management end -->
-
-        <!-- franchise gym management start -->
-        <!-- <li class="treeview">
-          <a href="#">
-            <i class="fa fa-briefcase"></i>
-              <span>Franchise Gym Mgmt</span>
-              <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu"> -->
-            <!-- User start -->
-            <!-- <li class="treeview">
-              <a href="#">
-                <i class="fa fa-address-book"></i> <span>Register Users</span>
-                <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview"><li><a href=""><i class=""></i>Franchise Users List</a></li>
-              </ul>  
-            </li> -->
-            <!-- user end -->
-            <!-- branch start -->
-            <!-- <li class="treeview">
-              <a href="#">
-                <i class="fa fa-building-o"></i> <span>Register Branch</span>
-                <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview"><li><a href="<?= site_url('registerbranch/FranchiseGym') ?>"><i class=""></i>Franchise Branch</a></li>
-              </ul>  
-            </li> -->
-            <!-- branch end -->
-          <!-- </ul>
-        </li> -->
-        <!-- franchise gym management end -->
-        <!-- Master data managemenet start -->
-        <!-- <li class="treeview">
-          <a href="#">
-            <i class="fa fa-suitcase"></i>
-              <span>Master Management</span>
-              <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu"> -->
-            <!-- Role start -->
-            <!-- <li class="treeview">
-              <a href="#">
-                <i class="fa fa-blind"></i> <span>Role Management</span>
-                <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview"><li><a href="<?= site_url('masterdata/MasterDataRole/rolelist') ?>"><i class=""></i>Role List</a></li>
-              </ul>  
-            </li> -->
-            <!-- Role start -->
-            <!-- Menu start -->
-            <!-- <li class="treeview">
-              <a href="#">
-                <i class="fa fa-book"></i> <span>Menu Management</span>
-                <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li class="treeview"><li><a href="<?= site_url('masterdata/MasterDataMenu/menulist') ?>"><i class=""></i>Menu List</a></li>
-                <li class="treeview"><li><a href="<?= site_url('masterdata/MasterDataSubMenu/submenulist') ?>"><i class=""></i>Sub Menu List</a></li>
-                <li class="treeview"><li><a href="<?= site_url('masterdata/MasterDataScreen/screenlist') ?>"><i class=""></i>Screen List</a></li>
-              </ul>  
-            </li> -->
-            <!-- Menu start -->
-          <!-- </ul> -->
-        <!-- </li> -->
-        <!-- Master data management end -->
         </ul>  
     </section>
     <!-- /.sidebar -->

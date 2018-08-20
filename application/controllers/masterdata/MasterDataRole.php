@@ -46,9 +46,17 @@ class MasterDataRole extends CI_Controller {
         $data_input =   array(
             'RoleName' =>  $this->input->post('rolename'),
             'Description'   => $this->input->post('description'),
-            'RoleAccess'   => $this->input->post('access')
+            'RoleAccess'   => $this->input->post('access'),
+            'AddedBy'=>  $this->session->userdata('UserID'),
+            'AddedDate'=> date('Y-m-d')
         );
         $menu_list = $this->input->post('menu_list');
+
+        $menu_list = $this->input->post('menu_list');
+        foreach($menu_list as $key=>$value){
+            $menu_list[$key]['AddedBy'] = $this->session->userdata('UserID');
+            $menu_list[$key]['AddedDate'] = date('Y-m-d');
+        }
         if($this->masterdatarole->role_type_checker($data_input['RoleName']) == TRUE){
             echo json_encode(array('error'  => TRUE,'message'   =>  'Role Name already existing!'));
         }else{
@@ -64,9 +72,15 @@ class MasterDataRole extends CI_Controller {
         $data_input =   array(
             'RoleName' =>  $this->input->post('rolename'),
             'Description'   => $this->input->post('description'),
-            'RoleAccess'   => $this->input->post('access')
+            'RoleAccess'   => $this->input->post('access'),
+            'UpdatedBy'=>  $this->session->userdata('UserID'),
+            'UpdatedDate'=> date('Y-m-d')
         ); 
         $menu_list = $this->input->post('menu_list');
+        foreach($menu_list as $key=>$value){
+            $menu_list[$key]['UpdatedBy'] = $this->session->userdata('UserID');
+            $menu_list[$key]['UpdatedDate'] = date('Y-m-d');
+        }
         if($this->masterdatarole->role_type_checker($data_input['RoleName'],$id) == TRUE){
             echo json_encode(array('error'  => TRUE,'message'   =>  'Role Name already existing!'));
         }else{

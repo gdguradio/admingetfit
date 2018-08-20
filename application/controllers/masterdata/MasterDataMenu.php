@@ -68,6 +68,8 @@ class MasterDataMenu extends CI_Controller {
             'HasChild'   => $this->input->post('haschild'),
             'Link'   => $this->input->post('menulink'),
             'FaIcon'   => $this->input->post('menuicon'),
+            'AddedBy'=>  $this->session->userdata('UserID'),
+            'AddedDate'=> date('Y-m-d')
         );
         if($this->masterdatamenu->duplicate_checker('masterdatamenu','MenuName',$data_input['MenuName']) == TRUE){
             echo json_encode(array('error'=> TRUE,'message'=>  'Menu Name already existing!'));
@@ -90,6 +92,8 @@ class MasterDataMenu extends CI_Controller {
             'HasChild'   => $this->input->post('haschild'),
             'Link'   => $this->input->post('menulink'),
             'FaIcon'   => $this->input->post('menuicon'),
+            'UpdatedBy'=>  $this->session->userdata('UserID'),
+            'UpdatedDate'=> date('Y-m-d')
         );
         if($this->masterdatamenu->duplicate_checker('masterdatamenu','MenuName',$data_input['MenuName']) == TRUE){
             echo json_encode(array('error'=> TRUE,'message'=>  'Menu Name already existing!'));
