@@ -81,6 +81,8 @@ class MasterDataSubMenu extends CI_Controller {
             'Link'   => $this->input->post('submenulink'),
             'FaIcon'   => $this->input->post('submenuicon'),
             'MenuNameID'   => $this->input->post('menuid'),
+            'SubmenuStatus'   => $this->input->post('submenustatus'),
+            'DeleteStatus'   => $this->input->post('deletestatus'),
             'AddedBy'=>  $this->session->userdata('UserID'),
             'AddedDate'=> date('Y-m-d')
         );
@@ -107,6 +109,8 @@ class MasterDataSubMenu extends CI_Controller {
             'Link'   => $this->input->post('submenulink'),
             'FaIcon'   => $this->input->post('submenuicon'),
             'MenuNameID'   => $this->input->post('menuid'),
+            'SubmenuStatus'   => $this->input->post('submenustatus'),
+            'DeleteStatus'   => $this->input->post('deletestatus'),
             'UpdatedBy'=>  $this->session->userdata('UserID'),
             'UpdatedDate'=> date('Y-m-d')
         );

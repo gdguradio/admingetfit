@@ -85,7 +85,13 @@ class MasterDataBulletinBoard_ extends CI_Model{
             return FALSE;
         }
     }
-    public function loadBulletinBoard(){
+    public function loadBulletinBoardFromAjax(){
+
+
+        $roleid = $this->session->userdata('roleID');
+        $branchid = $this->session->userdata('branchID');
+        $this->db->where('EntryStatus',"yes");
+        $this->db->where('DeleteStatus',"no");
         $query = $this->db->select('*')
                 ->from('masterdatabulletinboarddetails')
                 ->get();
@@ -102,6 +108,34 @@ class MasterDataBulletinBoard_ extends CI_Model{
                         'EntryOrderIndex'   =>  $x->EntryOrderIndex,
                         'AddedDate'   =>  $x->AddedDate,
                         'BranchName' => $this->getbullenshowto_byid($x->SysID,"BranchName,B.SysID AS BranchID"),
+                        'RoleName' => $this->getbullenshowto_byid($x->SysID,"RoleName,C.SysID AS roleID"),
+                        'Access' => $this->getbullenshowto_byid($x->SysID,"BranchName,RoleName,C.SysID AS roleID,B.SysID AS BranchID",$roleid,$branchid)
+                    ));
+                }
+                // $this->output->enable_profiler(TRUE);      
+                return $result;
+            }
+        }
+
+    }
+    public function loadBulletinBoard(){
+        $query = $this->db->select('*')
+                ->from('masterdatabulletinboarddetails')
+                ->get();
+        if($query){
+            if($query->num_rows() > 0){
+                $result = array();
+                foreach($query->result() as $x){
+                    array_push($result,array(
+                        'SysID'    =>  $x->SysID,
+                        'EntryType' => $x->EntryType,
+                        'EntryDescription'   =>  $x->EntryDescription,
+                        'EntryTitle'   =>  $x->EntryTitle,
+                        'EntryFrom'   =>  $this->getbullenusername_byid($x->EntryFrom),
+                        'EntryOrderIndex'   =>  $x->EntryOrderIndex,
+                        'AddedDate'   =>  $x->AddedDate,
+                        'EntryStatus'   =>  $x->EntryStatus,
+                        'BranchName' => $this->getbullenshowto_byid($x->SysID,"BranchName,B.SysID AS BranchID"),
                         'RoleName' => $this->getbullenshowto_byid($x->SysID,"RoleName,C.SysID AS roleID")
                     ));
                 }
@@ -114,7 +148,7 @@ class MasterDataBulletinBoard_ extends CI_Model{
             $this->db->where('A.EntryFrom',$SysID);
         }
         $this->db->distinct();
-        $query = $this->db->select('B.FirstName,B.LastName,B.SysID AS userID')
+        $query = $this->db->select('*, "NULL" AS Password ')
                 ->from('masterdatabulletinboarddetails AS A')
                 ->join('gymmainlogin as B ',' B.SysID = A.EntryFrom','inner')
                 ->get();
@@ -124,16 +158,22 @@ class MasterDataBulletinBoard_ extends CI_Model{
             }
         } 
     }
-    public function getbullenshowto_byid($SysID,$columnname){
+    public function getbullenshowto_byid($SysID,$columnname,$roleid = NULL , $branchid= NULL ){
         if($SysID != NULL){
             $this->db->where('A.MasterDataBulletinBoardDetailsID',$SysID);
         }
+        if($roleid != NULL && $branchid != NULL){
+            $this->db->where('A.EntryShowToBranch',$branchid);
+            $this->db->where('A.ShowToBranchRole',$roleid);
+        }
+
         $this->db->distinct();
         $query = $this->db->select($columnname)
                 ->from('masterdatabulletinboard AS A')
                 ->join('branchdetails as B ',' B.SysID = A.EntryShowToBranch','inner')
                 ->join('masterdatarole as C ',' C.SysID = A.ShowToBranchRole','inner')
                 ->get();
+
         if($query){
             if($query->num_rows() > 0){
                 return $query->result();
@@ -157,10 +197,20 @@ class MasterDataBulletinBoard_ extends CI_Model{
             return TRUE;
         }
     }
-    public function updateMenu($data_array,$id){
+    public function updateBulletinBoard($details,$mapping,$id){
+        $this->db->trans_start();
         $this->db->where('SysID',$id);
-        $query = $this->db->update('masterdatamenu',$data_array);
-        if ($query){
+        $this->db->update('masterdatabulletinboarddetails',$details); 
+        foreach($mapping AS $key=>$val){
+            $mapping[$key]['MasterDataBulletinBoardDetailsID'] = $id;
+        }
+        $this->db->where('MasterDataBulletinBoardDetailsID',$id);
+        $this->db->delete('masterdatabulletinboard');
+        $this->db->insert_batch('masterdatabulletinboard',$mapping);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE){
+            return FALSE;
+        }else{
             return TRUE;
         }
     }
@@ -178,13 +228,13 @@ class MasterDataBulletinBoard_ extends CI_Model{
             }
         }
     }
-    public function menu_type_checker($menu_type,$id = NULL){
-        $this->db->where('MenuName',$menu_type);
+    public function bulletinboard_type_checker($bulletingboard_type,$id = NULL){
+        $this->db->where('EntryTitle',$bulletingboard_type);
         if($id != NULL){
             $this->db->where('SysID !=',$id);
         }
-        $query = $this->db->select('MenuName')
-                ->from('masterdatamenu')
+        $query = $this->db->select('EntryTitle')
+                ->from('masterdatabulletinboarddetails')
                 ->get();
         if($query){
             if($query->num_rows() > 0){

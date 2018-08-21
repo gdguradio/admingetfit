@@ -67,7 +67,14 @@ class MasterDataBulletinBoard extends CI_Controller {
         }
         
     }
-
+    public function loadBulletinBoardFromAjax(){
+        $query = $this->bulletinboard->loadBulletinBoardFromAjax();
+        if($query){
+            echo json_encode($query,JSON_UNESCAPED_UNICODE);
+        }else{
+            echo json_encode(array('error'=> TRUE,'message'=> 'No result found'));
+        }
+    }
 
     
     public function ajaxLoadMenu(){
@@ -89,10 +96,10 @@ class MasterDataBulletinBoard extends CI_Controller {
         $entryfrom = $this->input->post('entryfrom');
         $entryindex = $this->input->post('entryindex');
         $description = $this->input->post('description');
+        $deletestatus = $this->input->post('deletestatus');
+        $bulletinboardstatus = $this->input->post('bulletinboardstatus');
 
         
-
-
 
         $this->form_validation->set_rules('entrytype','Entry Type','required');
         $this->form_validation->set_rules('entrytitle','Entry Title','required');
@@ -108,6 +115,8 @@ class MasterDataBulletinBoard extends CI_Controller {
         $details['EntryFrom'] = $entryfrom;
         $details['EntryDescription'] = $description;
         $details['EntryOrderIndex'] = $entryindex;
+        $details['DeleteStatus'] = $deletestatus;
+        $details['EntryStatus'] = $bulletinboardstatus;
         $details['AddedBy'] = $this->session->userdata('UserID');
         $details['AddedDate'] = date('Y-m-d');
         foreach($showtobranchrole AS $value){
@@ -119,6 +128,8 @@ class MasterDataBulletinBoard extends CI_Controller {
                     // 'EntryTitle' => $entrytitle,
                     // 'EntryFrom'=> $entryfrom,
                     // 'EntryDescription' => $description,
+                    'EntryStatus' => $bulletinboardstatus,
+                    'DeleteStatus' => $deletestatus,
                     'AddedBy' => $this->session->userdata('UserID'),
                     'AddedDate' => date('Y-m-d')
                 ));
@@ -134,27 +145,65 @@ class MasterDataBulletinBoard extends CI_Controller {
         }
         
     }
-    public function updateMasterDataMenuFromAjax(){
-        $this->form_validation->set_rules('menuname','Menu Name','required');
+    public function updateMasterDataBulletinBoardFromAjax(){
+        $data = $this->input->post('data');
+        $showtobranchrole = $this->input->post('showtobranchrole');
+        $showtobranch = $this->input->post('showtobranch');
+        $entrytype = $this->input->post('entrytype');
+        $entrytitle = $this->input->post('entrytitle');
+        $entryfrom = $this->input->post('entryfrom');
+        $entryindex = $this->input->post('entryindex');
+        $description = $this->input->post('description');
+        $bulletinboardID = $this->input->post('bulletinboardID');
+        $deletestatus = $this->input->post('deletestatus');
+        $bulletinboardstatus = $this->input->post('bulletinboardstatus');
+
+
+
+        $this->form_validation->set_rules('entrytype','Entry Type','required');
+        $this->form_validation->set_rules('entrytitle','Entry Title','required');
+        $this->form_validation->set_rules('entryfrom','Entry From','required');
+        $this->form_validation->set_rules('entryindex','Display Order','required');
         $this->form_validation->set_rules('description','Description','required');
-        $this->form_validation->set_rules('menulink','Link','required');
-        $id = $this->input->post('menuID');
-        $data_input =   array(
-            'MenuName' =>  $this->input->post('menuname'),
-            'Description'   => $this->input->post('description'),
-            'HasChild'   => $this->input->post('haschild'),
-            'Link'   => $this->input->post('menulink'),
-            'FaIcon'   => $this->input->post('menuicon'),
-            'UpdatedBy'=>  $this->session->userdata('UserID'),
-            'UpdatedDate'=> date('Y-m-d')
-        );
-        if($this->bulletinboard->duplicate_checker('masterdatamenu','MenuName',$data_input['MenuName']) == TRUE){
-            echo json_encode(array('error'=> TRUE,'message'=>  'Menu Name already existing!'));
-        }else{
-            $result = $this->bulletinboard->updateMenu($data_input,$id);
-            if($result){
-                echo json_encode(array('error'=> FALSE,'message'=> 'Menu Updated!'));
+        $this->form_validation->set_rules('showtobranchrole','Branch','required');
+        $this->form_validation->set_rules('showtobranch','Branch Role','required');
+
+        $mapping = array();
+        $details = array();
+        $details['EntryType'] = $entrytype;
+        $details['EntryTitle'] = $entrytitle;
+        $details['EntryFrom'] = $entryfrom;
+        $details['EntryDescription'] = $description;
+        $details['EntryOrderIndex'] = $entryindex;
+        $details['EntryStatus'] = $bulletinboardstatus;
+        $details['DeleteStatus'] = $deletestatus;
+        $details['UpdatedBy'] = $this->session->userdata('UserID');
+        $details['UpdatedDate'] = date('Y-m-d');
+        foreach($showtobranchrole AS $value){
+            foreach($showtobranch AS $val){
+                array_push($mapping,array(
+                    'ShowToBranchRole' => $value,
+                    'EntryShowToBranch' => $val,
+                    // 'EntryType' => $entrytype,
+                    // 'EntryTitle' => $entrytitle,
+                    // 'EntryFrom'=> $entryfrom,
+                    // 'EntryDescription' => $description,
+                    'EntryStatus' => $bulletinboardstatus,
+                    'DeleteStatus' => $deletestatus,
+                    'AddedBy' => $this->session->userdata('UserID'),
+                    'AddedDate' => date('Y-m-d'),
+                    'UpdatedBy' => $this->session->userdata('UserID'),
+                    'UpdatedDate' => date('Y-m-d')
+                ));
             }
         }
+        if($this->bulletinboard->bulletinboard_type_checker($details['EntryTitle'],$bulletinboardID) == TRUE){
+            echo json_encode(array('error'  => TRUE,'message'   =>  'Entry Title already existing!'));
+        }else{
+            $result = $this->bulletinboard->updateBulletinBoard($details,$mapping,$bulletinboardID);
+            if($result){
+                echo json_encode(array('error'  =>  FALSE,'message'  =>  'Entry Title successfully updated!'));
+            }
+        } 
     }
 }

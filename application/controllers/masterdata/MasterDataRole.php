@@ -47,6 +47,8 @@ class MasterDataRole extends CI_Controller {
             'RoleName' =>  $this->input->post('rolename'),
             'Description'   => $this->input->post('description'),
             'RoleAccess'   => $this->input->post('access'),
+            'RoleStatus'   => $this->input->post('rolestatus'),
+            'DeleteStatus'   => $this->input->post('deletestatus'),
             'AddedBy'=>  $this->session->userdata('UserID'),
             'AddedDate'=> date('Y-m-d')
         );
@@ -54,6 +56,8 @@ class MasterDataRole extends CI_Controller {
 
         $menu_list = $this->input->post('menu_list');
         foreach($menu_list as $key=>$value){
+            $menu_list[$key]['MappingStatus'] = $this->input->post('rolestatus');
+            $menu_list[$key]['DeleteStatus'] = $this->input->post('deletestatus');
             $menu_list[$key]['AddedBy'] = $this->session->userdata('UserID');
             $menu_list[$key]['AddedDate'] = date('Y-m-d');
         }
@@ -73,11 +77,17 @@ class MasterDataRole extends CI_Controller {
             'RoleName' =>  $this->input->post('rolename'),
             'Description'   => $this->input->post('description'),
             'RoleAccess'   => $this->input->post('access'),
+            'RoleStatus'   => $this->input->post('rolestatus'),
+            'DeleteStatus'   => $this->input->post('deletestatus'),
             'UpdatedBy'=>  $this->session->userdata('UserID'),
             'UpdatedDate'=> date('Y-m-d')
         ); 
         $menu_list = $this->input->post('menu_list');
         foreach($menu_list as $key=>$value){
+            $menu_list[$key]['MappingStatus'] = $this->input->post('rolestatus');
+            $menu_list[$key]['DeleteStatus'] = $this->input->post('deletestatus');
+            $menu_list[$key]['AddedBy'] = $this->session->userdata('UserID');
+            $menu_list[$key]['AddedDate'] = date('Y-m-d');
             $menu_list[$key]['UpdatedBy'] = $this->session->userdata('UserID');
             $menu_list[$key]['UpdatedDate'] = date('Y-m-d');
         }

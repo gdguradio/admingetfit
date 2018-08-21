@@ -92,6 +92,8 @@ class MasterDataScreen extends CI_Controller {
             'Link'   => $this->input->post('screenlink'),
             'SubMenuNameID'   => $this->input->post('submenuid'),
             'FaIcon'   => $this->input->post('screenicon'),
+            'ScreenStatus'   => $this->input->post('screenstatus'),
+            'DeleteStatus'   => $this->input->post('deletestatus'),
             'AddedBy'=>  $this->session->userdata('UserID'),
             'AddedDate'=> date('Y-m-d')
         );
@@ -119,6 +121,8 @@ class MasterDataScreen extends CI_Controller {
             'Link'   => $this->input->post('screenlink'),
             'SubMenuNameID'   => $this->input->post('submenuid'),
             'FaIcon'   => $this->input->post('screenicon'),
+            'ScreenStatus'   => $this->input->post('screenstatus'),
+            'DeleteStatus'   => $this->input->post('deletestatus'),
             'UpdatedBy'=>  $this->session->userdata('UserID'),
             'UpdatedDate'=> date('Y-m-d')
         );

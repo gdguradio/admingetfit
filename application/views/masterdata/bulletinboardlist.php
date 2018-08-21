@@ -35,6 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th width="150">Show To Role </th>
                     <th width="150">Show To Branch </th>
                     <th width="150">Entry From</th>
+                    <th width="50">Active</th>
                     <th>Created Date</th>
                     <th></th>
                     
@@ -116,7 +117,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <!-- <input type="text" class="form-control" id="description" placeholder="Enter Description"> -->
                       <Textarea class="form-control" rows="5" style="resize: vertical;" id="description"></Textarea>
                     </div>
-          </div>
+                    <div class="form-group">
+                        <label for="">Activity Status</label>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="activitystatusno" name="activitystatus" value="no" >
+                            <label class="custom-control-label" for="defaultUnchecked">No</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="activitystatusyes" name="activitystatus" value="yes" checked>
+                            <label class="custom-control-label" for="defaultChecked">Yes</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Delete Status</label>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="deletestatusno" name="deletestatus" value="no" checked>
+                            <label class="custom-control-label" for="defaultChecked">No</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="deletestatusyes" name="deletestatus" value="yes" >
+                            <label class="custom-control-label" for="defaultUnchecked">Yes</label>
+                        </div>
+                    </div>
+                </div>
           <!-- /.box-body -->
         </form>
           </div>
@@ -161,18 +184,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var action = $(this).attr('data-action');
             var obj = JSON.parse($(this).attr('data-obj'));
             console.log(obj)
-            // $('#entrytype').val(obj.SysID);
-            // $('#showtobranch').val(obj.MenuName);
-            // $('#showtobranchrole').val(obj.MenuName);
+            
+            $('#bulletinboardID').val(obj.SysID);
+            $('#entrytype').val(obj.EntryType);
+            console.log(obj.BranchName)
+            $.each(obj.BranchName, function(i,e){
+                $('#showtobranch option[value="' + e.BranchID + '"]').prop("selected", true);
+            })
+            // $('#showtobranch').trigger("change");
+            var changedata = {type:"change",RoleName:obj.RoleName};
+            $('#showtobranch').trigger(changedata);
+            
+           
+            
             $('#entryfrom').val(obj.EntryFrom[0].userID);
-            // $('#entrytitle').val(obj.EntryTitle);
-            // $('#entryindex').val(obj.EntryOrderIndex);
-            // $('#description').val(obj.EntryDescription);
+            $('#entrytitle').val(obj.EntryTitle);
+            $('#entryindex').val(obj.EntryOrderIndex);
+            $('#description').val(obj.EntryDescription);
             
             
         });
         $('#btnaddbulletinboard').click(addBulletinBoard);
-        $('#btnupdatebulletinboard').click(updateMenu);
+        $('#btnupdatebulletinboard').click(updateBulletinBoard);
         $('#btndeletebulletinboard').click(deleteMenu);
         // var changedata = {type:"change",submenuID:obj.submenuID};
         // $('#menuname').val(obj.menuID).trigger(changedata);
@@ -214,6 +247,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
 
         });
+        const bulletinboardstatus = $(":radio[name='activitystatus']:checked").val();
+        const deletestatus = $(":radio[name='deletestatus']:checked").val();
         $.ajax({
             type:'POST',
             url:site_url +'masterdata/MasterDataBulletinBoard/insertMasterDataBulletinBoardFromAjax',
@@ -226,7 +261,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 description: description,
                 showtobranchrole:showtobranchrole,
                 showtobranch:showtobranch,
-                entryindex:entryindex
+                entryindex:entryindex,
+                deletestatus:deletestatus,
+                bulletinboardstatus:bulletinboardstatus
             },
             success:function(data)
             {
@@ -240,38 +277,73 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
         });
     }
-    function updateMenu(){
+    function updateBulletinBoard(){
        
-       var site_url = '<?=site_url()?>';
-       var menuname = $('#menuname').val();
-       var haschild = $(':radio[name=haschild]:checked').val();
-       var menulink = $('#menulink option:selected').val();
-       var menuicon = $('#menuicon').val();
-       var description = $('#description').val();
-       var menuID = $('#menuID').val();
-       $.ajax({
-           type:'POST',
-           url:site_url +'masterdata/MasterDataMenu/updateMasterDataMenuFromAjax',
-           dataType:"json",
-           data:{
-               menuname:menuname,
-               haschild:haschild,
-               menulink:menulink,
-               menuicon:menuicon,
-               description:description,
-               menuID:menuID
-           },
-           success:function(data)
-           {
-               if(data.error === true){
-                   call_alert_error('BulletinBoardModal',data.message);
-               }else{
-                loadBulletinBoard();
-                   // load_menu_select();
-                   call_alert_success('BulletinBoardModal',data.message,'1');
-               }
-           }
-       });
+        var site_url = '<?=site_url()?>';
+        var bulletinboardID = $('#bulletinboardID').val();
+        var entrytype = $('#entrytype option:selected').val();
+        var showtobranch = $('#showtobranch').val();
+        var showtobranchrole = $('#showtobranchrole').val();
+        var entryfrom = $('#entryfrom option:selected').val();
+        var entrytitle = $('#entrytitle').val();
+        var entrytitle = $('#entrytitle').val();
+        var entryindex = $('#entryindex').val();
+        var description = $('#description').val();
+        if(jQuery.inArray("*", showtobranch) !== -1){
+            showtobranch = $("select#showtobranch option").slice(2).map(function() {
+                return this.value;
+            }).get();
+        }
+        if(jQuery.inArray("*", showtobranchrole) !== -1){
+            showtobranchrole = $("select#showtobranchrole option").slice(2).map(function() {
+                return this.value;
+            }).get();
+        }
+        var arr = [];
+        $.each(showtobranchrole,function(i,v){
+            $.each(showtobranch,function(ii,vv){
+                arr.push({
+                    "ShowToBranchRole": v,
+                    "EntryShowToBranch": vv,
+                    "EntryType": entrytype,
+                    "EntryTitle": entrytitle,
+                    "EntryFrom": entryfrom,
+                    "EntryDescription": description,
+                });
+
+            });
+
+        });
+        const bulletinboardstatus = $(":radio[name='activitystatus']:checked").val();
+        const deletestatus = $(":radio[name='deletestatus']:checked").val();
+        $.ajax({
+            type:'POST',
+            url:site_url +'masterdata/MasterDataBulletinBoard/updateMasterDataBulletinBoardFromAjax',
+            dataType:"json",
+            data:{
+                data : arr,
+                entrytype: entrytype,
+                entrytitle: entrytitle,
+                entryfrom: entryfrom,
+                description: description,
+                showtobranchrole:showtobranchrole,
+                showtobranch:showtobranch,
+                entryindex:entryindex,
+                bulletinboardID:bulletinboardID,
+                deletestatus:deletestatus,
+                bulletinboardstatus:bulletinboardstatus
+            },
+            success:function(data)
+            {
+                if(data.error === true){
+                    call_alert_error('BulletinBoardModal',data.message);
+                }else{
+                    loadBulletinBoard();
+                    // load_menu_select();
+                    call_alert_success('BulletinBoardModal',data.message,'1');
+                }
+            }
+        });
    }
     
     function deleteMenu(){
@@ -329,9 +401,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             rolename.push(data[i].RoleName[v].RoleName)
                         }
                         name = data[i].EntryFrom[0].FirstName +" "+ data[i].EntryFrom[0].LastName; 
+                        var EntryStatus = data[i].EntryStatus.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                            return letter.toUpperCase();
+                        });
                         data[i]["rolename"] = rolename;
                         data[i]["branchname"] = branchname;   
                         data[i]["EntryFromName"] = name;      
+                        data[i]["active"] = EntryStatus;      
                         // data[i]["changepassword"] = "<button class='btn btn-warning changepass' data-obj='" + data_array + "' data-toggle='modal' data-target='#changepasswordModal'><i class='fa fa-key'></i> Change password</button>";
                         data[i]["edit"] = "<button class='btn btn-info user_action' data-action='edit' data-obj='" + data_array + "' data-toggle='modal' data-target='#BulletinBoardModal'><i class='fa fa-edit'></i> Edit</button>";
                         data[i]["delete"] = "<button class='btn btn-danger user_action' data-action='delete' data-obj='" + data_array + "' data-toggle='modal' data-target='#BulletinBoardModal'><i class='fa fa-times'></i> Deactivate</button>";
@@ -347,6 +423,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 {"data": "rolename"},
                 {"data": "branchname"},
                 {"data": "EntryFromName"},
+                {"data": "active"},
                 {"data": "AddedDate"},
                 {"data": "edit"},
                 {"data": "delete"}
@@ -378,7 +455,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
        });
     }
     function loadBranchroles(e){
-        console.log($(e.target).val().splice(0, 1))
         const site_url = "<?php echo site_url();?>";
         $.ajax({
            type:'POST',
@@ -401,6 +477,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 // call_alert_success(0,data.message,'1');
             }
            }
+       }).done(function(){
+            if(e.RoleName !== undefined && e.RoleName !== '' ){
+                $.each(e.RoleName, function(i,v){
+                    $('#showtobranchrole option[value="' + v.roleID + '"]').prop("selected", true);
+                })
+                
+            }
+        
        });
     }
     function loadBranch(e){

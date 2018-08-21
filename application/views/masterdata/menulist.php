@@ -107,6 +107,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <label for="description">Description</label>
                       <input type="text" class="form-control" id="description" placeholder="Enter Description">
                     </div>
+                    <div class="form-group">
+                        <label for="">Activity Status</label>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="activitystatusno" name="activitystatus" value="no" >
+                            <label class="custom-control-label" for="defaultUnchecked">No</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="activitystatusyes" name="activitystatus" value="yes" checked>
+                            <label class="custom-control-label" for="defaultChecked">Yes</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Delete Status</label>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="deletestatusno" name="deletestatus" value="no" checked>
+                            <label class="custom-control-label" for="defaultChecked">No</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="deletestatusyes" name="deletestatus" value="yes" >
+                            <label class="custom-control-label" for="defaultUnchecked">Yes</label>
+                        </div>
+                    </div>
           </div>
           <!-- /.box-body -->
         </form>
@@ -184,6 +206,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         var menulink = $('#menulink option:selected').val();
         var menuicon = $('#menuicon').val();
         var description = $('#description').val();
+        const menustatus = $(":radio[name='activitystatus']:checked").val();
+        const deletestatus = $(":radio[name='deletestatus']:checked").val();
         $.ajax({
             type:'POST',
             url:site_url +'masterdata/MasterDataMenu/insertMasterDataMenuFromAjax',
@@ -193,7 +217,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 haschild:haschild,
                 menulink:menulink,
                 menuicon:menuicon,
-                description:description
+                description:description,
+                menustatus:menustatus,
+                deletestatus:deletestatus
             },
             success:function(data)
             {
@@ -216,6 +242,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
        var menuicon = $('#menuicon').val();
        var description = $('#description').val();
        var menuID = $('#menuID').val();
+       const menustatus = $(":radio[name='activitystatus']:checked").val();
+        const menustatus = $(":radio[name='deletestatus']:checked").val();
        $.ajax({
            type:'POST',
            url:site_url +'masterdata/MasterDataMenu/updateMasterDataMenuFromAjax',
@@ -226,7 +254,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                menulink:menulink,
                menuicon:menuicon,
                description:description,
-               menuID:menuID
+               menuID:menuID,
+                menustatus:menustatus,
+                deletestatus:deletestatus
            },
            success:function(data)
            {

@@ -119,7 +119,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <label for="">Activity Status</label>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="activitystatusno" name="activitystatus" value="no" >
+                            <label class="custom-control-label" for="defaultUnchecked">No</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="activitystatusyes" name="activitystatus" value="yes" checked>
+                            <label class="custom-control-label" for="defaultChecked">Yes</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Delete Status</label>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="deletestatusno" name="deletestatus" value="no" checked>
+                            <label class="custom-control-label" for="defaultChecked">No</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="deletestatusyes" name="deletestatus" value="yes" >
+                            <label class="custom-control-label" for="defaultUnchecked">Yes</label>
+                        </div>
+                    </div>
 
                     <!-- end menu list   -->
               </div>
@@ -233,7 +254,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 access: access
             })
         });
-     
+        const rolestatus = $(":radio[name='activitystatus']:checked").val();
+        const deletestatus = $(":radio[name='deletestatus']:checked").val();
         $.ajax({
             type:'POST',
             url:site_url +'masterdata/MasterDataRole/insertMasterDataRoleFromAjax',
@@ -242,7 +264,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 rolename:$('#rolename').val(),
                 description:$('#description').val(),
                 menu_list:menu_list,
-                access:access
+                access:access,
+                rolestatus:rolestatus,
+                deletestatus:deletestatus
             },
             success:function(data)
             {
@@ -271,7 +295,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 access: access
             })
         });
-     
+        const rolestatus = $(":radio[name='activitystatus']:checked").val();
+        const deletestatus = $(":radio[name='deletestatus']:checked").val();
         $.ajax({
             type:'POST',
             url:site_url +'masterdata/MasterDataRole/updateMasterDataRoleFromAjax',
@@ -281,7 +306,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 description:$('#description').val(),
                 menu_list:menu_list,
                 access:access,
-                id:$('#roleID').val()
+                id:$('#roleID').val(),
+                rolestatus:rolestatus,
+                deletestatus:deletestatus
             },
             success:function(data)
             {

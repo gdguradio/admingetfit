@@ -92,10 +92,55 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </a>
               </div>
           </div>
+          <br><br>
           <!-- end carousel -->
-
-          <!-- inside getfit content start -->
           
+          <!-- inside getfit content start -->
+          <!-- start news,announce,event -->
+          <div class="container" id="bulletinboard">
+            <div class="well">
+                <div class="media">
+                  <a class="pull-left" href="#">
+                    <img class="media-object" src="http://placekitten.com/150/150">
+                  </a>
+                <div class="media-body">
+                  <h4 class="media-heading">Receta 1</h4>
+                    <p class="text-right">By Francisco</p>
+                    <p>Lorem ipsum </p>
+                    <ul class="list-inline list-unstyled">
+                      <li>
+                        <span>
+                          <i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours 
+                        </span>
+                      </li>
+                      <li>|</li>
+                      <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+                      <li>|</li>
+                      <li>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                      </li>
+                      <li>|</li>
+                      <li>
+                      <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                        <span><i class="fa fa-facebook-square"></i></span>
+                        <span><i class="fa fa-twitter-square"></i></span>
+                        <span><i class="fa fa-google-plus-square"></i></span>
+                      </li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+            <!-- <ul id="pagination-demo" class="pagination-lg pull-right"></ul> -->
+            <div id="pager">
+              <!-- <ul id="pagination" class="pagination-sm"></ul> -->
+              <ul id="pagination" class="pagination-lg pull-right"></ul>
+            </div>
+          </div>
+          <!-- end news,announce,event -->
           <!-- inside getfit content end -->
         </div>
         <!-- /.box-body -->
@@ -109,8 +154,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </section>
     <!-- /.content -->
   </div>
+  
   <!-- /.content-wrapper -->
+  <script src="<?=site_url();?>assets/custom_js/jquery.twbsPagination.min.js"></script>
 <style>
+  /* pagination style start  */
+  .container {
+  margin-top: 20px;
+  }
+  .page {
+    display: none;
+  }
+  .page-active {
+    display: block;
+  }
+
+
+  /* pagination style end */
   div.c-wrapper{
     width: 50%; /* for example */
     margin: auto;
@@ -183,91 +243,156 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   }
 </style>  
 <script>
-   $(document).ready(function(){
-     
-     // Normalize Carousel Heights - pass in Bootstrap Carousel items.
-      $.fn.carouselHeights = function() {
+   $(document).ready(function() {
+    // Normalize Carousel Heights - pass in Bootstrap Carousel items.
+    $.fn.carouselHeights = function() {
 
       var items = $(this), //grab all slides
-          heights = [], //create empty array to store height values
-          tallest; //create variable to make note of the tallest slide
+        heights = [], //create empty array to store height values
+        tallest; //create variable to make note of the tallest slide
 
       var normalizeHeights = function() {
 
-          items.each(function() { //add heights to array
-              heights.push($(this).height()); 
-          });
-          tallest = Math.max.apply(null, heights); //cache largest value
-          items.each(function() {
-              console.log(tallest)
-              $(this).css('min-height',tallest + 'px');
-          });
+        items.each(function() { //add heights to array
+          heights.push($(this).height());
+        });
+        tallest = Math.max.apply(null, heights); //cache largest value
+        items.each(function() {
+          // console.log(tallest)
+          $(this).css('min-height', tallest + 'px');
+        });
       };
 
       normalizeHeights();
 
-      $(window).on('resize orientationchange', function () {
-          //reset vars
-          tallest = 0;
-          heights.length = 0;
+      $(window).on('resize orientationchange', function() {
+        //reset vars
+        tallest = 0;
+        heights.length = 0;
 
-          items.each(function() {
-              $(this).css('min-height','0'); //reset min-height
-          }); 
-          normalizeHeights(); //run it again 
+        items.each(function() {
+          $(this).css('min-height', '0'); //reset min-height
+        });
+        normalizeHeights(); //run it again 
       });
 
-      };
-    
+    };
+
     $('.carousel').carousel();
     $('.carousel-inner .item').carouselHeights();
     loadAdminImageGallery();
+    loadAdminNewsEvents();
+    });
+    function loadAdminNewsEvents(){
+      var 
+      totalRecords = 0,
+      recPerPage = 10,
+      records = [],
+      totalPages = 0;
+      var site_url = "<?php echo site_url();?>";
+      $.ajax({
+        type: 'POST',
+        url: site_url + 'masterdata/MasterDataBulletinBoard/loadBulletinBoardFromAjax',
+        dataType: "json",
+        success: function(data) {
+          // console.log(data)
+          if (data.error === true) {
 
-
-  });
-  function loadAdminImageGallery(){
-    var site_url = "<?php echo site_url();?>";
-    var imageurl = "<?php echo site_url('assets/AdminImageGallery/');?>";
-    $.ajax({
-      type:'POST',
-      url: site_url+'masterdata/MasterDataAdminImageGallery/loadAdminImageGalleryFromAjax',
-      dataType:"json",
-      success:function(data){
-        console.log(data)
-        if(data.error === true){
-          
-        }else{
-          $(".carousel-inner").empty();
-          $(".carousel-indicators").empty();
-          var imagegallery = "";
-          var imagegallerylink = "";
-          for(var x = 0; x < data.length; x++){
-            if(x ==0){
-              imagegallerylink = "<li data-target='#myCarousel' data-slide-to='"+x+"' class='active'></li>"
-              imagegallery = 
-              "<div class='item active'>"+
-                "<img src='"+imageurl+""+data[x].ImageLink+"' alt='"+data[x].ImageTitle+"'>"+
-                "<div class='carousel-caption d-none d-md-block'>"+
-                "<h5>"+data[x].ImageTitle+"</h5>"+
-                "<p>"+data[x].ImageDescription+"</p>"+
-                "</div>"+
-              "</div>";
-            }else{
-              imagegallerylink = "<li data-target='#myCarousel' data-slide-to='"+x+"'></li>"
-              imagegallery = 
-              "<div class='item '>"+
-                  "<img src='"+imageurl+""+data[x].ImageLink+"' alt='"+data[x].ImageTitle+"'>"+
-                  "<div class='carousel-caption d-none d-md-block'>"+
-                  "<h5>"+data[x].ImageTitle+"</h5>"+
-                  "<p>"+data[x].ImageDescription+"</p>"+
-                  "</div>"+
-                "</div>";
-            }
-            $(".carousel-inner").append(imagegallery);
-            $(".carousel-indicators").append(imagegallerylink);
+          } else {
+            records = data;
+            
+            totalRecords = records.length;
+            totalPages = Math.ceil(totalRecords / recPerPage);
+            apply_pagination(totalPages,records,recPerPage);
+            // generate_table(records);
           }
         }
+      });
+    }
+    function generate_table(displayRecords) {
+      var row;
+      $('#bulletinboard .well').remove();
+      var site_url = "<?php echo site_url();?>";
+      var roleid = "<?php echo $this->session->userdata('roleID'); ?>";
+      var branchid = "<?php echo $this->session->userdata('branchID'); ?>";
+      for (var i = 0; i < displayRecords.length; i++) {
+        // <img class="profile-user-img img-responsive img-circle" src="<?php //echo base_url('assets/UserPhoto/'.$photo); ?>" alt="User profile picture">
+        // <img class="media-object" src="">
+            var image = "";
+            var fullname = displayRecords[i].EntryFrom[0].FirstName + " " + displayRecords[i].EntryFrom[0].LastName;
+            displayRecords[i].EntryFrom[0].UserPhoto ? image =  site_url+'assets/UserPhoto/'+displayRecords[i].EntryFrom[0].UserPhoto : image =  site_url+'assets/UserPhoto/profile.png';
+            
+            var EntryType = displayRecords[i].EntryType.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                return letter.toUpperCase();
+            });
+            if(displayRecords[i].Access != null){
+              row = $('<div class="well"><div class="media"><a class="pull-left" href="#"><img class="media-object" src=" '+ image +' " ></a><div class="media-body"><h4 class="media-heading">'+displayRecords[i].EntryTitle+'</h4><p class="text-right">'+EntryType+'</p><p>'+displayRecords[i].EntryDescription+'</p><ul class="list-inline list-unstyled"><li><span><i class="glyphicon glyphicon-calendar"></i> '+displayRecords[i].AddedDate+' </span></li><li>|</li><span><i class="glyphicon glyphicon-comment"></i> '+ fullname +' </span><li>|</li><li><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></li><li>|</li><li><span><i class="fa fa-facebook-square"></i></span><span><i class="fa fa-twitter-square"></i></span><span><i class="fa fa-google-plus-square"></i></span></li></div></div></div>');
+            }
+              
+            $('#bulletinboard').prepend(row);
       }
-    });      
-  }
+    }
+    
+    function apply_pagination(totalPages,records,recPerPage,page) {
+      console.log(records);
+      var displayRecords = [],page = 1;
+      var $pagination = $('#pagination');
+      $pagination.twbsPagination({
+            totalPages: totalPages,
+            visiblePages: 5,
+            onPageClick: function (event, page) {
+                  displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
+                  endRec = (displayRecordsIndex) + recPerPage;
+                  
+                  displayRecords = records.slice(displayRecordsIndex, endRec);
+                  generate_table(displayRecords);
+            }
+      });
+    }
+    
+    function loadAdminImageGallery() {
+      var site_url = "<?php echo site_url();?>";
+      var imageurl = "<?php echo site_url('assets/AdminImageGallery/');?>";
+      $.ajax({
+        type: 'POST',
+        url: site_url + 'masterdata/MasterDataAdminImageGallery/loadAdminImageGalleryFromAjax',
+        dataType: "json",
+        success: function(data) {
+          // console.log(data)
+          if (data.error === true) {
+
+          } else {
+            $(".carousel-inner").empty();
+            $(".carousel-indicators").empty();
+            var imagegallery = "";
+            var imagegallerylink = "";
+            for (var x = 0; x < data.length; x++) {
+              if (x == 0) {
+                imagegallerylink = "<li data-target='#myCarousel' data-slide-to='" + x + "' class='active'></li>"
+                imagegallery =
+                  "<div class='item active'>" +
+                  "<img src='" + imageurl + "" + data[x].ImageLink + "' alt='" + data[x].ImageTitle + "'>" +
+                  "<div class='carousel-caption d-none d-md-block'>" +
+                  "<h5>" + data[x].ImageTitle + "</h5>" +
+                  "<p>" + data[x].ImageDescription + "</p>" +
+                  "</div>" +
+                  "</div>";
+              } else {
+                imagegallerylink = "<li data-target='#myCarousel' data-slide-to='" + x + "'></li>"
+                imagegallery =
+                  "<div class='item '>" +
+                  "<img src='" + imageurl + "" + data[x].ImageLink + "' alt='" + data[x].ImageTitle + "'>" +
+                  "<div class='carousel-caption d-none d-md-block'>" +
+                  "<h5>" + data[x].ImageTitle + "</h5>" +
+                  "<p>" + data[x].ImageDescription + "</p>" +
+                  "</div>" +
+                  "</div>";
+              }
+              $(".carousel-inner").append(imagegallery);
+              $(".carousel-indicators").append(imagegallerylink);
+            }
+          }
+        }
+      });
+    }
 </script>

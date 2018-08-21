@@ -34,6 +34,7 @@ class login_model extends CI_Model{
                                 "UserID"=> $row->SysID,
                                 "UserName"=> $username,
                                 "roleID"=> $row->MasterDataRoleID,
+                                "branchID"=> $row->BranchDetailsID,
                                 "FullName"=> $fullname,
                                 "logged"=> 1)
                             );

@@ -70,6 +70,8 @@ class MasterDataMenu extends CI_Controller {
             'HasChild'   => $this->input->post('haschild'),
             'Link'   => $this->input->post('menulink'),
             'FaIcon'   => $this->input->post('menuicon'),
+            'MenuStatus'   => $this->input->post('menustatus'),
+            'DeleteStatus'   => $this->input->post('deletestatus'),
             'AddedBy'=>  $this->session->userdata('UserID'),
             'AddedDate'=> date('Y-m-d')
         );
@@ -94,6 +96,8 @@ class MasterDataMenu extends CI_Controller {
             'HasChild'   => $this->input->post('haschild'),
             'Link'   => $this->input->post('menulink'),
             'FaIcon'   => $this->input->post('menuicon'),
+            'MenuStatus'   => $this->input->post('menustatus'),
+            'DeleteStatus'   => $this->input->post('deletestatus'),
             'UpdatedBy'=>  $this->session->userdata('UserID'),
             'UpdatedDate'=> date('Y-m-d')
         );

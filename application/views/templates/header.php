@@ -53,7 +53,7 @@
 <script src="<?=site_url();?>assets/adminlte/dist/js/demo.js"></script>
   
  
-<!--menards custom alert function-->
+<!--custom alert function-->
   
 <script src="<?=site_url();?>assets/custom_js/myfunction.js"></script>
 

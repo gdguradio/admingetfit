@@ -17,7 +17,14 @@ class UserProfile_ extends CI_Model{
         }
     }
     
-    
+    public function update_user($data_array,$id){
+        // print_r($data_array);
+        $this->db->where('SysID',$id);
+        $query = $this->db->update('gymmainlogin',$data_array);
+        if($query){
+            return TRUE;
+        }
+    }
     public function userInfo($id){
         $query = $this->db->select("A.*,B.RoleName,C.Positionname,D.*,A.SysID AS loginSysID,D.SysID AS branchSysID,'NULL' AS Password")
                 ->from('gymmainlogin as A')
