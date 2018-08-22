@@ -9,11 +9,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <section class="content-header">
       <h1>
         <?=str_replace('_', ' ', $title);?>
-        <small>Image Gallery List</small>
+        <small>Training Image List</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?=site_url();?>"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li><a href="#" data-toggle='modal' data-target='#ImageGalleryModal'><i class="fa fa-keyboard-o"></i>Register Image Information</a></li>
+        <li><a href="#" data-toggle='modal' data-target='#TrainingImageModal'><i class="fa fa-keyboard-o"></i>Register Image Information</a></li>
       </ol>
     </section>
 
@@ -22,17 +22,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	
 	<div class="box">
             <div class="box-header">
-              <h3 class="box-title">Image Gallery Lists</h3>
+              <h3 class="box-title">Training Image Lists</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="imagegalleryListTable" class="table table-bordered table-striped">
+              <table id="trainingimageListTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th width="10">[#]</th>
                     <th width="150">Image Title</th>
                     <th width="250">Description</th>
                     <th width="200">Image Link</th>
+                    <th width="200">Image Category </th>
                     <th width="120">Image Status </th>
                     <th width="120">Delete Status </th>
                     <th>Created Date</th>
@@ -53,12 +54,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- /.content-wrapper -->
 
 <!-- start modal -->
-<div class="modal fade" id="ImageGalleryModal" role="dialog">
+<div class="modal fade" id="TrainingImageModal" role="dialog">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Image Gallery</h4>
+            <h4 class="modal-title">Training Image</h4>
           </div>
           <div class="modal-body">
             <form role="form">
@@ -71,34 +72,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
                 <div class="box-body">
-                    <input type="hidden" id="imagegalleryID"/>
+                    <input type="hidden" id="trainingimageID"/>
                     <div class="form-group">
-                      <label for="imagegalleryname">Image Title</label>
-                      <input type="text" class="form-control" id="imagegalleryname" placeholder="Enter Image Name">
+                      <label for="trainingimagename">Image Title</label>
+                      <input type="text" class="form-control" id="trainingimagename" placeholder="Enter Image Name">
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="">Has child?</label>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="haschildno" name="haschild" value="no" checked>
-                            <label class="custom-control-label" for="defaultChecked">No</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="haschildyes" name="haschild" value="yes" >
-                            <label class="custom-control-label" for="defaultUnchecked">Yes</label>
-                        </div>
-                      <select class="form-control" id="menuhaschild">
-                          <option value="no" selected>No</option>
-                          <option value="yes">Yes</option>
+                    <div class="form-group">
+                      <label for="trainingimagedisplayorder">Image Display Order</label>
+                      <input type="number" class="form-control" id="trainingimagedisplayorder" placeholder="Enter Display Order">
+                    </div>
+                    <div class="form-group">
+                      <label for="trainingimagecategory">Image Category</label>
+                      <select class="form-control" id="trainingimagecategory">
+                          <option value="1" selected>Training Machine</option>
+                          <option value="2">Training Products</option>
+                          <option value="3">Training Coaches</option>
+                          <option value="4">Training Locations</option>
                       </select>
-                    </div> -->
-                    <!-- <div class="form-group">
-                      <label for="imagegallerylink">Link</label>
-                      <input type="text" class="form-control" id="imagegallerylink" placeholder="Enter Image Link">
-                    </div> -->
-                    <div class="form-group">
-                      <label for="imagedgalleryisplayorder">Image Display Order</label>
-                      <input type="number" class="form-control" id="imagegallerydisplayorder" placeholder="Enter Display Order">
                     </div>
+                    
                     <div class="form-group">
                       <label for="description">Description</label>
                       <input type="text" class="form-control" id="description" placeholder="Enter Description">
@@ -137,9 +129,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="btnaddimagegallery">Submit</button>
-            <button type="button" class="btn btn-success" id="btnupdateimagegallery" style="display:none;">Update</button>
-            <button type="button" class="btn btn-danger" id="btndeleteimagegallery" style="display:none;">Delete</button>
+            <button type="button" class="btn btn-primary" id="btnaddtrainingimage">Submit</button>
+            <button type="button" class="btn btn-success" id="btnupdatetrainingimage" style="display:none;">Update</button>
+            <button type="button" class="btn btn-danger" id="btndeletetrainingimage" style="display:none;">Delete</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -154,25 +146,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?=site_url();?>assets/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
     $(document).ready(function(){
-        loadImageGallery();
-        $('#ImageGalleryModal').on('shown.bs.modal', function (e) {
+        loadTrainingImage();
+        $('#TrainingImageModal').on('shown.bs.modal', function (e) {
         // do something...
         action = $(e.relatedTarget).attr('data-action');
         
         if(action === 'edit') {
-                $('#btnupdateimagegallery').show();
-                $('#btndeleteimagegallery').hide();
+                $('#btnupdatetrainingimage').show();
+                $('#btndeletetrainingimage').hide();
                 // $(".form-group.image").show();
             }else if(action === 'delete'){
                 // $(".form-group.image").show();
-                $('#btnupdateimagegallery').hide();
-                $('#btndeleteimagegallery').show();
+                $('#btnupdatetrainingimage').hide();
+                $('#btndeletetrainingimage').show();
         }else{
             $('.form-group.image img').attr('src', "");
             // $(".form-group.image").hide();
-            $('#btnaddimagegallery').show();
-            $('#btnupdateimagegallery').hide();
-            $('#btndeleteimagegallery').hide();
+            $('#btnaddtrainingimage').show();
+            $('#btnupdatetrainingimage').hide();
+            $('#btndeletetrainingimage').hide();
         }    
         
         })
@@ -189,13 +181,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     readURL(this);
                 }else{
                     if(jQuery.inArray(filetype, imgtype) === -1){
-                        call_alert_error('ImageGalleryModal',"File Type: " + filetype + " is not acceptable");
+                        call_alert_error('TrainingImageModal',"File Type: " + filetype + " is not acceptable");
                     }
                     if(filesize > 2048){
-                        call_alert_error('ImageGalleryModal',"File Size: " + filesize + " is greater than the acceptable size of 2048KB");
+                        call_alert_error('TrainingImageModal',"File Size: " + filesize + " is greater than the acceptable size of 2048KB");
                     }
                     if(jQuery.inArray(filetype, imgtype) === -1 && filesize > 2048000){
-                        call_alert_error('ImageGalleryModal',"File Type: " + filetype + " is not acceptable and File Size: " + filesize + " is greater than the acceptable size of 2048KB");
+                        call_alert_error('TrainingImageModal',"File Type: " + filetype + " is not acceptable and File Size: " + filesize + " is greater than the acceptable size of 2048KB");
                     }
                 }
             }
@@ -205,21 +197,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         });
         $(document).on('click','.user_action',function(){
-            $('#btnaddimagegallery').hide();
+            $('#btnaddtrainingimage').hide();
             var action = $(this).attr('data-action');
             var obj = JSON.parse($(this).attr('data-obj'));
-            var imageurl = "<?php echo site_url('assets/AdminImageGallery/');?>";
-            $('#imagegalleryID').val(obj.SysID);
-            $('#imagegalleryname').val(obj.ImageTitle);
-            $('#imagegallerydisplayorder').val(obj.ImageOrderIndex);
+            var imageurl = "<?php echo site_url('assets/TrainingImage/');?>";
+            $('#trainingimageID').val(obj.SysID);
+            $('#trainingimagename').val(obj.ImageTitle);
+            $('#trainingimagedisplayorder').val(obj.ImageOrderIndex);
             $('#description').val(obj.ImageDescription);
             $('.form-group.image img').attr('src', imageurl+""+obj.ImageLink);
             
             
         });
-        $('#btnaddimagegallery').click(addImageGallery);
-        $('#btnupdateimagegallery').click(updateImageGallery);
-        $('#btndeleteimagegallery').click(deleteImageGallery);
+        $('#btnaddtrainingimage').click(addTrainingImage);
+        $('#btnupdatetrainingimage').click(updateTrainingImage);
+        $('#btndeletetrainingimage').click(deleteTrainingImage);
         
     });
     function readURL(input) {
@@ -231,21 +223,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             reader.readAsDataURL(input.files[0]);
         }
     }
-    function addImageGallery(){
+    function addTrainingImage(){
        
         var site_url = '<?=site_url()?>';
-        var imagetitle = $('#imagegalleryname').val();
-        var imageorder = $('#imagegallerydisplayorder').val();
+        var imagetitle = $('#trainingimagename').val();
+        var imageorder = $('#trainingimagedisplayorder').val();
         var photo = $('#photo')[0].files[0];
         var description = $('#description').val();
         const imagestatus = $(":radio[name='activitystatus']:checked").val();
         const deletestatus = $(":radio[name='deletestatus']:checked").val();
+        const imagecategory = $("#trainingimagecategory option:selected").val();
         const formData = new FormData();
         formData.append('imagetitle',imagetitle);
         formData.append('imageorder',imageorder);
         formData.append('description',description);
         formData.append('imagestatus',imagestatus);
         formData.append('deletestatus',deletestatus);
+        formData.append('imagecategory',imagecategory);
         formData.append('photo',photo);
 
 
@@ -257,7 +251,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if(jQuery.inArray(photo.type, imgtype) !== -1 && photo.size < 2048000){
                 $.ajax({
                     type:'POST',
-                    url:site_url +'masterdata/MasterDataAdminImageGallery/insertMasterDataAdminImageGalleryFromAjax',
+                    url:site_url +'masterdata/MasterDataTrainingImage/insertMasterDataTrainingImageFromAjax',
                     dataType:"json",
                     data:formData,
                     async: true,
@@ -268,44 +262,46 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     success:function(data)
                     {
                         if(data.error === true){
-                            call_alert_error('ImageGalleryModal',data.message);
+                            call_alert_error('TrainingImageModal',data.message);
                         }else{
-                            loadImageGallery();
+                            loadTrainingImage();
                             $('.form-group.image img').attr('src', "");
-                            call_alert_success('ImageGalleryModal',data.message,'1');
+                            call_alert_success('TrainingImageModal',data.message,'1');
                         }
                     }
                 });
             }else{
                 if(jQuery.inArray(photo.type, imgtype) === -1){
-                    call_alert_error('ImageGalleryModal',"File Type: " + photo.type + " is not acceptable");
+                    call_alert_error('TrainingImageModal',"File Type: " + photo.type + " is not acceptable");
                 }
                 if(photo.size > 2048000){
-                    call_alert_error('ImageGalleryModal',"File Size: " + photo.size + " is greater than the acceptable size of 2048KB");
+                    call_alert_error('TrainingImageModal',"File Size: " + photo.size + " is greater than the acceptable size of 2048KB");
                 }
                 if(jQuery.inArray(photo.type, imgtype) === -1 && photo.size > 2048000){
-                    call_alert_error('ImageGalleryModal',"File Type: " + photo.type + " is not acceptable and File Size: " + photo.size + " is greater than the acceptable size of 2048KB");
+                    call_alert_error('TrainingImageModal',"File Type: " + photo.type + " is not acceptable and File Size: " + photo.size + " is greater than the acceptable size of 2048KB");
                 }
             }
         }     
     }
-    function updateImageGallery(){
+    function updateTrainingImage(){
        
         var site_url = '<?=site_url()?>';
-        var imagegalleryID = $('#imagegalleryID').val();
-        var imagetitle = $('#imagegalleryname').val();
-        var imageorder = $('#imagegallerydisplayorder').val();
+        var trainingimageID = $('#trainingimageID').val();
+        var imagetitle = $('#trainingimagename').val();
+        var imageorder = $('#trainingimagedisplayorder').val();
         var photo = $('#photo')[0].files[0];
         var description = $('#description').val();
         const imagestatus = $(":radio[name='activitystatus']:checked").val();
         const deletestatus = $(":radio[name='deletestatus']:checked").val();
+        const imagecategory = $("#trainingimagecategory option:selected").val();
         const formData = new FormData();
-        formData.append('imagegalleryID',imagegalleryID);
+        formData.append('trainingimageID',trainingimageID);
         formData.append('imagetitle',imagetitle);
         formData.append('imageorder',imageorder);
         formData.append('description',description);
         formData.append('imagestatus',imagestatus);
         formData.append('deletestatus',deletestatus);
+        formData.append('imagecategory',imagecategory);
         formData.append('photo',photo);
 
 
@@ -314,7 +310,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         if($('#photo').val() == ""){
             $.ajax({
                 type:'POST',
-                url:site_url +'masterdata/MasterDataAdminImageGallery/updateMasterDataAdminImageGalleryFromAjax',
+                url:site_url +'masterdata/MasterDataTrainingImage/updateMasterDataTrainingImageFromAjax',
                 dataType:"json",
                 data:formData,
                 async: true,
@@ -324,11 +320,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 processData: false,
                 success:function(data){
                     if(data.error === true){
-                        call_alert_error('ImageGalleryModal',data.message);
+                        call_alert_error('TrainingImageModal',data.message);
                     }else{
-                        loadImageGallery();
+                        loadTrainingImage();
                         $('.form-group.image img').attr('src', "");
-                        call_alert_success('ImageGalleryModal',data.message,'1');
+                        call_alert_success('TrainingImageModal',data.message,'1');
                     }
                 }
             });
@@ -336,7 +332,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if(jQuery.inArray(photo.type, imgtype) !== -1 && photo.size < 2048000){
                 $.ajax({
                     type:'POST',
-                    url:site_url +'masterdata/MasterDataAdminImageGallery/updateMasterDataAdminImageGalleryFromAjax',
+                    url:site_url +'masterdata/MasterDataTrainingImage/updateMasterDataTrainingImageFromAjax',
                     dataType:"json",
                     data:formData,
                     async: true,
@@ -347,29 +343,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     success:function(data)
                     {
                         if(data.error === true){
-                            call_alert_error('ImageGalleryModal',data.message);
+                            call_alert_error('TrainingImageModal',data.message);
                         }else{
-                            loadImageGallery();
+                            loadTrainingImage();
                             $('.form-group.image img').attr('src', "");
-                            call_alert_success('ImageGalleryModal',data.message,'1');
+                            call_alert_success('TrainingImageModal',data.message,'1');
                         }
                     }
                 });
             }else{
                 if(jQuery.inArray(photo.type, imgtype) === -1){
-                    call_alert_error('ImageGalleryModal',"File Type: " + photo.type + " is not acceptable");
+                    call_alert_error('TrainingImageModal',"File Type: " + photo.type + " is not acceptable");
                 }
                 if(photo.size > 2048000){
-                    call_alert_error('ImageGalleryModal',"File Size: " + photo.size + " is greater than the acceptable size of 2048KB");
+                    call_alert_error('TrainingImageModal',"File Size: " + photo.size + " is greater than the acceptable size of 2048KB");
                 }
                 if(jQuery.inArray(photo.type, imgtype) === -1 && photo.size > 2048000){
-                    call_alert_error('ImageGalleryModal',"File Type: " + photo.type + " is not acceptable and File Size: " + photo.size + " is greater than the acceptable size of 2048KB");
+                    call_alert_error('TrainingImageModal',"File Type: " + photo.type + " is not acceptable and File Size: " + photo.size + " is greater than the acceptable size of 2048KB");
                 }
             }
         }     
    }
     
-    function deleteImageGallery(){
+    function deleteTrainingImage(){
         var base_url = "<?php echo site_url();?>";
         var user_id = $('#user_id').val();
          $.ajax({
@@ -381,12 +377,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             },
             success:function(data)
             {
-                if(data.error === true)
-                {
+                if(data.error === true){
                     call_alert_error('myModal',data.message);
-                }
-                else
-                {
+                }else{
                     load_user();
                     call_alert_success('myModal',data.message);
                 }
@@ -394,30 +387,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
     }
     
-    function loadImageGallery (){
+    function loadTrainingImage (){
         var site_url = '<?=site_url()?>';
         $.fn.dataTable.ext.errMode = 'none';
         $.fn.dataTable.ext.classes.sPageButton = 'page-link';
         // $.fn.dataTable.ext.classes.sTable = '';
         // $.fn.dataTable.ext.classes.sNoFooter = '';
-        $('#imagegalleryListTable').DataTable({
+        $('#trainingimageListTable').DataTable({
             destroy: true,
             lengthMenu: [[10, 20, -1], [10, 20, "All"]],
             "ajax": {
-                "url": site_url +"masterdata/MasterDataAdminimageGallery/ajaxLoadImageGallery" ,
+                "url": site_url +"masterdata/MasterDataTrainingImage/ajaxLoadTrainingImage" ,
                 "type": "POST",
                 "dataSrc": function (data) {
                     var ctr = 0;
+                    var category = ["Training Machine","Training Products","Training Coaches","Training Locations"];
                     for (var i = 0; i < data.length; i++){
                         ctr++;
                         var data_array = [];
                         data_array = JSON.stringify(data[i]);
                         data[i]["num"] = ctr;
+                        data[i]["Category"] = category[ parseInt(data[i].ImageCategory) - 1 ];
                         data[i]["Contoller"] = data[i].Link ? data[i].Link.split('/'[0]) : "";
                         data[i]["Function"] = data[i].Link ? data[i].Link.split('/'[1]) : "";
                         // data[i]["changepassword"] = "<button class='btn btn-warning changepass' data-obj='" + data_array + "' data-toggle='modal' data-target='#changepasswordModal'><i class='fa fa-key'></i> Change password</button>";
-                        data[i]["edit"] = "<button class='btn btn-info user_action' data-action='edit' data-obj='" + data_array + "' data-toggle='modal' data-target='#ImageGalleryModal'><i class='fa fa-edit'></i> Edit</button>";
-                        data[i]["delete"] = "<button class='btn btn-danger user_action' data-action='delete' data-obj='" + data_array + "' data-toggle='modal' data-target='#ImageGalleryModal'><i class='fa fa-times'></i> Deactivate</button>";
+                        data[i]["edit"] = "<button class='btn btn-info user_action' data-action='edit' data-obj='" + data_array + "' data-toggle='modal' data-target='#TrainingImageModal'><i class='fa fa-edit'></i> Edit</button>";
+                        data[i]["delete"] = "<button class='btn btn-danger user_action' data-action='delete' data-obj='" + data_array + "' data-toggle='modal' data-target='#TrainingImageModal'><i class='fa fa-times'></i> Deactivate</button>";
                     }
 
                     return data;
@@ -428,6 +423,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 {"data": "ImageTitle"},
                 {"data": "ImageDescription"},
                 {"data": "ImageLink"},
+                {"data": "Category"},
                 {"data": "ImageStatus"},
                 {"data": "DeleteStatus"},
                 {"data": "AddedDate"},
@@ -437,33 +433,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             "bInfo":false
         });
     }
-    function loadLink(){
-        const site_url = "<?php echo site_url();?>";
-        $.ajax({
-            type:'POST',
-            url: site_url + 'masterdata/MasterDataMenu/loadlink',
-            dataType:"json",
-            async: true,
-            cache: false,
-            contentType: false,
-            enctype: 'multipart/form-data',
-            processData: false,
-            success:function(data)
-            {
-                var menulink_select = $('#menulink');
-                    menulink_select.empty();
-                    menulink_select.append('<option value="" selected disabled>Select...</option>');
-                if(data.length > 0){
-                    for(var x = 0; x < data.length; x++){
-                        menulink_select.append('<option value='+ data[x]+'>'+ data[x]  +'</option>');
-                    }
-                }else{
-                    menulink_select.append('<option>No Result Found!</option>');
-                    // call_alert_success(0,data.message,'1');
-                }
-            }
-        });    
-    }   
     
 </script>
  

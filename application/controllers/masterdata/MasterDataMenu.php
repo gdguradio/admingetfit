@@ -31,17 +31,19 @@ class MasterDataMenu extends CI_Controller {
         $myObj = 'MasterDataMenu';
         $methods = array(
             "Welcome",
+            "MasterDataAdminImageGallery/imagelist",
+            "MasterDataBulletinBoard/bulletinboardlist",
+            "MasterDataTrainingImage/imagelist",
+            "MasterDataTrainingVideo/videolist",
+            "MainUserInformation/mainUserlist",
+            "MainGymInformation/maingymlist",
+            "FranchiseUserInformation/franchiseUserlist",
+            "FranchiseGymInformation/franchisegymlist",
             "MasterDataMenu/menulist",
             "MasterDataSubMenu/submenulist",
             "MasterDataScreen/screenlist",
             "MasterDataRole/rolelist",
-            "MasterDataAdminImageGallery/imagelist",
-            "MasterDataBulletinBoard/bulletinboardlist",
-            "MasterDataPosition/positionlist",
-            "MainUserInformation/mainUserlist",
-            "MainGymInformation/maingymlist",
-            "FranchiseUserInformation/franchiseUserlist",
-            "FranchiseGymInformation/franchisegymlist");
+            "MasterDataPosition/positionlist");
         // foreach (get_class_methods($myObj) as $method) {
         //     if ((strpos( $method, 'index' ) !== false || strpos( $method, 'list' ) !== false) && $method !== 'index' ) {
         //         $methods[] = $method;
