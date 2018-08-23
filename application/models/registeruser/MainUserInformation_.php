@@ -30,6 +30,8 @@ class MainUserInformation_ extends CI_Model{
         if($id!=NULL){
             $this->db->where('A.SysID',$id);
         }
+        // $this->db->where('A.LoginStatus','yes');
+        // $this->db->where('A.DeleteStatus','no');
         $query = $this->db->select('A.*,RoleName,PositionName')//,B.role_type,C.division_name,D.title
                 ->from('gymmainlogin as A')
                 ->join('masterdatarole as B','B.SysID = A.MasterDataRoleID','inner')
@@ -45,9 +47,12 @@ class MainUserInformation_ extends CI_Model{
 
     }
     public function loadBranch($branchtype){
+        $this->db->where('BranchStatus','yes');
+        $this->db->where('DeleteStatus','no');       
         $this->db->where('BranchType',$branchtype);
         $query = $this->db->from("branchdetails")
                 ->get();
+         
         if($query){
             if($query->num_rows() > 0){
                 $result = array();
@@ -61,7 +66,12 @@ class MainUserInformation_ extends CI_Model{
             }
         }
     }
-    public function loadRole(){
+    public function loadRole($roleid){
+        if($roleid != NULL && ($roleid != '1' )){
+            $this->db->where('SysID !=', '1');
+        }
+        $this->db->where('RoleStatus','yes');
+        $this->db->where('DeleteStatus','no');    
         $query = $this->db->from('masterdatarole')
                 ->get();
         if($query){
@@ -78,6 +88,8 @@ class MainUserInformation_ extends CI_Model{
         }
     }
     public function loadPosition(){
+        $this->db->where('PositionStatus','yes');
+        $this->db->where('DeleteStatus','no');
         $query = $this->db->from('masterdataposition')
                 ->get();
         if($query){

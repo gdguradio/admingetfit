@@ -73,7 +73,8 @@ class MainUserInformation extends CI_Controller {
         }
     }
     public function ajaxLoadRole(){
-        $query = $this->mainuserinformation->loadRole();
+        $roleid= $this->session->userdata('roleID');
+        $query = $this->mainuserinformation->loadRole($roleid);
         if($query){
             echo json_encode($query,JSON_UNESCAPED_UNICODE);
         }else{

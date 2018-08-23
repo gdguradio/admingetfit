@@ -3,6 +3,9 @@ class MasterDataBulletinBoard_ extends CI_Model{
     
 
     public function loadAllusers(){
+        $this->db->where('LoginStatus','yes');
+        $this->db->where('DeleteStatus','no');
+        $this->db->where('MasterDataRoleID','1');
         $query = $this->db->select('*')
                 ->from('gymmainlogin')
                 ->get();
@@ -28,6 +31,8 @@ class MasterDataBulletinBoard_ extends CI_Model{
     }
     public function selectRoleNames($MasterDataRoleID){
         $this->db->where('SysID',$MasterDataRoleID);
+        $this->db->where('RoleStatus','yes');
+        $this->db->where('DeleteStatus','no');    
         $query = $this->db->select('SysID,RoleName')
                 ->from('masterdatarole')
                 ->get();
@@ -43,6 +48,8 @@ class MasterDataBulletinBoard_ extends CI_Model{
         }
 
         $this->db->distinct();
+        $this->db->where('LoginStatus','yes');
+        $this->db->where('DeleteStatus','no');
         $query = $this->db->select('MasterDataRoleID')
                 ->from('gymmainlogin')
                 ->get();
@@ -62,7 +69,8 @@ class MasterDataBulletinBoard_ extends CI_Model{
         if($isuserfrommain == "franchise"){
             $this->db->where('A.BranchType',$isuserfrommain);
         }
-
+        $this->db->where('BranchStatus','yes');
+        $this->db->where('DeleteStatus','no');
         $query = $this->db->select('A.*')
                 ->from('branchdetails as A')
                 ->get();
@@ -75,6 +83,8 @@ class MasterDataBulletinBoard_ extends CI_Model{
     public function selectBranches($id){
         // $this->db->where('A.BranchType',"main");
         $this->db->where('B.SysID',$id);
+        $this->db->where('BranchStatus','yes');
+        $this->db->where('DeleteStatus','no');
         $query = $this->db->select('A.BranchType')
                 ->from('branchdetails as A')
                 ->join('gymmainlogin as B','B.BranchDetailsID = A.SysID','inner')
@@ -119,9 +129,12 @@ class MasterDataBulletinBoard_ extends CI_Model{
 
     }
     public function loadBulletinBoard(){
+        $this->db->where('EntryStatus',"yes");
+        $this->db->where('DeleteStatus',"no");      
         $query = $this->db->select('*')
                 ->from('masterdatabulletinboarddetails')
                 ->get();
+          
         if($query){
             if($query->num_rows() > 0){
                 $result = array();
@@ -148,6 +161,8 @@ class MasterDataBulletinBoard_ extends CI_Model{
             $this->db->where('A.EntryFrom',$SysID);
         }
         $this->db->distinct();
+        $this->db->where('A.EntryStatus',"yes");
+        $this->db->where('A.DeleteStatus',"no");
         $query = $this->db->select('*, "NULL" AS Password ')
                 ->from('masterdatabulletinboarddetails AS A')
                 ->join('gymmainlogin as B ',' B.SysID = A.EntryFrom','inner')
@@ -168,6 +183,8 @@ class MasterDataBulletinBoard_ extends CI_Model{
         }
 
         $this->db->distinct();
+        $this->db->where('A.EntryStatus',"yes");
+        $this->db->where('A.DeleteStatus',"no");
         $query = $this->db->select($columnname)
                 ->from('masterdatabulletinboard AS A')
                 ->join('branchdetails as B ',' B.SysID = A.EntryShowToBranch','inner')

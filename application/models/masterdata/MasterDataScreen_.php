@@ -5,6 +5,8 @@ class MasterDataScreen_ extends CI_Model{
         if($id!=NULL){
             $this->db->where('A.SysID',$id);
         }
+        $this->db->where('A.ScreenStatus',"yes");
+        $this->db->where('A.DeleteStatus',"no");
         $query = $this->db->select('A.*,A.SysID AS screenID,B.SysID as submenuID, B.SubMenuName AS submenuname, C.SysID AS menuID,C.MenuName AS menuname')
                 ->from('masterdatascreen as A')
                 ->join('masterdatasubmenu as B','B.SysID = A.SubMenuNameID','inner')
@@ -35,6 +37,8 @@ class MasterDataScreen_ extends CI_Model{
         if($id!=NULL){
             $this->db->where('A.SysID',$id);
         }
+        $this->db->where('MenuStatus',"yes");
+        $this->db->where('DeleteStatus',"no");
         $query = $this->db->select('A.*')
                 ->from('masterdatamenu as A')
                 ->get();
@@ -49,6 +53,8 @@ class MasterDataScreen_ extends CI_Model{
         if($id!=NULL){
             $this->db->where('A.MenuNameID',$id);
         }
+        $this->db->where('SubmenuStatus',"yes");
+        $this->db->where('DeleteStatus',"no");
         $query = $this->db->select('A.SysID AS submenuID,B.sysID AS menuID,A.SubMenuName')
                 ->from('masterdatasubmenu as A')
                 ->join('masterdatamenu as B','B.SysID = A.MenuNameID','inner')

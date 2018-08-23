@@ -265,6 +265,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   .carousel-control.right {
     background: none;
     border: none;
+    
   }
 
   .carousel-control.left {
@@ -284,7 +285,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     color: red;
     font-size: 40px;
   }
-  .carousel-indicators li {
+  /* .carousel-indicators li {
       display: inline-block;
       width: 20px;
       height: 20px;
@@ -295,13 +296,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       border-radius: 50%;
       background-color: orange;
       box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.5);    
-  }
-  .carousel-indicators .active {
+  } */
+  /* .carousel-indicators .active {
       width: 20px;
       height: 20px;
       margin: 3px;
       background-color: red;
-  }
+  } */
 </style>  
 <script>
    $(document).ready(function() {

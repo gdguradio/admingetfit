@@ -56,7 +56,12 @@ class FranchiseUserInformation extends CI_Controller {
 
     }
     public function ajaxLoadUser(){
-        $query = $this->franchiseuserinformation->loadUser();
+        // $query = $this->franchiseuserinformation->loadUser();
+        $id= null;
+        $roleid= $this->session->userdata('roleID');
+        $branchid= $this->session->userdata('branchID');
+        // print_r($this->session->userdata);die();
+        $query = $this->franchiseuserinformation->loadUser($id,$roleid,$branchid);
         if($query){
             echo json_encode($query,JSON_UNESCAPED_UNICODE);
         }else{

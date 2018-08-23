@@ -2,6 +2,8 @@
 class MasterDataRole_ extends CI_Model{
     
     public function loadRole($id=NULL){
+        $this->db->where('RoleStatus',"yes");
+        $this->db->where('DeleteStatus',"no");
         $query = $this->db->from('masterdatarole')
                 ->get();
         if($query){
@@ -102,6 +104,8 @@ class MasterDataRole_ extends CI_Model{
         if($haschild !== NULL){
             $this->db->where('HasChild',$haschild);
         }
+        $this->db->where('MenuStatus',"yes");
+        $this->db->where('DeleteStatus',"no");
         $query = $this->db->get('masterdatamenu');
         if($query){
             if($query->num_rows() > 0){
@@ -127,6 +131,8 @@ class MasterDataRole_ extends CI_Model{
         if($haschild != NULL){
             $this->db->where('HasChild',$haschild);
         }
+        $this->db->where('SubmenuStatus',"yes");
+        $this->db->where('DeleteStatus',"no");
         $query = $this->db->get('masterdatasubmenu');
         if($query){
             if($query->num_rows() > 0){
@@ -147,6 +153,8 @@ class MasterDataRole_ extends CI_Model{
         if($submenuid != NULL){
             $this->db->where('SubMenuNameID',$submenuid);
         }
+        $this->db->where('ScreenStatus',"yes");
+        $this->db->where('DeleteStatus',"no");
         $query = $this->db->get('masterdatascreen');
         if($query){
             if($query->num_rows() > 0){

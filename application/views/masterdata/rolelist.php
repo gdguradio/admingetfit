@@ -312,14 +312,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             },
             success:function(data)
             {
-                if(data.error === true)
-                {
+                if(data.error === true){
                     call_alert_error('RoleModal',data.message);
                 }
-                else
-                {
+                else{
                     loadRole();
-                    $("input.menu_list").trigger("change");
+                    $("input.menu_list[data-level=screen]").closest('div.form-check').hide();
+                    $("input.menu_list[data-level=submenu]").closest('div.form-check').hide();
                     call_alert_success('RoleModal',data.message,'1');
                 }
             }

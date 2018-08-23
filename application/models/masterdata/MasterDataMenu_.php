@@ -5,6 +5,8 @@ class MasterDataMenu_ extends CI_Model{
         if($id!=NULL){
             $this->db->where('A.SysID',$id);
         }
+        $this->db->where('MenuStatus',"yes");
+        $this->db->where('DeleteStatus',"no");
         $query = $this->db->select('A.*')
                 ->from('masterdatamenu as A')
                 ->get();

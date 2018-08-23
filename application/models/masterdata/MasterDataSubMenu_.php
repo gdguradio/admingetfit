@@ -5,6 +5,8 @@ class MasterDataSubMenu_ extends CI_Model{
         if($id!=NULL){
             $this->db->where('B.SysID',$id);
         }
+        $this->db->where('A.SubmenuStatus',"yes");
+        $this->db->where('A.DeleteStatus',"no");
         $query = $this->db->select('A.*,B.MenuName,A.FaIcon As SubFaIcon')
                 ->from('masterdatasubmenu as A')
                 ->join('masterdatamenu as B','B.SysID = A.MenuNameID','inner')
@@ -20,6 +22,8 @@ class MasterDataSubMenu_ extends CI_Model{
         if($id!=NULL){
             $this->db->where('A.SysID',$id);
         }
+        $this->db->where('MenuStatus',"yes");
+        $this->db->where('DeleteStatus',"no");
         $query = $this->db->select('A.*')
                 ->from('masterdatamenu as A')
                 ->get();
