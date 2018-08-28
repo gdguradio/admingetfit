@@ -72,8 +72,8 @@ $route['MasterDataPosition/(:any)'] = 'masterdata/MasterDataPosition/$1';
 $route['MasterDataSubMenu/(:any)'] = 'masterdata/MasterDataSubMenu/$1';
 $route['MasterDataScreen/(:any)'] = 'masterdata/MasterDataScreen/$1';
 
-
-
+//gym
+$route['GymContent'] = 'gym/GymContent/index';
 
 // $route['login'] = 'Login';
 $route['404_override'] = '';

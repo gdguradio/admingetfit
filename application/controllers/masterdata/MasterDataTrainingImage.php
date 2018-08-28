@@ -48,6 +48,16 @@ class MasterDataTrainingImage extends CI_Controller {
         // print_r($methods);
         echo json_encode($methods,JSON_UNESCAPED_UNICODE);
     }
+
+    public function loadBranch(){
+        $id = $this->session->userdata('UserID');
+        $query = $this->bulletinboard->loadBranch($id);
+        if($query){
+            echo json_encode($query,JSON_UNESCAPED_UNICODE);
+        }else{
+            echo json_encode(array('error'=> TRUE,'message'=> 'No result found'));
+        }
+    }
     public function ajaxLoadTrainingImage(){
         $query = $this->trainingimage->loadAllTrainingImage();
         if($query){

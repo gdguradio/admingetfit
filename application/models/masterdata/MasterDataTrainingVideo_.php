@@ -1,6 +1,46 @@
 <?php
 class MasterDataTrainingVideo_ extends CI_Model{
     
+
+
+
+    public function loadBranch($id){
+
+        $isuserfrommain = $this->selectBranches($id);
+
+        if($isuserfrommain == "franchise"){
+            $this->db->where('A.BranchType',$isuserfrommain);
+        }
+        $this->db->where('BranchStatus','yes');
+        $this->db->where('DeleteStatus','no');
+        $query = $this->db->select('A.*')
+                ->from('branchdetails as A')
+                ->get();
+                // print_r($query->result());die();
+        if($query){
+            if($query->num_rows() > 0){
+                return $query->result();
+            }
+        }
+    }
+    public function selectBranches($id){
+        // $this->db->where('A.BranchType',"main");
+        $this->db->where('B.SysID',$id);
+        $this->db->where('A.BranchStatus','yes');
+        $this->db->where('A.DeleteStatus','no');
+        $query = $this->db->select('A.BranchType')
+                ->from('branchdetails as A')
+                ->join('gymmainlogin as B','B.BranchDetailsID = A.SysID','inner')
+                ->get();
+        if ($query){
+            return $query->row()->BranchType;
+        }else{
+            return FALSE;
+        }
+    }
+
+
+
     public function loadTrainingVideo($id=NULL){
         if($id!=NULL){
             $this->db->where('A.SysID',$id);

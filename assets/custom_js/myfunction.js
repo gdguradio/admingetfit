@@ -2,6 +2,7 @@
     $(".modal").on("hidden.bs.modal", function(){
         modal_form_reset();
     });
+    
 });
 
 function call_alert_error(modal_id,message){

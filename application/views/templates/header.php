@@ -20,6 +20,14 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?=site_url();?>assets/adminlte/dist/css/skins/_all-skins.min.css">
 
+
+
+
+
+
+
+
+
   <!-- custom CSS -->
 
   <link rel="stylesheet" href="<?=site_url();?>assets/adminlte/dist/css/custom.css">
@@ -36,12 +44,17 @@
   
   
   
-  
+  <!-- date picker -->
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="<?=site_url();?>assets/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   
   <!-- jQuery 3 -->
 <script src="<?=site_url();?>assets/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?=site_url();?>assets/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+
 
 <!-- SlimScroll -->
 <script src="<?=site_url();?>assets/adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
@@ -53,11 +66,12 @@
 <script src="<?=site_url();?>assets/adminlte/dist/js/demo.js"></script>
   
  
+
+
 <!--custom alert function-->
   
 <script src="<?=site_url();?>assets/custom_js/myfunction.js"></script>
 
-  
 </head>
 <body class="hold-transition skin-red sidebar-mini">
 <!-- Site wrapper -->

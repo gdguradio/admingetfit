@@ -21,31 +21,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <section class="content">
 	
 	<div class="box">
-            <div class="box-header">
-              <h3 class="box-title">User Lists</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="userListTable" class="table table-bordered table-striped">
+        <div class="box-header">
+            <h3 class="box-title">User Lists</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="userListTable" class="table table-bordered table-striped">
                 <thead>
-                <tr>
-                    <th width="10">[#]</th>
-                    <th width="50">Username</th>
-                    <th width="200">Complete Name</th>
-                    <th width="150">Role Type</th>
-                    <th width="150">Position/Title</th>
-                    <th>Created Date</th>
-                    <th></th>
-                    <th width="30"></th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th width="10">[#]</th>
+                        <th width="50">Username</th>
+                        <th width="200">Complete Name</th>
+                        <th width="150">Role Type</th>
+                        <th width="150">Position/Title</th>
+                        <th>Created Date</th>
+                        <th></th>
+                        <th width="30"></th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
                 </tbody>
-              </table>
-            </div>
+            </table>
+        </div>
             <!-- /.box-body -->
-          </div>
+    </div>
 		  
     </section>
     <!-- /.content -->
@@ -212,7 +212,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <div class="form-group">
                     <input type="hidden" id="branchID" />
-                    <label for="submenuname">Branch Type</label>
+                    <label for="">Branch Type</label>
                     <select class="form-control" id="branchtype">
                         <option value='main'>Main</option>
                         <option value='franchise'>Franchise</option>

@@ -9,11 +9,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <section class="content-header">
       <h1>
         <?=str_replace('_', ' ', $title);?>
-        <small>BulletinBoardlist</small>
+        <small>PromoList</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?=site_url();?>"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li><a href="#" data-toggle='modal' data-target='#BulletinBoardModal'><i class="fa fa-keyboard-o"></i>Register Bulletin Board Entry Information</a></li>
+        <li><a href="#" data-toggle='modal' data-target='#GymContentModal'><i class="fa fa-keyboard-o"></i>Promo</a></li>
       </ol>
     </section>
 
@@ -55,15 +55,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- /.content-wrapper -->
 
 <!-- start modal -->
-<div class="modal fade" id="BulletinBoardModal" role="dialog">
-      <div class="modal-dialog modal-sm">
+<!-- register start -->
+<div class="modal fade" id="GymContentModal" role="dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Bulletin Board</h4>
+            <h4 class="modal-title">Main Gym Login</h4>
           </div>
           <div class="modal-body">
-            <form role="form">
+          <form role="form" id="registerUser">
                 <div class="col-sm-12 focus_top" tabindex="1">
                     <div class="alert alert-success" id="af_alert" role="alert" style="display:none">
                         <span class="af_alert_message"></span>
@@ -72,91 +73,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <span class="af_alert_message"></span>
                     </div>
                 </div>
-                <div class="box-body">
-                    <input type="hidden" id="bulletinboardID"/>
-                    <div class="form-group">
-                      <label for="entrytype">Entry Type</label>
-                      <select class="form-control" id="entrytype">
-                          <option value="announcement" selected>Announcement</option>
-                          <option value="event">Event</option>
-                          <option value="news">News</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="showtobranch">Show to Branch</label>
-                        <!-- <select class="form-control" name="showtobranch" id="showtobranch">
-                                
-                        </select> -->
-                        <select class="form-control" name="showtobranch" id="showtobranch" multiple>
-                        
-                        </select>
-
-                    </div>
-                    <div class="form-group">
-                        <label for="showtobranchrole">Show to Branch Role</label>
-                        <select class="form-control" name="showtobranchrole" id="showtobranchrole" multiple>
-                                
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="entryfrom">Entry From</label>
-                        <select class="form-control" name="entryfrom" id="entryfrom">
-                                
-                        </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="entrytitle">Entry Title</label>
-                      <input type="text" class="form-control" id="entrytitle" placeholder="Entry Title">
-                    </div>
-                    <div class="form-group">
-                      <label for="entryindex">Display Order</label>
-                      <input type="number" class="form-control" id="entryindex" placeholder="Display Order">
-                    </div>
-                    <div class="form-group">
-                      <label for="description">Description</label>
-                      <!-- <input type="text" class="form-control" id="description" placeholder="Enter Description"> -->
-                      <Textarea class="form-control" rows="5" style="resize: vertical;" id="description"></Textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Activity Status</label>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="activitystatusno" name="activitystatus" value="no" >
-                            <label class="custom-control-label" for="defaultUnchecked">No</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="activitystatusyes" name="activitystatus" value="yes" checked>
-                            <label class="custom-control-label" for="defaultChecked">Yes</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Delete Status</label>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="deletestatusno" name="deletestatus" value="no" checked>
-                            <label class="custom-control-label" for="defaultChecked">No</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="deletestatusyes" name="deletestatus" value="yes" >
-                            <label class="custom-control-label" for="defaultUnchecked">Yes</label>
-                        </div>
-                    </div>
+              <div class="box-body">  
+                <div class="form-group">
+                    <input type="hidden" id="promoID"/>
+                    <label for="promoname">Promo name <span class="tcolor_red">*</span></label>
+                    <input type="text" class="form-control" id="promoname" placeholder="Enter Promo name">
                 </div>
-          <!-- /.box-body -->
-        </form>
+                <div class="form-group">
+                  <label for="description">Promo description</label>
+                  <Textarea class="form-control" rows="5" style="resize: vertical;" id="description"></Textarea>
+                </div>
+                <div class="form-group">
+                  <label for="lname">Promo Registration Dates <span class="tcolor_red">*</span></label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control pull-right" id="promodates">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="promoduration">Promo Duration</label>
+                  <input type="text" class="form-control" id="promoduration" placeholder="Enter Duration">
+                </div>
+                <div class="form-group">
+                  <label for="promoamount">Promo Amount<span class="tcolor_red">*</span></label>
+                  <input type="text" class="form-control" id="promoamount" placeholder="Enter Amount">
+                </div>   
+                
+              </div>
+              <!-- /.box-body -->
+            </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="btnaddbulletinboard">Submit</button>
-            <button type="button" class="btn btn-success" id="btnupdatebulletinboard" style="display:none;">Update</button>
-            <button type="button" class="btn btn-danger" id="btndeletebulletinboard" style="display:none;">Delete</button>
+            <button type="button" class="btn btn-primary" id="btnadd">Submit</button>
+            <button type="button" class="btn btn-success" id="btnupdate" style="display:none;">Update</button>
+            <button type="button" class="btn btn-danger" id="btndelete" style="display:none;">Delete</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
     </div>
+    <!-- register end -->
 <!-- end modal -->
   
   
     
-  
+<script src="<?=site_url();?>assets/adminlte/bower_components/moment/min/moment.min.js"></script>
+<script src="<?=site_url();?>assets/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>  
 <script src="<?=site_url();?>assets/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?=site_url();?>assets/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
@@ -164,6 +128,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         loadBulletinBoard();
         loadAllusers();
         loadBranch();
+        //Date range picker
+        $('#promodates').daterangepicker()
         $('#BulletinBoardModal').on('shown.bs.modal', function (e) {
         // do something...
         action = $(e.relatedTarget).attr('data-action');

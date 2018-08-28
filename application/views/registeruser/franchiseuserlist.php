@@ -212,7 +212,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 <div class="form-group">
                     <input type="hidden" id="branchID" />
-                    <label for="submenuname">Branch Type</label>
+                    <label for="">Branch Type</label>
                     <select class="form-control" id="branchtype">
                         <option value='main'>Main</option>
                         <option value='franchise'>Franchise</option>

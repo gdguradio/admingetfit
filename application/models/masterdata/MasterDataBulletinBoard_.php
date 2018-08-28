@@ -74,6 +74,7 @@ class MasterDataBulletinBoard_ extends CI_Model{
         $query = $this->db->select('A.*')
                 ->from('branchdetails as A')
                 ->get();
+                // print_r($query->result());die();
         if($query){
             if($query->num_rows() > 0){
                 return $query->result();
@@ -83,8 +84,8 @@ class MasterDataBulletinBoard_ extends CI_Model{
     public function selectBranches($id){
         // $this->db->where('A.BranchType',"main");
         $this->db->where('B.SysID',$id);
-        $this->db->where('BranchStatus','yes');
-        $this->db->where('DeleteStatus','no');
+        $this->db->where('A.BranchStatus','yes');
+        $this->db->where('A.DeleteStatus','no');
         $query = $this->db->select('A.BranchType')
                 ->from('branchdetails as A')
                 ->join('gymmainlogin as B','B.BranchDetailsID = A.SysID','inner')
@@ -190,7 +191,10 @@ class MasterDataBulletinBoard_ extends CI_Model{
                 ->join('branchdetails as B ',' B.SysID = A.EntryShowToBranch','inner')
                 ->join('masterdatarole as C ',' C.SysID = A.ShowToBranchRole','inner')
                 ->get();
-
+                // $this->output->enable_profiler(TRUE);
+                
+                
+                // die();
         if($query){
             if($query->num_rows() > 0){
                 return $query->result();

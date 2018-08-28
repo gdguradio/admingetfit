@@ -25,6 +25,7 @@ class MasterDataAdminImageGallery extends CI_Controller {
         $this->load->view('templates/footer');
 
     }
+
     public function loadlink(){
         // $class_methods = get_class_methods('MasterDataMenu');
         // echo json_encode(array_slice($class_methods, 2),JSON_UNESCAPED_UNICODE);
@@ -47,6 +48,16 @@ class MasterDataAdminImageGallery extends CI_Controller {
         // }
         // print_r($methods);
         echo json_encode($methods,JSON_UNESCAPED_UNICODE);
+    }
+
+    public function loadBranch(){
+        $id = $this->session->userdata('UserID');
+        $query = $this->bulletinboard->loadBranch($id);
+        if($query){
+            echo json_encode($query,JSON_UNESCAPED_UNICODE);
+        }else{
+            echo json_encode(array('error'=> TRUE,'message'=> 'No result found'));
+        }
     }
     public function ajaxLoadImageGallery(){
         $query = $this->adminimagegallery->loadAllAdminImageGallery();

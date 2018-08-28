@@ -74,6 +74,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="box-body">
                     <input type="hidden" id="trainingvideoID"/>
                     <div class="form-group">
+                        <label for="showtobranch">Show to Branch</label>
+                        <!-- <select class="form-control" name="showtobranch" id="showtobranch">
+                                
+                        </select> -->
+                        <select class="form-control" name="showtobranch" id="showtobranch" multiple>
+                        
+                        </select>
+
+                    </div>
+                    <div class="form-group">
                       <label for="trainingvideoname">Video Title</label>
                       <input type="text" class="form-control" id="trainingvideoname" placeholder="Enter Video Name">
                     </div>
@@ -367,6 +377,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             "bInfo":false
         });
     }
-    
+    function loadBranch(e){
+        const site_url = "<?php echo site_url();?>";
+        
+        $.ajax({
+            type:'POST',
+            url: site_url + 'masterdata/MasterDataTrainingVideo/loadBranch',
+            dataType:"json",
+            async: true,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success:function(data){
+                var branch_select = $('#showtobranch');
+                    branch_select.empty();
+                    branch_select.append('<option value="" selected disabled>Select...</option>');
+                if(data.length > 0){
+                    branch_select.append('<option value="*">All</option>');
+                    // <optgroup label="Condiments" data-max-options="2">
+                    //         <option>Mustard</option>
+                    //         <option>Ketchup</option>
+                    //         <option>Relish</option>
+                    //     </optgroup>
+                    //     <optgroup label="Breads" data-max-options="2">
+                    //         <option>Plain</option>
+                    //         <option>Steamed</option>
+                    //         <option>Toasted</option>
+                    //     </optgroup>
+                    for(var x = 0; x < data.length; x++){
+                        // branch_select.append('<option value='+ data[x].SysID+'>'+ data[x].BranchName  +'</option>');
+                        branch_select.append('<option value='+ data[x].SysID+'>'+ data[x].BranchName  +'</option>');
+                    }
+                }else{
+                    branch_select.append('<option>No Result Found!</option>');
+                    // call_alert_success(0,data.message,'1');
+                }
+            }
+        });   
+    } 
 </script>
  
