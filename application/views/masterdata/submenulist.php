@@ -193,7 +193,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#submenulink').val(obj.Link);
             $('#submenuicon').val(obj.FaIcon);
             $('#description').val(obj.Description);
-            
+            $(":radio[name='activitystatus'][value='"+obj.SubmenuStatus+"']").prop('checked','checked');
+            $(":radio[name='deletestatus'][value='"+obj.DeleteStatus+"']").prop('checked','checked');
             
         });
         $('#btnaddsubmenu').click(addSubMenu);

@@ -13,58 +13,77 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?=site_url();?>"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li><a href="#" data-toggle='modal' data-target='#GymContentModal'><i class="fa fa-keyboard-o"></i>Promo</a></li>
+        <!-- <li><a href="#" data-toggle='modal' data-target='#GymContentModal'><i class="fa fa-keyboard-o"></i>Promo</a></li> -->
       </ol>
     </section>
 
     <!-- Main content -->
+    <!-- promo section start -->
     <section class="content">
-	
-	<div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Bulletin Board Lists</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="bulletinboardListTable" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th width="10">[#]</th>
-                    <th width="150">Entry Title</th>
-                    <th width="150">Entry Type</th>
-                    <th width="150">Show To Role </th>
-                    <th width="150">Show To Branch </th>
-                    <th width="150">Entry From</th>
-                    <th width="50">Active</th>
-                    <th>Created Date</th>
-                    <th></th>
-                    
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
+
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
+
+          <!-- <h3 class="box-title">Promo</h3> -->
+          <ol class="breadcrumb">
+            <li><h3 class="box-title">Promo</h3></li>
+            <li><a href="#" data-toggle='modal' data-target='#GymContentPromoModal' data-action="promo"><i class="fa fa-keyboard-o"></i>Add Promo</a></li>
+          </ol>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+              <i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fa fa-times"></i></button>
           </div>
-		  
+        </div>
+        <div class="box-body">
+          <table id="promoListTable" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th width="10">[#]</th>
+                <th width="150">Show to Branch</th>
+                <th width="150">Name</th>
+                <th width="250">Description</th>
+                <th width="150">Dates</th>
+                <th width="150">Duration</th>
+                <th width="50">Amount</th>
+                <th width="50">Active</th>
+                <th>Created Date</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
     </section>
+    <!-- promo section end -->
+
+
+
+
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
 <!-- start modal -->
 <!-- register start -->
-<div class="modal fade" id="GymContentModal" role="dialog">
+<div class="modal fade" id="GymContentPromoModal" role="dialog">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Main Gym Login</h4>
+            <h4 class="modal-title">Promo</h4>
           </div>
           <div class="modal-body">
-          <form role="form" id="registerUser">
+          <form role="form" id="">
                 <div class="col-sm-12 focus_top" tabindex="1">
                     <div class="alert alert-success" id="af_alert" role="alert" style="display:none">
                         <span class="af_alert_message"></span>
@@ -74,6 +93,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
               <div class="box-body">  
+                <div class="form-group">
+                  <label for="showtobranch">Show to Branch</label>
+                  <select class="form-control" name="showtobranch" id="showtobranch" multiple>
+                        
+                  </select>
+
+                </div>
                 <div class="form-group">
                     <input type="hidden" id="promoID"/>
                     <label for="promoname">Promo name <span class="tcolor_red">*</span></label>
@@ -100,15 +126,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <label for="promoamount">Promo Amount<span class="tcolor_red">*</span></label>
                   <input type="text" class="form-control" id="promoamount" placeholder="Enter Amount">
                 </div>   
-                
+                <div class="form-group">
+                  <label for="">Activity Status</label>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="activitystatusno" name="activitystatus" value="no" >
+                    <label class="custom-control-label" for="defaultUnchecked">No</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="activitystatusyes" name="activitystatus" value="yes" checked>
+                    <label class="custom-control-label" for="defaultChecked">Yes</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="">Delete Status</label>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="deletestatusno" name="deletestatus" value="no" checked>
+                    <label class="custom-control-label" for="defaultChecked">No</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="deletestatusyes" name="deletestatus" value="yes" >
+                    <label class="custom-control-label" for="defaultUnchecked">Yes</label>
+                  </div>
+                </div>
               </div>
               <!-- /.box-body -->
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="btnadd">Submit</button>
-            <button type="button" class="btn btn-success" id="btnupdate" style="display:none;">Update</button>
-            <button type="button" class="btn btn-danger" id="btndelete" style="display:none;">Delete</button>
+            <button type="button" class="btn btn-primary" id="btnaddpromo">Submit</button>
+            <button type="button" class="btn btn-success" id="btnupdatepromo" style="display:none;">Update</button>
+            <button type="button" class="btn btn-danger" id="btndeletepromo" style="display:none;">Delete</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -123,193 +170,150 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?=site_url();?>assets/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>  
 <script src="<?=site_url();?>assets/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?=site_url();?>assets/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<style>
+  #promoListTable tbody td {
+    word-break: break-word;
+    vertical-align: top;
+  }
+</style>
 <script>
     $(document).ready(function(){
-        loadBulletinBoard();
-        loadAllusers();
+        loadPromo();
+        // loadAllusers();
         loadBranch();
         //Date range picker
         $('#promodates').daterangepicker()
-        $('#BulletinBoardModal').on('shown.bs.modal', function (e) {
+        $('#GymContentPromoModal').on('shown.bs.modal', function (e) {
         // do something...
         action = $(e.relatedTarget).attr('data-action');
-        if(action === 'edit') {
-                $('#btnupdatebulletinboard').show();
-                $('#btndeletebulletinboard').hide();
-            }else if(action === 'delete'){
-                $('#btnupdatebulletinboard').hide();
-                $('#btndeletebulletinboard').show();
-        }else{
-            $('#btnaddbulletinboard').show();
-            $('#btnupdatebulletinboard').hide();
-            $('#btndeletebulletinboard').hide();
+        if(action === 'editpromo') {
+                $('#btnupdatepromo').show();
+                $('#btndeletepromo').hide();
+        }else if(action === 'editpromo'){
+                $('#btnupdatepromo').hide();
+                $('#btndeletepromo').show();
+        }else if(action === 'promo'){
+            $('#btnaddpromo').show();
+            $('#btnupdatepromo').hide();
+            $('#btndeletepromo').hide();
         }    
         })
         $(document).on('click','.user_action',function(){
-            $('#btnaddbulletinboard').hide();
+            $('#btnaddpromo').hide();
             var action = $(this).attr('data-action');
             var obj = JSON.parse($(this).attr('data-obj'));
-            console.log(obj)
+            if(action.indexOf("promo") != -1){
+              $('#promoID').val(obj.SysID);
+              $.each(obj.Access, function(i,e){
+                  $('#showtobranch option[value="' + e.BranchID + '"]').prop("selected", true);
+              })
+              // var changedata = {type:"change",RoleName:obj.RoleName};
+              // $('#showtobranch').trigger(changedata);
+              $('#promoname').val(obj.PromoName);
+              $('#description').val(obj.PromoDescription);
+              $('#promodates').val(obj.PromoRegistration);
+              $('#promoduration').val(obj.PromoDuration);
+              $('#promoamount').val(obj.PromoAmount);
+              $(":radio[name='activitystatus'][value='"+obj.PromoStatus+"']").prop('checked','checked');
+              $(":radio[name='deletestatus'][value='"+obj.DeleteStatus+"']").prop('checked','checked');
+            }
             
-            $('#bulletinboardID').val(obj.SysID);
-            $('#entrytype').val(obj.EntryType);
-            console.log(obj.BranchName)
-            $.each(obj.BranchName, function(i,e){
-                $('#showtobranch option[value="' + e.BranchID + '"]').prop("selected", true);
-            })
-            // $('#showtobranch').trigger("change");
-            var changedata = {type:"change",RoleName:obj.RoleName};
-            $('#showtobranch').trigger(changedata);
-            $('#entryfrom').val(obj.EntryFrom[0].userID);
-            $('#entrytitle').val(obj.EntryTitle);
-            $('#entryindex').val(obj.EntryOrderIndex);
-            $('#description').val(obj.EntryDescription);
             
             
         });
-        $('#btnaddbulletinboard').click(addBulletinBoard);
-        $('#btnupdatebulletinboard').click(updateBulletinBoard);
-        $('#btndeletebulletinboard').click(deleteMenu);
+        $('#btnaddpromo').click(addPromo);
+        $('#btnupdatepromo').click(updatePromo);
+        $('#btndeletepromo').click(deletePromo);
         // var changedata = {type:"change",submenuID:obj.submenuID};
         // $('#menuname').val(obj.menuID).trigger(changedata);
         $('#showtobranch').change(loadBranchroles);
     });
-    function addBulletinBoard(){
+    function addPromo(){
        
         var site_url = '<?=site_url()?>';
-        var entrytype = $('#entrytype option:selected').val();
+        var promoname = $('#promoname').val();
         var showtobranch = $('#showtobranch').val();
-        var showtobranchrole = $('#showtobranchrole').val();
-        var entryfrom = $('#entryfrom option:selected').val();
-        var entrytitle = $('#entrytitle').val();
-        var entrytitle = $('#entrytitle').val();
-        var entryindex = $('#entryindex').val();
         var description = $('#description').val();
+        var promodates = $('#promodates').val();
+        var promoduration = $('#promoduration').val();
+        var promoamount = $('#promoamount').val();
+        const promostatus = $(":radio[name='activitystatus']:checked").val();
+        const deletestatus = $(":radio[name='deletestatus']:checked").val();
         if(jQuery.inArray("*", showtobranch) !== -1){
             showtobranch = $("select#showtobranch option").slice(2).map(function() {
                 return this.value;
             }).get();
         }
-        if(jQuery.inArray("*", showtobranchrole) !== -1){
-            showtobranchrole = $("select#showtobranchrole option").slice(2).map(function() {
-                return this.value;
-            }).get();
-        }
-        var arr = [];
-        $.each(showtobranchrole,function(i,v){
-            $.each(showtobranch,function(ii,vv){
-                arr.push({
-                    "ShowToBranchRole": v,
-                    "EntryShowToBranch": vv,
-                    "EntryType": entrytype,
-                    "EntryTitle": entrytitle,
-                    "EntryFrom": entryfrom,
-                    "EntryDescription": description,
-                });
-
-            });
-
-        });
-        const bulletinboardstatus = $(":radio[name='activitystatus']:checked").val();
-        const deletestatus = $(":radio[name='deletestatus']:checked").val();
         $.ajax({
             type:'POST',
-            url:site_url +'masterdata/MasterDataBulletinBoard/insertMasterDataBulletinBoardFromAjax',
+            url:site_url +'gym/GymContentPromo/insertGymContentPromoFromAjax',
             dataType:"json",
             data:{
-                data : arr,
-                entrytype: entrytype,
-                entrytitle: entrytitle,
-                entryfrom: entryfrom,
-                description: description,
-                showtobranchrole:showtobranchrole,
-                showtobranch:showtobranch,
-                entryindex:entryindex,
-                deletestatus:deletestatus,
-                bulletinboardstatus:bulletinboardstatus
+              promoname: promoname,
+              showtobranch: showtobranch,
+              description: description,
+              promodates: promodates,
+              promoduration:promoduration,
+              promoamount:promoamount,
+              promostatus:promostatus,
+              deletestatus:deletestatus
             },
             success:function(data)
             {
                 if(data.error === true){
-                    call_alert_error('BulletinBoardModal',data.message);
+                    call_alert_error('GymContentPromoModal',data.message);
                 }else{
-                    loadBulletinBoard();
-                    // load_menu_select();
-                    call_alert_success('BulletinBoardModal',data.message,'1');
+                  loadPromo();
+                  call_alert_success('GymContentPromoModal',data.message,'1');
                 }
             }
         });
     }
-    function updateBulletinBoard(){
+    function updatePromo(){
        
         var site_url = '<?=site_url()?>';
-        var bulletinboardID = $('#bulletinboardID').val();
-        var entrytype = $('#entrytype option:selected').val();
+        var promoID = $('#promoID').val();
+        var promoname = $('#promoname').val();
         var showtobranch = $('#showtobranch').val();
-        var showtobranchrole = $('#showtobranchrole').val();
-        var entryfrom = $('#entryfrom option:selected').val();
-        var entrytitle = $('#entrytitle').val();
-        var entrytitle = $('#entrytitle').val();
-        var entryindex = $('#entryindex').val();
         var description = $('#description').val();
+        var promodates = $('#promodates').val();
+        var promoduration = $('#promoduration').val();
+        var promoamount = $('#promoamount').val();
+        const promostatus = $(":radio[name='activitystatus']:checked").val();
+        const deletestatus = $(":radio[name='deletestatus']:checked").val();
         if(jQuery.inArray("*", showtobranch) !== -1){
             showtobranch = $("select#showtobranch option").slice(2).map(function() {
                 return this.value;
             }).get();
         }
-        if(jQuery.inArray("*", showtobranchrole) !== -1){
-            showtobranchrole = $("select#showtobranchrole option").slice(2).map(function() {
-                return this.value;
-            }).get();
-        }
-        var arr = [];
-        $.each(showtobranchrole,function(i,v){
-            $.each(showtobranch,function(ii,vv){
-                arr.push({
-                    "ShowToBranchRole": v,
-                    "EntryShowToBranch": vv,
-                    "EntryType": entrytype,
-                    "EntryTitle": entrytitle,
-                    "EntryFrom": entryfrom,
-                    "EntryDescription": description,
-                });
-
-            });
-
-        });
-        const bulletinboardstatus = $(":radio[name='activitystatus']:checked").val();
-        const deletestatus = $(":radio[name='deletestatus']:checked").val();
         $.ajax({
             type:'POST',
-            url:site_url +'masterdata/MasterDataBulletinBoard/updateMasterDataBulletinBoardFromAjax',
+            url:site_url +'gym/GymContentPromo/updateGymContentPromoFromAjax',
             dataType:"json",
             data:{
-                data : arr,
-                entrytype: entrytype,
-                entrytitle: entrytitle,
-                entryfrom: entryfrom,
-                description: description,
-                showtobranchrole:showtobranchrole,
-                showtobranch:showtobranch,
-                entryindex:entryindex,
-                bulletinboardID:bulletinboardID,
-                deletestatus:deletestatus,
-                bulletinboardstatus:bulletinboardstatus
+              promoname: promoname,
+              showtobranch: showtobranch,
+              description: description,
+              promodates: promodates,
+              promoduration:promoduration,
+              promoamount:promoamount,
+              promostatus:promostatus,
+              deletestatus:deletestatus,
+              promoID:promoID
             },
             success:function(data)
             {
                 if(data.error === true){
-                    call_alert_error('BulletinBoardModal',data.message);
+                    call_alert_error('GymContentPromoModal',data.message);
                 }else{
-                    loadBulletinBoard();
-                    // load_menu_select();
-                    call_alert_success('BulletinBoardModal',data.message,'1');
+                  loadPromo();
+                  call_alert_success('GymContentPromoModal',data.message,'1');
                 }
             }
         });
    }
     
-    function deleteMenu(){
+    function deletePromo(){
         var base_url = "<?php echo site_url();?>";
         var user_id = $('#user_id').val();
          $.ajax({
@@ -327,24 +331,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
                 else
                 {
-                    load_user();
+                    loadPromo();
                     call_alert_success('BulletinBoardModal',data.message);
                 }
             }
         });
     }
     
-    function loadBulletinBoard(){
+    function loadPromo(){
         var site_url = '<?=site_url()?>';
         $.fn.dataTable.ext.errMode = 'none';
         $.fn.dataTable.ext.classes.sPageButton = 'page-link';
         // $.fn.dataTable.ext.classes.sTable = '';
         // $.fn.dataTable.ext.classes.sNoFooter = '';
-        $('#bulletinboardListTable').DataTable({
+        $('#promoListTable').DataTable({
             destroy: true,
+            autoWidth: false,
             lengthMenu: [[10, 20, -1], [10, 20, "All"]],
             "ajax": {
-                "url": site_url +"masterdata/MasterDataBulletinBoard/ajaxLoadBulletinBoard" ,
+                "url": site_url +"gym/GymContentPromo//ajaxLoadPromo" ,
                 "type": "POST",
                 "dataSrc": function (data) {
                     var ctr = 0;
@@ -357,39 +362,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         data[i]["num"] = ctr;
                         var branchname = [];
                         var rolename = [];
-                        for (var ii = 0; ii < data[i].BranchName.length; ii++){
-                            branchname.push(data[i].BranchName[ii].BranchName)
+                        for (var ii = 0; ii < data[i].Access.length; ii++){
+                            branchname.push(data[i].Access[ii].BranchName)
                         }
-                        for (var v = 0; v < data[i].RoleName.length; v++){
-                            rolename.push(data[i].RoleName[v].RoleName)
-                        }
-                        name = data[i].EntryFrom[0].FirstName +" "+ data[i].EntryFrom[0].LastName; 
-                        var EntryStatus = data[i].EntryStatus.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                        var PromoStatus = data[i].PromoStatus.toLowerCase().replace(/\b[a-z]/g, function(letter) {
                             return letter.toUpperCase();
                         });
                         data[i]["rolename"] = rolename;
-                        data[i]["branchname"] = branchname;   
-                        data[i]["EntryFromName"] = name;      
-                        data[i]["active"] = EntryStatus;      
+                        data[i]["branchname"] = branchname;     
+                        data[i]["active"] = PromoStatus;      
                         // data[i]["changepassword"] = "<button class='btn btn-warning changepass' data-obj='" + data_array + "' data-toggle='modal' data-target='#changepasswordModal'><i class='fa fa-key'></i> Change password</button>";
-                        data[i]["edit"] = "<button class='btn btn-info user_action' data-action='edit' data-obj='" + data_array + "' data-toggle='modal' data-target='#BulletinBoardModal'><i class='fa fa-edit'></i> Edit</button>";
-                        data[i]["delete"] = "<button class='btn btn-danger user_action' data-action='delete' data-obj='" + data_array + "' data-toggle='modal' data-target='#BulletinBoardModal'><i class='fa fa-times'></i> Deactivate</button>";
+                        data[i]["edit"] = "<button class='btn btn-info user_action' data-action='editpromo' data-obj='" + data_array + "' data-toggle='modal' data-target='#GymContentPromoModal'><i class='fa fa-edit'></i> Edit</button>";
+                        data[i]["delete"] = "<button class='btn btn-danger user_action' data-action='deletepromo' data-obj='" + data_array + "' data-toggle='modal' data-target='#GymContentPromoModal'><i class='fa fa-times'></i> Deactivate</button>";
                     }
 
                     return data;
                 }
             },
             "columns": [
-                {"data": "num"},
-                {"data": "EntryTitle"},
-                {"data": "EntryType"},
-                {"data": "rolename"},
-                {"data": "branchname"},
-                {"data": "EntryFromName"},
-                {"data": "active"},
-                {"data": "AddedDate"},
-                {"data": "edit"},
-                {"data": "delete"}
+              // {"width" : '10px' },
+              // {"width" : '150px' },
+              // {"width" : '150px' },
+              // {"width" : '150px' },        
+              // {"width" : '150px' },
+              // {"width" : '150px' },
+              // {"width" : '50px' },
+              // {"width" : '50px' },
+              {"data": "num"},
+              {"data": "branchname"},
+              {"data": "PromoName"},
+              {"data": "PromoDescription"},
+              {"data": "PromoRegistration"},
+              {"data": "PromoDuration"},
+              {"data": "PromoAmount"},
+              {"data": "active"},
+              {"data": "edit"},
+              {"data": "delete"}
             ],
             "bInfo":false
         });
@@ -455,7 +463,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
         $.ajax({
             type:'POST',
-            url: site_url + 'masterdata/MasterDataBulletinBoard/loadBranch',
+            url: site_url + 'gym/GymContentPromo/loadBranch',
             dataType:"json",
             async: true,
             cache: false,

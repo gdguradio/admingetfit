@@ -38,7 +38,7 @@ class MasterDataScreen extends CI_Controller {
             "MainGymInformation/maingymlist",
             "FranchiseUserInformation/franchiseUserlist",
             "FranchiseGymInformation/franchisegymlist",
-            "GymContent",
+            "GymContentPromo",
             "MasterDataAdminImageGallery/imagelist",
             "MasterDataBulletinBoard/bulletinboardlist",
             "MasterDataTrainingImage/imagelist",

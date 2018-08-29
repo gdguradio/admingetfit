@@ -526,6 +526,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var imagegallery = "";
             var imagegallerylink = "";
             for (var x = 0; x < data.length; x++) {
+              
               if (x == 0) {
                 imagegallerylink = "<li data-target='#myCarousel' data-slide-to='" + x + "' class='active'></li>"
                 imagegallery =
@@ -547,6 +548,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   "</div>" +
                   "</div>";
               }
+
               $(".carousel-inner").append(imagegallery);
               $(".carousel-indicators").append(imagegallerylink);
             }

@@ -51,7 +51,7 @@ class MasterDataTrainingVideo extends CI_Controller {
 
     public function loadBranch(){
         $id = $this->session->userdata('UserID');
-        $query = $this->bulletinboard->loadBranch($id);
+        $query = $this->trainingvideo->loadBranch($id);
         if($query){
             echo json_encode($query,JSON_UNESCAPED_UNICODE);
         }else{
@@ -90,7 +90,17 @@ class MasterDataTrainingVideo extends CI_Controller {
                 'VideoLink'   => $this->input->post('videolink'),
                 'AddedBy'=>  $this->session->userdata('UserID'),
                 'AddedDate'=> date('Y-m-d'));
-            $result = $this->trainingvideo->addTrainingVideo($data_input);
+                $showtobranch = explode(",", $this->input->post('showtobranch'));
+                foreach($showtobranch AS $key=> $value){
+                    $data_show[$key] =   array(
+                        'ShowToBranch' =>  $value,
+                        'VideoStatus'   => $this->input->post('videostatus'),
+                        'DeleteStatus'   => $this->input->post('deletestatus'),
+                        'AddedBy'=>  $this->session->userdata('UserID'),
+                        'AddedDate'=> date('Y-m-d')
+                    );
+                }    
+            $result = $this->trainingvideo->addTrainingVideo($data_input,$data_show);
             if($result){
                 echo json_encode(array('error'=> FALSE,'message'=> 'Video added!'));
             }
@@ -112,10 +122,20 @@ class MasterDataTrainingVideo extends CI_Controller {
             'VideoLink'   => $this->input->post('videolink'),
             'UpdatedBy'=>  $this->session->userdata('UserID'),
             'UpdatedDate'=> date('Y-m-d'));
+            $showtobranch = explode(",", $this->input->post('showtobranch'));
+            foreach($showtobranch AS $key=> $value){
+                $data_show[$key] =   array(
+                    'ShowToBranch' =>  $value,
+                    'VideoStatus'   => $this->input->post('videostatus'),
+                    'DeleteStatus'   => $this->input->post('deletestatus'),
+                    'UpdatedBy'=>  $this->session->userdata('UserID'),
+                    'UpdatedDate'=> date('Y-m-d')
+                );
+            }    
         if($this->trainingvideo->duplicate_checker('masterdatatrainingvideo','VideoLink',$videolink) == TRUE){
             echo json_encode(array('error'=> TRUE,'message'=>  'Video Name already existing!'));
         }else{
-            $result = $this->trainingvideo->updateTrainingVideo($data_input,$id);
+            $result = $this->trainingvideo->updateTrainingVideo($data_input,$data_show,$id);
             if($result){
                 echo json_encode(array('error'=> FALSE,'message'=> 'Video Updated!'));
             }

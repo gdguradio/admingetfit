@@ -30,12 +30,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <thead>
                 <tr>
                     <th width="10">[#]</th>
+                    <th width="150">Show To Branch</th>
                     <th width="150">Image Title</th>
                     <th width="250">Description</th>
                     <th width="200">Image Link</th>
                     <th width="200">Image Category </th>
                     <th width="120">Image Status </th>
-                    <th width="120">Delete Status </th>
                     <th>Created Date</th>
                     <th></th>
                     <th></th>
@@ -157,6 +157,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script>
     $(document).ready(function(){
         loadTrainingImage();
+        loadBranch();
         $('#TrainingImageModal').on('shown.bs.modal', function (e) {
         // do something...
         action = $(e.relatedTarget).attr('data-action');
@@ -211,12 +212,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var action = $(this).attr('data-action');
             var obj = JSON.parse($(this).attr('data-obj'));
             var imageurl = "<?php echo site_url('assets/TrainingImage/');?>";
+            console.log(obj.BranchName)
+            $.each(obj.BranchName, function(i,e){
+                $('#showtobranch option[value="' + e.BranchID + '"]').prop("selected", true);
+            })
             $('#trainingimageID').val(obj.SysID);
             $('#trainingimagename').val(obj.ImageTitle);
             $('#trainingimagedisplayorder').val(obj.ImageOrderIndex);
             $('#description').val(obj.ImageDescription);
             $('.form-group.image img').attr('src', imageurl+""+obj.ImageLink);
-            
+            $(":radio[name='activitystatus'][value='"+obj.ImageStatus+"']").prop('checked','checked');
+            $(":radio[name='deletestatus'][value='"+obj.DeleteStatus+"']").prop('checked','checked');
             
         });
         $('#btnaddtrainingimage').click(addTrainingImage);
@@ -243,13 +249,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         const imagestatus = $(":radio[name='activitystatus']:checked").val();
         const deletestatus = $(":radio[name='deletestatus']:checked").val();
         const imagecategory = $("#trainingimagecategory option:selected").val();
+        var showtobranch = $('#showtobranch').val();
+        if(jQuery.inArray("*", showtobranch) !== -1){
+            showtobranch = $("select#showtobranch option").slice(2).map(function() {
+                return this.value;
+            }).get();
+        }
+
+
         const formData = new FormData();
+
         formData.append('imagetitle',imagetitle);
         formData.append('imageorder',imageorder);
         formData.append('description',description);
         formData.append('imagestatus',imagestatus);
         formData.append('deletestatus',deletestatus);
         formData.append('imagecategory',imagecategory);
+        formData.append('showtobranch',showtobranch);
         formData.append('photo',photo);
 
 
@@ -305,6 +321,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         const deletestatus = $(":radio[name='deletestatus']:checked").val();
         const imagecategory = $("#trainingimagecategory option:selected").val();
         const formData = new FormData();
+        
+        var showtobranch = $('#showtobranch').val();
+        if(jQuery.inArray("*", showtobranch) !== -1){
+            showtobranch = $("select#showtobranch option").slice(2).map(function() {
+                return this.value;
+            }).get();
+        }
+
+
         formData.append('trainingimageID',trainingimageID);
         formData.append('imagetitle',imagetitle);
         formData.append('imageorder',imageorder);
@@ -312,6 +337,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         formData.append('imagestatus',imagestatus);
         formData.append('deletestatus',deletestatus);
         formData.append('imagecategory',imagecategory);
+        formData.append('showtobranch',showtobranch);
         formData.append('photo',photo);
 
 
@@ -416,6 +442,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         ctr++;
                         var data_array = [];
                         data_array = JSON.stringify(data[i]);
+                        var branchname = [];
+                        for (var ii = 0; ii < data[i].BranchName.length; ii++){
+                            branchname.push(data[i].BranchName[ii].BranchName)
+                        }
+                        data[i]["branchname"] = branchname;
                         data[i]["num"] = ctr;
                         data[i]["Category"] = category[ parseInt(data[i].ImageCategory) - 1 ];
                         data[i]["Contoller"] = data[i].Link ? data[i].Link.split('/'[0]) : "";
@@ -430,12 +461,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             },
             "columns": [
                 {"data": "num"},
+                {"data": "branchname"},
                 {"data": "ImageTitle"},
                 {"data": "ImageDescription"},
                 {"data": "ImageLink"},
                 {"data": "Category"},
                 {"data": "ImageStatus"},
-                {"data": "DeleteStatus"},
                 {"data": "AddedDate"},
                 {"data": "edit"},
                 {"data": "delete"}

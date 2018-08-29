@@ -52,7 +52,7 @@ class MasterDataAdminImageGallery extends CI_Controller {
 
     public function loadBranch(){
         $id = $this->session->userdata('UserID');
-        $query = $this->bulletinboard->loadBranch($id);
+        $query = $this->adminimagegallery->loadBranch($id);
         if($query){
             echo json_encode($query,JSON_UNESCAPED_UNICODE);
         }else{
@@ -85,7 +85,10 @@ class MasterDataAdminImageGallery extends CI_Controller {
             if($this->adminimagegallery->duplicate_checker('masterdataadminimagegallery','ImageLink',$photo) == TRUE){
                 echo json_encode(array('error'=> TRUE,'message'=>  'Image Name already existing!'));
             }else{
-                $data_input =   array(
+                
+                // $arr = json_decode($_POST['data']);
+                // print_r($_POST);die();
+                $data_input = array(
                     'ImageTitle' =>  $this->input->post('imagetitle'),
                     'ImageDescription'   => $this->input->post('description'),
                     'ImageOrderIndex'   => $this->input->post('imageorder'),
@@ -95,7 +98,18 @@ class MasterDataAdminImageGallery extends CI_Controller {
                     'AddedBy'=>  $this->session->userdata('UserID'),
                     'AddedDate'=> date('Y-m-d')
                 );
-                $result = $this->adminimagegallery->addAdminImageGallery($data_input);
+                $showtobranch = explode(",", $this->input->post('showtobranch'));
+                foreach($showtobranch AS $key=> $value){
+                    $data_show[$key] =   array(
+                        'ShowToBranch' =>  $value,
+                        'ImageStatus'   => $this->input->post('imagestatus'),
+                        'DeleteStatus'   => $this->input->post('deletestatus'),
+                        'AddedBy'=>  $this->session->userdata('UserID'),
+                        'AddedDate'=> date('Y-m-d')
+                    );
+                }
+                // print_r($data_input);die();
+                $result = $this->adminimagegallery->addAdminImageGallery($data_input,$data_show);
                 if($result){
                     echo json_encode(array('error'=> FALSE,'message'=> 'Image added!'));
                 }
@@ -106,7 +120,7 @@ class MasterDataAdminImageGallery extends CI_Controller {
         $this->form_validation->set_rules('imagetitle','Image Title','required');
         $this->form_validation->set_rules('imageorder','Display Order','required');
         $id = $this->input->post('imagegalleryID');
-
+        $photo = $this->uploadPhoto();
         if(!empty(form_error('photo'))){
             // echo json_encode(array('error'=> TRUE,'message'=> form_error('photo')));
             $data_input =   array(
@@ -121,34 +135,43 @@ class MasterDataAdminImageGallery extends CI_Controller {
             if($this->adminimagegallery->duplicate_checker('masterdataadminimagegallery','ImageLink',$photo) == TRUE){
                 echo json_encode(array('error'=> TRUE,'message'=>  'Image Name already existing!'));
             }else{
-                $result = $this->adminimagegallery->updateAdminImageGallery($data_input,$id);
+                $showtobranch = explode(",", $this->input->post('showtobranch'));
+                foreach($showtobranch AS $key=> $value){
+                    $data_show[$key] =   array(
+                        'ShowToBranch' =>  $value,
+                        'ImageStatus'   => $this->input->post('imagestatus'),
+                        'DeleteStatus'   => $this->input->post('deletestatus'),
+                        'UpdatedBy'=>  $this->session->userdata('UserID'),
+                        'UpdatedDate'=> date('Y-m-d')
+                    );
+                }
+                $result = $this->adminimagegallery->updateAdminImageGallery($data_input,$data_show,$id);
                 if($result){
                     echo json_encode(array('error'=> FALSE,'message'=> 'Image Updated!'));
                 }
             }
         }else{    
-            $photo = $this->uploadPhoto();
-            if($this->adminimagegallery->duplicate_checker('masterdataadminimagegallery','ImageLink',$photo) == TRUE){
-                echo json_encode(array('error'=> TRUE,'message'=>  'Image Name already existing!'));
-            }else{
-                $data_input =   array(
+            $showtobranch = explode(",", $this->input->post('showtobranch'));
+            foreach($showtobranch AS $key=> $value){
+                $data_input[$key] =   array(
                     'ImageTitle' =>  $this->input->post('imagetitle'),
                     'ImageDescription'   => $this->input->post('description'),
                     'ImageOrderIndex'   => $this->input->post('imageorder'),
                     'ImageStatus'   => $this->input->post('imagestatus'),
                     'DeleteStatus'   => $this->input->post('deletestatus'),
                     'ImageLink'   => $photo,
-                    'UpdatedBy'=>  $this->session->userdata('UserID'),
-                    'UpdatedDate'=> date('Y-m-d')
+                    'AddedBy'=>  $this->session->userdata('UserID'),
+                    'AddedDate'=> date('Y-m-d')
                 );
-                if($this->adminimagegallery->duplicate_checker('masterdataadminimagegallery','ImageLink',$photo) == TRUE){
-                    echo json_encode(array('error'=> TRUE,'message'=>  'Image Name already existing!'));
-                }else{
-                    $result = $this->adminimagegallery->updateAdminImageGallery($data_input,$id);
-                    if($result){
-                        echo json_encode(array('error'=> FALSE,'message'=> 'Image Updated!'));
-                    }
-                }
+                $data_show[$key] =   array(
+                    'ShowToBranch' =>  $value,
+                    'AddedBy'=>  $this->session->userdata('UserID'),
+                    'AddedDate'=> date('Y-m-d')
+                );
+            }
+            $result = $this->adminimagegallery->updateAdminImageGallery($data_input,$data_show,$id);
+            if($result){
+                echo json_encode(array('error'=> FALSE,'message'=> 'Image Updated!'));
             }
         }
     }

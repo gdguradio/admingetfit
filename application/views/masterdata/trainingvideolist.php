@@ -30,12 +30,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <thead>
                 <tr>
                     <th width="10">[#]</th>
+                    <th width="150">Show To Branch</th>
                     <th width="150">Video Title</th>
                     <th width="250">Description</th>
                     <th width="200">Video Link</th>
                     <th width="200">Video Category </th>
                     <th width="120">Video Status </th>
-                    <th width="120">Delete Status </th>
                     <th>Created Date</th>
                     <th></th>
                     <th></th>
@@ -157,7 +157,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script>
     $(document).ready(function(){
         loadTrainingVideo();
-
+        loadBranch();
         
 
         var tag = document.createElement('script');
@@ -205,7 +205,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#description').val(obj.VideoDescription);
             $('.form-group.video').html(obj.VideoLink);
             $('.form-group.video iframe').attr('width',"250").attr('height',"200");
-            
+            $(":radio[name='activitystatus'][value='"+obj.VideoStatus+"']").prop('checked','checked');
+            $(":radio[name='deletestatus'][value='"+obj.DeleteStatus+"']").prop('checked','checked');
             
         });
         $('#btnaddtrainingvideo').click(addTrainingVideo);
@@ -233,6 +234,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         const videostatus = $(":radio[name='activitystatus']:checked").val();
         const deletestatus = $(":radio[name='deletestatus']:checked").val();
         const videocategory = $("#trainingvideocategory option:selected").val();
+        var showtobranch = $('#showtobranch').val();
+        if(jQuery.inArray("*", showtobranch) !== -1){
+            showtobranch = $("select#showtobranch option").slice(2).map(function() {
+                return this.value;
+            }).get();
+        }
         const formData = new FormData();
         console.log(videotitle)
         formData.append('videotitle',videotitle);
@@ -242,6 +249,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         formData.append('deletestatus',deletestatus);
         formData.append('videocategory',videocategory);
         formData.append('videolink',videolink);
+        formData.append('showtobranch',showtobranch);
         $.ajax({
             type:'POST',
             url:site_url +'masterdata/MasterDataTrainingVideo/insertMasterDataTrainingVideoFromAjax',
@@ -276,6 +284,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         const videostatus = $(":radio[name='activitystatus']:checked").val();
         const deletestatus = $(":radio[name='deletestatus']:checked").val();
         const videocategory = $("#trainingvideocategory option:selected").val();
+        var showtobranch = $('#showtobranch').val();
+        if(jQuery.inArray("*", showtobranch) !== -1){
+            showtobranch = $("select#showtobranch option").slice(2).map(function() {
+                return this.value;
+            }).get();
+        }
         const formData = new FormData();
         formData.append('trainingvideoID',trainingvideoID);
         formData.append('videotitle',videotitle);
@@ -285,6 +299,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         formData.append('deletestatus',deletestatus);
         formData.append('videocategory',videocategory);
         formData.append('videolink',videolink);
+        formData.append('showtobranch',showtobranch);
+
 
         $.ajax({
             type:'POST',
@@ -350,6 +366,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         ctr++;
                         var data_array = [];
                         data_array = JSON.stringify(data[i]);
+                        var branchname = [];
+                        for (var ii = 0; ii < data[i].BranchName.length; ii++){
+                            branchname.push(data[i].BranchName[ii].BranchName)
+                        }
+                        data[i]["branchname"] = branchname;
                         data[i]["num"] = ctr;
                         data[i]["Category"] = category[ parseInt(data[i].VideoCategory) - 1 ];
                         data[i]["Contoller"] = data[i].Link ? data[i].Link.split('/'[0]) : "";
@@ -364,12 +385,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             },
             "columns": [
                 {"data": "num"},
+                {"data": "branchname"},
                 {"data": "VideoTitle"},
                 {"data": "VideoDescription"},
                 {"data": "VideoLink"},
                 {"data": "Category"},
                 {"data": "VideoStatus"},
-                {"data": "DeleteStatus"},
                 {"data": "AddedDate"},
                 {"data": "edit"},
                 {"data": "delete"}

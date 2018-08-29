@@ -198,7 +198,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#entrytitle').val(obj.EntryTitle);
             $('#entryindex').val(obj.EntryOrderIndex);
             $('#description').val(obj.EntryDescription);
-            
+            $(":radio[name='activitystatus'][value='"+obj.EntryStatus+"']").prop('checked','checked');
+            $(":radio[name='deletestatus'][value='"+obj.DeleteStatus+"']").prop('checked','checked');
             
         });
         $('#btnaddbulletinboard').click(addBulletinBoard);

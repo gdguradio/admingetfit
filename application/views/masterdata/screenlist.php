@@ -180,7 +180,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#screenlink').val(obj.Link);
             $('#screenicon').val(obj.FaIcon);
             $('#description').val(obj.Description);
-            
+            $(":radio[name='activitystatus'][value='"+obj.ScreenStatus+"']").prop('checked','checked');
+            $(":radio[name='deletestatus'][value='"+obj.DeleteStatus+"']").prop('checked','checked');
             
         });
         $('#btnaddscreen').click(addScreen);

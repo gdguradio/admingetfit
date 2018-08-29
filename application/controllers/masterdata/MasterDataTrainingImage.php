@@ -51,7 +51,7 @@ class MasterDataTrainingImage extends CI_Controller {
 
     public function loadBranch(){
         $id = $this->session->userdata('UserID');
-        $query = $this->bulletinboard->loadBranch($id);
+        $query = $this->trainingimage->loadBranch($id);
         if($query){
             echo json_encode($query,JSON_UNESCAPED_UNICODE);
         }else{
@@ -95,7 +95,18 @@ class MasterDataTrainingImage extends CI_Controller {
                     'AddedBy'=>  $this->session->userdata('UserID'),
                     'AddedDate'=> date('Y-m-d')
                 );
-                $result = $this->trainingimage->addTrainingImage($data_input);
+                $showtobranch = explode(",", $this->input->post('showtobranch'));
+                foreach($showtobranch AS $key=> $value){
+                    $data_show[$key] =   array(
+                        'ShowToBranch' =>  $value,
+                        'ImageStatus'   => $this->input->post('imagestatus'),
+                        'DeleteStatus'   => $this->input->post('deletestatus'),
+                        'AddedBy'=>  $this->session->userdata('UserID'),
+                        'AddedDate'=> date('Y-m-d')
+                    );
+                }
+
+                $result = $this->trainingimage->addTrainingImage($data_input,$data_show);
                 if($result){
                     echo json_encode(array('error'=> FALSE,'message'=> 'Image added!'));
                 }
@@ -119,10 +130,20 @@ class MasterDataTrainingImage extends CI_Controller {
                 'UpdatedBy'=>  $this->session->userdata('UserID'),
                 'UpdatedDate'=> date('Y-m-d')
             );
+            $showtobranch = explode(",", $this->input->post('showtobranch'));
+            foreach($showtobranch AS $key=> $value){
+                $data_show[$key] =   array(
+                    'ShowToBranch' =>  $value,
+                    'ImageStatus'   => $this->input->post('imagestatus'),
+                    'DeleteStatus'   => $this->input->post('deletestatus'),
+                    'UpdatedBy'=>  $this->session->userdata('UserID'),
+                    'UpdatedDate'=> date('Y-m-d')
+                );
+            }
             if($this->trainingimage->duplicate_checker('masterdatatrainingimage','ImageLink',$photo) == TRUE){
                 echo json_encode(array('error'=> TRUE,'message'=>  'Image Name already existing!'));
             }else{
-                $result = $this->trainingimage->updateTrainingImage($data_input,$id);
+                $result = $this->trainingimage->updateTrainingImage($data_input,$data_show,$id);
                 if($result){
                     echo json_encode(array('error'=> FALSE,'message'=> 'Image Updated!'));
                 }
@@ -142,10 +163,20 @@ class MasterDataTrainingImage extends CI_Controller {
                     'UpdatedBy'=>  $this->session->userdata('UserID'),
                     'UpdatedDate'=> date('Y-m-d')
                 );
+                $showtobranch = explode(",", $this->input->post('showtobranch'));
+            foreach($showtobranch AS $key=> $value){
+                $data_show[$key] =   array(
+                    'ShowToBranch' =>  $value,
+                    'ImageStatus'   => $this->input->post('imagestatus'),
+                    'DeleteStatus'   => $this->input->post('deletestatus'),
+                    'UpdatedBy'=>  $this->session->userdata('UserID'),
+                    'UpdatedDate'=> date('Y-m-d')
+                );
+            }
                 if($this->trainingimage->duplicate_checker('masterdatatrainingimage','ImageLink',$photo) == TRUE){
                     echo json_encode(array('error'=> TRUE,'message'=>  'Image Name already existing!'));
                 }else{
-                    $result = $this->trainingimage->updateTrainingImage($data_input,$id);
+                    $result = $this->trainingimage->updateTrainingImage($data_input,$data_show,$id);
                     if($result){
                         echo json_encode(array('error'=> FALSE,'message'=> 'Image Updated!'));
                     }

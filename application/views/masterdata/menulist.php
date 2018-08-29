@@ -190,7 +190,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#menulink').val(obj.Link);
             $('#menuicon').val(obj.FaIcon);
             $('#description').val(obj.Description);
-            
+            $(":radio[name='activitystatus'][value='"+obj.MenuStatus+"']").prop('checked','checked');
+            $(":radio[name='deletestatus'][value='"+obj.DeleteStatus+"']").prop('checked','checked');
             
         });
         $('#btnaddmenu').click(addMenu);

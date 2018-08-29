@@ -234,6 +234,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $.each(obj.menu_list,function(index,obj){
                 return $('input.menu_list[id='+ obj.ItemNumber +']').prop('checked',true).trigger("change");   
             });
+            $(":radio[name='activitystatus'][value='"+obj.RoleStatus+"']").prop('checked','checked');
+            $(":radio[name='deletestatus'][value='"+obj.DeleteStatus+"']").prop('checked','checked');
         });
         
         $('#btnaddrole').click(addRoles);

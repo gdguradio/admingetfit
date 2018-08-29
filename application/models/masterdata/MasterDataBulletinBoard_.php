@@ -67,6 +67,7 @@ class MasterDataBulletinBoard_ extends CI_Model{
         $isuserfrommain = $this->selectBranches($id);
 
         if($isuserfrommain == "franchise"){
+            // $this->db->where('A.SysID',$id);
             $this->db->where('A.BranchType',$isuserfrommain);
         }
         $this->db->where('BranchStatus','yes');
@@ -98,35 +99,66 @@ class MasterDataBulletinBoard_ extends CI_Model{
     }
     public function loadBulletinBoardFromAjax(){
 
-
         $roleid = $this->session->userdata('roleID');
         $branchid = $this->session->userdata('branchID');
-        $this->db->where('EntryStatus',"yes");
-        $this->db->where('DeleteStatus',"no");
-        $query = $this->db->select('*')
-                ->from('masterdatabulletinboarddetails')
+        $this->db->where('A.EntryStatus',"yes");
+        $this->db->where('A.DeleteStatus',"no");
+        $this->db->where('B.EntryShowToBranch',$branchid);
+        $this->db->where('B.ShowToBranchRole',$roleid);
+        $query = $this->db->select('*,A.SysID AS DetailsID,B.SysID AS sysID')
+                ->from('masterdatabulletinboarddetails as A')
+                ->join('masterdatabulletinboard as B ',' A.SysID = B.MasterDataBulletinBoardDetailsID','inner')
                 ->get();
         if($query){
             if($query->num_rows() > 0){
                 $result = array();
                 foreach($query->result() as $x){
                     array_push($result,array(
-                        'SysID'    =>  $x->SysID,
+                        'DetailsID'    =>  $x->DetailsID,
+                        'sysID'    =>  $x->sysID,
                         'EntryType' => $x->EntryType,
                         'EntryDescription'   =>  $x->EntryDescription,
                         'EntryTitle'   =>  $x->EntryTitle,
                         'EntryFrom'   =>  $this->getbullenusername_byid($x->EntryFrom),
                         'EntryOrderIndex'   =>  $x->EntryOrderIndex,
                         'AddedDate'   =>  $x->AddedDate,
-                        'BranchName' => $this->getbullenshowto_byid($x->SysID,"BranchName,B.SysID AS BranchID"),
-                        'RoleName' => $this->getbullenshowto_byid($x->SysID,"RoleName,C.SysID AS roleID"),
-                        'Access' => $this->getbullenshowto_byid($x->SysID,"BranchName,RoleName,C.SysID AS roleID,B.SysID AS BranchID",$roleid,$branchid)
+                        'BranchName' => $this->getbullenshowto_byid($x->DetailsID,"BranchName,B.SysID AS BranchID",$roleid,$branchid),
+                        'RoleName' => $this->getbullenshowto_byid($x->DetailsID,"RoleName,C.SysID AS roleID",$roleid,$branchid),
+                        'Access' => $this->getbullenshowto_byid($x->DetailsID,"BranchName,RoleName,C.SysID AS roleID,B.SysID AS BranchID",$roleid,$branchid)
                     ));
                 }
                 // $this->output->enable_profiler(TRUE);      
                 return $result;
             }
         }
+        // $roleid = $this->session->userdata('roleID');
+        // $branchid = $this->session->userdata('branchID');
+        // $this->db->where('EntryStatus',"yes");
+        // $this->db->where('DeleteStatus',"no");
+        // $query = $this->db->select('*')
+        //         ->from('masterdatabulletinboarddetails')
+        //         ->get();
+        // if($query){
+        //     if($query->num_rows() > 0){
+        //         $result = array();
+        //         foreach($query->result() as $x){
+        //             array_push($result,array(
+        //                 'SysID'    =>  $x->SysID,
+        //                 'EntryType' => $x->EntryType,
+        //                 'EntryDescription'   =>  $x->EntryDescription,
+        //                 'EntryTitle'   =>  $x->EntryTitle,
+        //                 'EntryFrom'   =>  $this->getbullenusername_byid($x->EntryFrom),
+        //                 'EntryOrderIndex'   =>  $x->EntryOrderIndex,
+        //                 'AddedDate'   =>  $x->AddedDate,
+        //                 'BranchName' => $this->getbullenshowto_byid($x->SysID,"BranchName,B.SysID AS BranchID"),
+        //                 'RoleName' => $this->getbullenshowto_byid($x->SysID,"RoleName,C.SysID AS roleID"),
+        //                 'Access' => $this->getbullenshowto_byid($x->SysID,"BranchName,RoleName,C.SysID AS roleID,B.SysID AS BranchID",$roleid,$branchid)
+        //             ));
+        //         }
+        //         // $this->output->enable_profiler(TRUE);      
+        //         return $result;
+        //     }
+        // }
 
     }
     public function loadBulletinBoard(){
@@ -182,7 +214,6 @@ class MasterDataBulletinBoard_ extends CI_Model{
             $this->db->where('A.EntryShowToBranch',$branchid);
             $this->db->where('A.ShowToBranchRole',$roleid);
         }
-
         $this->db->distinct();
         $this->db->where('A.EntryStatus',"yes");
         $this->db->where('A.DeleteStatus',"no");
