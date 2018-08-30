@@ -34,6 +34,19 @@ class MasterDataSubMenu_ extends CI_Model{
         }
 
     }
+    public function selectActiveParentMenu($id){
+        $this->db->where('MenuStatus',"yes");
+        $this->db->where('DeleteStatus',"no");
+        $this->db->where('SysID',$id);
+        $query = $this->db->select('A.*')
+                ->from('masterdatamenu as A')
+                ->get();
+        if($query){
+            if($query->num_rows() > 0){
+                return true;
+            }
+        }
+    }
     public function addSubMenu($data_array){
         $query = $this->db->insert('masterdatasubmenu',$data_array);
         if ($query){
@@ -44,6 +57,15 @@ class MasterDataSubMenu_ extends CI_Model{
         $this->db->where('SysID',$id);
         $query = $this->db->update('masterdatasubmenu',$data_array);
         if ($query){
+            return TRUE;
+        }
+    }
+    public function deleteSubMenu($data_array,$id){
+        // $this->db->where('SysID',$id);
+        // $query = $this->db->delete('masterdatasubmenu');
+        $this->db->where('SysID',$id);
+        $query = $this->db->update('masterdatasubmenu',$data_array);
+        if($query){
             return TRUE;
         }
     }

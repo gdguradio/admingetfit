@@ -23,6 +23,15 @@ class MasterDataMenu_ extends CI_Model{
             return TRUE;
         }
     }
+    public function deleteMenu($data_array,$id){
+        $this->db->where('SysID',$id);
+        $query = $this->db->update('masterdatamenu',$data_array);
+        // $this->db->where('SysID',$id);
+        // $query = $this->db->delete('masterdatamenu');
+        if($query){
+            return TRUE;
+        }
+    }
     public function updateMenu($data_array,$id){
         $this->db->where('SysID',$id);
         $query = $this->db->update('masterdatamenu',$data_array);

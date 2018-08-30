@@ -913,8 +913,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             destroy: true,
             autoWidth: false,
             lengthMenu: [
-                [10, 20, -1],
-                [10, 20, "All"]
+                [5,10, 20, -1],
+                [5,10, 20, "All"]
             ],
             "ajax": {
                 "url": site_url + "gym/GymContentPromo/ajaxLoadPromo",
@@ -980,8 +980,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             destroy: true,
             // autoWidth: false,
             lengthMenu: [
-                [10, 20, -1],
-                [10, 20, "All"]
+                [5,10, 20, -1],
+                [5,10, 20, "All"]
             ],
             "ajax": {
                 "url": site_url + "gym/GymContentBenefit/ajaxLoadBenefit",
@@ -1048,8 +1048,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             destroy: true,
             // autoWidth: false,
             lengthMenu: [
-                [10, 20, -1],
-                [10, 20, "All"]
+                [5,10, 20, -1],
+                [5,10, 20, "All"]
             ],
             "ajax": {
                 "url": site_url + "gym/GymContentFaqs/ajaxLoadFaqs",

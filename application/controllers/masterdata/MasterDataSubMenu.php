@@ -126,4 +126,23 @@ class MasterDataSubMenu extends CI_Controller {
             }
         }
     }
+    public function deleteMasterDataSubMenuFromAjax(){
+        $id = $this->input->post('submenuID');
+        $menuID = $this->input->post('menuID');
+        $data_input =   array(
+            'DeleteStatus'   => "yes",
+            'UpdatedBy'=>  $this->session->userdata('UserID'),
+            'UpdatedDate'=> date('Y-m-d')
+        );
+        $isparentmenuactive = $this->masterdatasubmenu->selectActiveParentMenu($menuID);
+        if(!$isparentmenuactive){
+            $result = $this->masterdatasubmenu->deleteSubMenu($data_input,$id);
+            if($result){
+                echo json_encode(array('error'=> FALSE,'message'=> 'SubMenu Deleted!'));
+            }
+        }else{
+            echo json_encode(array('error'=> FALSE,'message'=> 'SubMenu cannot be Deleted Parent Menu is Active!'));
+        }
+        
+    }
 }

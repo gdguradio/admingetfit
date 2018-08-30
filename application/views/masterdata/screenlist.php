@@ -186,7 +186,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
         $('#btnaddscreen').click(addScreen);
         $('#btnupdatescreen').click(updateScreen);
-        $('#btndeleteuser').click(deleteScreen);
+        $('#btndeletescreen').click(deleteScreen);
         $('#menuname').change(loadSubMenu);
         
     });
@@ -273,24 +273,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
     function deleteScreen(){
         var base_url = "<?php echo site_url();?>";
-        var user_id = $('#user_id').val();
+        var screenid = $('#screenid').val();
+        var submenuid = $('#submenuname option:selected').val();
          $.ajax({
             type:'POST',
-            url: base_url + 'User_management/ajax_delete_user',
+            url: base_url + 'masterdata/MasterDataScreen/deleteMasterDataScreenFromAjax',
             dataType:"json",
             data:{
-                user_id:user_id
+                screenid:screenid,
+                submenuid:submenuid
             },
             success:function(data)
             {
-                if(data.error === true)
-                {
-                    call_alert_error('myModal',data.message);
-                }
-                else
-                {
-                    load_user();
-                    call_alert_success('myModal',data.message);
+                if(data.error === true){
+                    call_alert_error('ScreenModal',data.message);
+                }else{
+                    loadScreen();
+                    // loadMenu();
+                    call_alert_success('ScreenModal',data.message);
                 }
             }
         }).done(function(){

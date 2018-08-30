@@ -138,4 +138,25 @@ class MasterDataScreen extends CI_Controller {
             }
         }
     }
+    public function deleteMasterDataScreenFromAjax(){
+        $id = $this->input->post('screenID');
+        $submenuid = $this->input->post('submenuid');
+        $data_input =   array(
+            'DeleteStatus'   => "yes",
+            'UpdatedBy'=>  $this->session->userdata('UserID'),
+            'UpdatedDate'=> date('Y-m-d')
+        );
+        $isparentsubmenuactive = $this->masterdatasubmenu->selectActiveParentSubMenu($submenuid);
+        if(!$isparentsubmenuactive){
+            $result = $this->masterdatascreen->deleteScreen($data_input,$id);
+            if($result){
+                echo json_encode(array('error'=> FALSE,'message'=> 'Screen Deleted!'));
+            }
+        }else{
+            echo json_encode(array('error'=> FALSE,'message'=> 'Screen cannot be Deleted Parent SubMenu is Active!'));
+        }
+
+        
+    }
+
 }

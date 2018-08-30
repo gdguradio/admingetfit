@@ -199,7 +199,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
         $('#btnaddsubmenu').click(addSubMenu);
         $('#btnupdatesubmenu').click(updateSubMenu);
-        $('#btndeleteuser').click(deleteSubMenu);
+        $('#btndeletesubmenu').click(deleteSubMenu);
         
     });
     function addSubMenu(){
@@ -281,24 +281,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
     function deleteSubMenu(){
         var base_url = "<?php echo site_url();?>";
-        var user_id = $('#user_id').val();
+        var submenuID = $('#submenuID').val();
+        var menuid = $('#menuname option:selected').val();
          $.ajax({
             type:'POST',
-            url: base_url + 'User_management/ajax_delete_user',
+            url: base_url + 'masterdata/MasterDataSubMenu/deleteMasterDataSubMenuFromAjax',
             dataType:"json",
             data:{
-                user_id:user_id
+                submenuID:submenuID,
+                menuid:menuid
             },
             success:function(data)
             {
-                if(data.error === true)
-                {
-                    call_alert_error('myModal',data.message);
-                }
-                else
-                {
-                    load_user();
-                    call_alert_success('myModal',data.message);
+                if(data.error === true){
+                    call_alert_error('SubMenuModal',data.message);
+                }else{
+                    loadSubMenu();
+                    call_alert_success('SubMenuModal',data.message);
                 }
             }
         });

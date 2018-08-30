@@ -196,7 +196,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
         $('#btnaddmenu').click(addMenu);
         $('#btnupdatemenu').click(updateMenu);
-        $('#btndeleteuser').click(deleteMenu);
+        $('#btndeletemenu').click(deleteMenu);
         
     });
     function addMenu(){
@@ -274,23 +274,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
     function deleteMenu(){
         var base_url = "<?php echo site_url();?>";
-        var user_id = $('#user_id').val();
+        var menuID = $('#menuID').val();
          $.ajax({
             type:'POST',
-            url: base_url + 'User_management/ajax_delete_user',
+            url: base_url + 'masterdata/MasterDataMenu/deleteMasterDataMenuFromAjax',
             dataType:"json",
             data:{
-                user_id:user_id
+                menuID:menuID
             },
             success:function(data)
             {
-                if(data.error === true)
-                {
+                if(data.error === true){
                     call_alert_error('myModal',data.message);
-                }
-                else
-                {
-                    load_user();
+                }else{
+                    loadMenu();
                     call_alert_success('myModal',data.message);
                 }
             }

@@ -19,7 +19,19 @@ class MasterDataScreen_ extends CI_Model{
         }
 
     }
-    
+    public function selectActiveParentSubMenu($submenuid){
+        $this->db->where('SubmenuStatus',"yes");
+        $this->db->where('DeleteStatus',"no");
+        $this->db->where('SysID',$id);
+        $query = $this->db->select('A.*')
+                ->from('masterdatasubmenu as A')
+                ->get();
+        if($query){
+            if($query->num_rows() > 0){
+                return true;
+            }
+        }
+    }
     public function addScreen($data_array){
         $query = $this->db->insert('masterdatascreen',$data_array);
         if ($query){
@@ -30,6 +42,15 @@ class MasterDataScreen_ extends CI_Model{
         $this->db->where('SysID',$id);
         $query = $this->db->update('masterdatascreen',$data_array);
         if ($query){
+            return TRUE;
+        }
+    }
+    public function deleteScreen($data_array,$id){
+        $this->db->where('SysID',$id);
+        $query = $this->db->update('masterdatascreen',$data_array);
+        // $this->db->where('SysID',$id);
+        // $query = $this->db->delete('masterdatascreen');
+        if($query){
             return TRUE;
         }
     }
@@ -53,8 +74,8 @@ class MasterDataScreen_ extends CI_Model{
         if($id!=NULL){
             $this->db->where('A.MenuNameID',$id);
         }
-        $this->db->where('SubmenuStatus',"yes");
-        $this->db->where('DeleteStatus',"no");
+        $this->db->where('A.SubmenuStatus',"yes");
+        $this->db->where('A.DeleteStatus',"no");
         $query = $this->db->select('A.SysID AS submenuID,B.sysID AS menuID,A.SubMenuName')
                 ->from('masterdatasubmenu as A')
                 ->join('masterdatamenu as B','B.SysID = A.MenuNameID','inner')

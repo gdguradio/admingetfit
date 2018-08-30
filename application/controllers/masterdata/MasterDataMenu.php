@@ -35,7 +35,7 @@ class MasterDataMenu extends CI_Controller {
             "MainGymInformation/maingymlist",
             "FranchiseUserInformation/franchiseUserlist",
             "FranchiseGymInformation/franchisegymlist",
-            "GymContentPromo",
+            "GymContent",
             "MasterDataAdminImageGallery/imagelist",
             "MasterDataBulletinBoard/bulletinboardlist",
             "MasterDataTrainingImage/imagelist",
@@ -113,4 +113,17 @@ class MasterDataMenu extends CI_Controller {
             }
         }
     }
+    public function deleteMasterDataMenuFromAjax(){
+        $id = $this->input->post('menuID');
+        $data_input =   array(
+            'DeleteStatus'   => "yes",
+            'UpdatedBy'=>  $this->session->userdata('UserID'),
+            'UpdatedDate'=> date('Y-m-d')
+        );
+        $result = $this->masterdatamenu->deleteMenu($data_input,$id);
+        if($result){
+            echo json_encode(array('error'=> FALSE,'message'=> 'Menu Deleted!'));
+        }
+    }
+
 }
