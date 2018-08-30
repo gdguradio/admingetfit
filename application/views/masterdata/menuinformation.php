@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <small>Register Menu Information</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?=site_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="<?=site_url().''.'Welcome';?>"><i class="fa fa-dashboard"></i>Home</a></li>
         <li><a href="<?= site_url('masterdatarole/MasterDataMenu/menulist') ?>"><i class="fa fa-list"></i> Menu List</a></li>
       </ol>
     </section>

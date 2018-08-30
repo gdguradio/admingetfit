@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <small>BulletinBoardlist</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?=site_url();?>"><i class="fa fa-dashboard"></i>Home</a></li>
+      <li><a href="<?=site_url().''.'Welcome';?>"><i class="fa fa-dashboard"></i>Home</a></li>
         <li><a href="#" data-toggle='modal' data-target='#BulletinBoardModal'><i class="fa fa-keyboard-o"></i>Register Bulletin Board Entry Information</a></li>
       </ol>
     </section>

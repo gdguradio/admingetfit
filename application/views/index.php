@@ -433,36 +433,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $("#rightBoxContenttitle").text(imagecategory);
                 $("#rightBoxContentdescription").text(data[x].ImageDescription);
                 $("#rightBoxContent img").attr('src',imageurl + "" + data[x].ImageLink);
-                // var image = "";
-                // var category = ["Training Machine","Training Products","Training Coaches","Training Locations"];
-                // var imagecategory= category[ parseInt(data[x].ImageCategory) - 1 ];
-                // console.log(imageurl + "" + data[x].ImageLink)
-                // image =
-                // '<div class="box box-solid">'+
-                // '  <div class="box-body">'+
-                // '    <h4  style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;">'+
-                // '      '+imagecategory+''+
-                // '    </h4>'+
-                // '    <div class="media">'+
-                // '      <div class="media-left">'+
-                // '        <a href="#" class="ad-click-event">'+
-                // '          <img src="'+ imageurl + "" + data[x].ImageLink +'" alt="'+data[x].ImageTitle+'" class="media-object" style="width: 150px;height: auto;border-radius: 4px;box-shadow: 0 1px 3px rgba(0,0,0,.15);"></a>'+
-                // '      </div>'+
-                // '      <div class="media-body">'+
-                // '        <div class="clearfix">'+
-                // '          <p class="pull-right">'+
-                // '            <a href="#" class="btn btn-success btn-sm ad-click-event">LEARN MORE</a>'+
-                // '          </p>'+
-                // '          <h4 style="margin-top: 0">'+data[x].ImageDescription+'</h4>'+
-                // '          <p>'+imagecategory+'</p>'+
-                // '          <p style="margin-bottom: 0">'+
-                // '            <i class="fa fa-shopping-cart margin-r5"></i> Order Product'+
-                // '          </p>'+
-                // '        </div>'+
-                // '      </div>'+
-                // '    </div>'+
-                // '</div>';
-                // $("#leftBoxContent").append(image);
               } 
               if (data[x].ImageCategory == 4) {
                 var category = ["Training Machine","Training Products","Training Coaches","Training Locations"];
@@ -471,36 +441,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $("#leftBoxContenttitle").text(imagecategory);
                 $("#leftBoxContentdescription").text(data[x].ImageDescription);
                 $("#leftBoxContent img").attr('src',imageurl + "" + data[x].ImageLink);
-                // var image = "";
-                // var category = ["Training Machine","Training Products","Training Coaches","Training Locations"];
-                // var imagecategory= category[ parseInt(data[x].ImageCategory) - 1 ];
-                // console.log(imageurl + "" + data[x].ImageLink)
-                // image =
-                // '<div class="box box-solid">'+
-                // '  <div class="box-body">'+
-                // '    <h4  style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;">'+
-                // '      '+imagecategory+''+
-                // '    </h4>'+
-                // '    <div class="media">'+
-                // '      <div class="media-left">'+
-                // '        <a href="#" class="ad-click-event">'+
-                // '          <img src="'+ imageurl + "" + data[x].ImageLink +'" alt="'+data[x].ImageTitle+'" class="media-object" style="width: 150px;height: auto;border-radius: 4px;box-shadow: 0 1px 3px rgba(0,0,0,.15);"></a>'+
-                // '      </div>'+
-                // '      <div class="media-body">'+
-                // '        <div class="clearfix">'+
-                // '          <p class="pull-right">'+
-                // '            <a href="#" class="btn btn-success btn-sm ad-click-event">LEARN MORE</a>'+
-                // '          </p>'+
-                // '          <h4 style="margin-top: 0">'+data[x].ImageDescription+'</h4>'+
-                // '          <p>'+imagecategory+'</p>'+
-                // '          <p style="margin-bottom: 0">'+
-                // '            <i class="fa fa-shopping-cart margin-r5"></i> Order Product'+
-                // '          </p>'+
-                // '        </div>'+
-                // '      </div>'+
-                // '    </div>'+
-                // '</div>';
-                // $("#leftBoxContent").append(image);
               }
               
             }

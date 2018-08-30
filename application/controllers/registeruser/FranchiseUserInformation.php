@@ -105,7 +105,7 @@ class FranchiseUserInformation extends CI_Controller {
             echo json_encode(array('error'=> TRUE,'message'=> 'All fields with * are required!'));
         }else{
             $username = $this->input->post('username');
-
+            $photo = $this->uploadPhoto($username);
             $id = $this->input->post('userID');
             if($this->franchiseuserinformation->duplicate_checker('gymfranchiselogin','UserName',$username,$id) == TRUE){
                 echo json_encode(array('error'=> TRUE,'message'=> 'Username already existing'));
@@ -151,6 +151,8 @@ class FranchiseUserInformation extends CI_Controller {
         $uniqueusername = $this->franchiseuserinformation->duplicate_checker('gymfranchiselogin','UserName',$this->input->post('username'));
         $uniqueemail = $this->franchiseuserinformation->duplicate_checker('gymfranchiselogin','EmailAddress',$this->input->post('email'));
 
+        $username = $this->input->post('username');
+        $photo = $this->uploadPhoto($username);
         if($this->form_validation->run() == FALSE){
             echo json_encode(array('error'=> TRUE,'message'=> 'All fields with * are required!'));
         }else{

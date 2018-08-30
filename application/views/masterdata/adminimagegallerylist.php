@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <small>Image Gallery List</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?=site_url();?>"><i class="fa fa-dashboard"></i>Home</a></li>
+      <li><a href="<?=site_url().''.'Welcome';?>"><i class="fa fa-dashboard"></i>Home</a></li>
         <li><a href="#" data-toggle='modal' data-target='#ImageGalleryModal'><i class="fa fa-keyboard-o"></i>Register Image Information</a></li>
       </ol>
     </section>

@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <small>Profile</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?=site_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?=site_url().''.'Welcome';?>"><i class="fa fa-dashboard"></i>Home</a></li>
         <!--<li><a href="#">Examples</a></li>
         <li class="active">Blank page</li>-->
       </ol>

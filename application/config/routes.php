@@ -73,7 +73,7 @@ $route['MasterDataSubMenu/(:any)'] = 'masterdata/MasterDataSubMenu/$1';
 $route['MasterDataScreen/(:any)'] = 'masterdata/MasterDataScreen/$1';
 
 //gym
-$route['GymContentPromo'] = 'gym/GymContentPromo/index';
+$route['GymContent'] = 'gym/GymContent/index';
 
 // $route['login'] = 'Login';
 $route['404_override'] = '';

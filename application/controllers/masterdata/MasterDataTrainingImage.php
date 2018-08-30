@@ -117,7 +117,6 @@ class MasterDataTrainingImage extends CI_Controller {
         $this->form_validation->set_rules('imagetitle','Image Title','required');
         $this->form_validation->set_rules('imageorder','Display Order','required');
         $id = $this->input->post('imagegalleryID');
-
         if(!empty(form_error('photo'))){
             // echo json_encode(array('error'=> TRUE,'message'=> form_error('photo')));
             $data_input =   array(
@@ -127,6 +126,7 @@ class MasterDataTrainingImage extends CI_Controller {
                 'ImageStatus'   => $this->input->post('imagestatus'),
                 'DeleteStatus'   => $this->input->post('deletestatus'),
                 'ImageCategory'   => $this->input->post('imagecategory'),
+                'ImageLink'   => $photo,
                 'UpdatedBy'=>  $this->session->userdata('UserID'),
                 'UpdatedDate'=> date('Y-m-d')
             );
@@ -164,15 +164,15 @@ class MasterDataTrainingImage extends CI_Controller {
                     'UpdatedDate'=> date('Y-m-d')
                 );
                 $showtobranch = explode(",", $this->input->post('showtobranch'));
-            foreach($showtobranch AS $key=> $value){
-                $data_show[$key] =   array(
-                    'ShowToBranch' =>  $value,
-                    'ImageStatus'   => $this->input->post('imagestatus'),
-                    'DeleteStatus'   => $this->input->post('deletestatus'),
-                    'UpdatedBy'=>  $this->session->userdata('UserID'),
-                    'UpdatedDate'=> date('Y-m-d')
-                );
-            }
+                foreach($showtobranch AS $key=> $value){
+                    $data_show[$key] =   array(
+                        'ShowToBranch' =>  $value,
+                        'ImageStatus'   => $this->input->post('imagestatus'),
+                        'DeleteStatus'   => $this->input->post('deletestatus'),
+                        'UpdatedBy'=>  $this->session->userdata('UserID'),
+                        'UpdatedDate'=> date('Y-m-d')
+                    );
+                }
                 if($this->trainingimage->duplicate_checker('masterdatatrainingimage','ImageLink',$photo) == TRUE){
                     echo json_encode(array('error'=> TRUE,'message'=>  'Image Name already existing!'));
                 }else{

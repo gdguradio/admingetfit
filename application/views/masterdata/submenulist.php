@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <small>Submenulist</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?=site_url();?>"><i class="fa fa-dashboard"></i>Home</a></li>
+      <li><a href="<?=site_url().''.'Welcome';?>"><i class="fa fa-dashboard"></i>Home</a></li>
         <li><a href="#" data-toggle='modal' data-target='#SubMenuModal'><i class="fa fa-keyboard-o"></i>Register Sub Menu Information</a></li>      
     </ol>
     </section>

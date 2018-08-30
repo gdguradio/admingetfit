@@ -37,7 +37,7 @@ class MasterDataSubMenu extends CI_Controller {
             "MainGymInformation/maingymlist",
             "FranchiseUserInformation/franchiseUserlist",
             "FranchiseGymInformation/franchisegymlist",
-            "GymContentPromo",
+            "GymContent",
             "MasterDataAdminImageGallery/imagelist",
             "MasterDataBulletinBoard/bulletinboardlist",
             "MasterDataTrainingImage/imagelist",

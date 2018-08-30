@@ -104,7 +104,8 @@ class MainUserInformation extends CI_Controller {
             echo json_encode(array('error'=> TRUE,'message'=> 'All fields with * are required!'));
         }else{
             $username = $this->input->post('username');
-
+            // $username = $this->input->post('username');
+            $photo = $this->uploadPhoto($username);
             $id = $this->input->post('userID');
             if($this->mainuserinformation->duplicate_checker('gymmainlogin','UserName',$username,$id) == TRUE){
                 echo json_encode(array('error'=> TRUE,'message'=> 'Username already existing'));
@@ -122,6 +123,7 @@ class MainUserInformation extends CI_Controller {
                     'BranchDetailsID'=> $this->input->post('branchname'),
                     'PositionID'=> $this->input->post('positionname'),
                     'MasterDataRoleID'=> $this->input->post('rolenameID'),
+                    'UserPhoto'=> $photo,
                     'UpdatedBy'=>  $this->session->userdata('UserID'),
                     'UpdatedDate'=> date('Y-m-d'),
                     'LoginStatus'=> $this->input->post('loginstatus'),
