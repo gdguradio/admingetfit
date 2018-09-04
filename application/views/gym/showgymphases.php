@@ -134,7 +134,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
     div.bhoechie-tab-menu div.list-group>a .glyphicon,
     div.bhoechie-tab-menu div.list-group>a .fa {
-        color: #5A55A3;
+        /* color: #5A55A3; */
+        color: #333;
     }
     div.bhoechie-tab-menu div.list-group>a:first-child{
         border-top-right-radius: 0;
@@ -147,8 +148,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     div.bhoechie-tab-menu div.list-group>a.active,
     div.bhoechie-tab-menu div.list-group>a.active .glyphicon,
     div.bhoechie-tab-menu div.list-group>a.active .fa{
-        background-color: #5A55A3;
-        background-image: #5A55A3;
+        /* background-color: #5A55A3;
+        background-image: #5A55A3; */
+        background-color: #333;
+        background-image: #333;
         color: #ffffff;
     }
     div.bhoechie-tab-menu div.list-group>a.active:after{
@@ -160,7 +163,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         border-left: 0;
         border-bottom: 13px solid transparent;
         border-top: 13px solid transparent;
-        border-left: 10px solid #5A55A3;
+        /* border-left: 10px solid #5A55A3; */
+        border-left: 10px solid #333;
     }
 
     div.bhoechie-tab-content{
@@ -244,7 +248,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         // $thiscontent.append('<div class="bhoechie-tab-content '+activeclass+'" data-level="main" data-contentid='+data[i].sysID+'><center><h1 class="glyphicon glyphicon-plane" style="font-size:14em;color:#55518a"></h1><h2 style="margin-top: 0;color:#55518a">'+data[i].Description+'</h2><h3 style="margin-top: 0;color:#55518a">Flight Reservation</h3></center></div>');
                         // console.log(data[i].HasSub.toLowerCase())
                         $thismanu.append('<a href="#" class="list-group-item '+activeclass+' text-center" data-level="main" data-menuid='+data[i].sysID+' data-hassub='+data[i].HasSub+'></h4><br/>'+data[i].PhaseName+'</a>');
-                        $thiscontent.append('<div class="bhoechie-tab-content '+activeclass+'" data-level="main" data-contentid='+data[i].sysID+'><center>'+document+'</h1><h2 style="margin-top: 0;color:#55518a">'+data[i].Description+'</h2><h3 style="margin-top: 0;color:#55518a">Flight Reservation</h3></center></div>');
+                        // $thiscontent.append('<div class="bhoechie-tab-content '+activeclass+'" data-level="main" data-contentid='+data[i].sysID+'><center>'+document+'</h1><h2 style="margin-top: 0;color:#55518a">'+data[i].Description+'</h2><h3 style="margin-top: 0;color:#55518a">Flight Reservation</h3></center></div>');
+                        $thiscontent.append('<div class="bhoechie-tab-content '+activeclass+'" data-level="main" data-contentid='+data[i].sysID+'><center>'+document+'</h1><h2 style="margin-top: 0;color:#1a2226">'+data[i].Description+'</h2><h3 style="margin-top: 0;color:#1a2226">Flight Reservation</h3></center></div>');
                         
                         if(data[i].HasSub.toLowerCase() == 'yes' && subdata != null){
                             for(var x = 0; x < subdata.length; x++){
@@ -256,7 +261,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         subdocument = '<img src="'+subfold+''+subdata[x].DocumentLink+'" />';
                                     }
                                     $thismanu.append('<a href="#" class="list-group-item text-center sub" data-level="sub" data-menuid='+subdata[x].sysID+' ></h4><br/>'+subdata[x].PhaseName+'</a>');
-                                    $thiscontent.append('<div class="bhoechie-tab-content sub" data-level="sub" data-contentid='+subdata[x].sysID+'><center>'+subdocument+'<h2 style="margin-top: 0;color:#55518a">'+subdata[x].Description+'</h2><h3 style="margin-top: 0;color:#55518a">'+subdata[x].Details+'</h3></center></div>');
+                                    // $thiscontent.append('<div class="bhoechie-tab-content sub" data-level="sub" data-contentid='+subdata[x].sysID+'><center>'+subdocument+'<h2 style="margin-top: 0;color:#55518a">'+subdata[x].Description+'</h2><h3 style="margin-top: 0;color:#55518a">'+subdata[x].Details+'</h3></center></div>');
+                                    $thiscontent.append('<div class="bhoechie-tab-content sub" data-level="sub" data-contentid='+subdata[x].sysID+'><center>'+subdocument+'<h2 style="margin-top: 0;color:#1a2226">'+subdata[x].Description+'</h2><h3 style="margin-top: 0;color:#1a2226">'+subdata[x].Details+'</h3></center></div>');
                                 }
                             }
                         }

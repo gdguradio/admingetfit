@@ -2,7 +2,8 @@
 $CI =& get_instance();
 $CI->load->model('Login_model');
 $CI->load->model('masterdata/MasterDataRole_','masterdatarole');
-// $photo = $CI->Login_model->get_photo();
+$CI->load->model('registeruser/UserProfile_','userpic');
+$photo = $CI->userpic->getPhoto($this->session->userdata('UserID'));
 $menu = $CI->masterdatarole->loadMenu();
 // $currentPage = $CI->uri->segment(1).(($CI->uri->segment(2)) ? '/'.$CI->uri->segment(2) : ''); 
 // echo $currentPage ;
@@ -31,13 +32,13 @@ $menu = $CI->masterdatarole->loadMenu();
         <ul class="nav navbar-nav">
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php echo site_url('assets/img/logo/logo4.png');////echo base_url('assets/user_photo/'.$photo); ?>" class="user-image" alt="User Image">
+              <img src="<?php echo base_url('assets/UserPhoto/'.$photo); ?>" class="user-image" alt="User Image">
               <span class="hidden-xs"><?php echo $this->session->userdata('FullName'); ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?php echo site_url('assets/img/logo/logo4.png');////echo base_url('assets/user_photo/'.$photo); ?> ?>" class="img-circle" alt="User Image">
+                <img src="<?php echo base_url('assets/UserPhoto/'.$photo); ?>" class="img-circle" alt="User Image">
                 <p>
                 <?php echo $this->session->userdata('FullName'); ?>
                   <small><?php echo $this->session->userdata('role_type'); ?></small>
