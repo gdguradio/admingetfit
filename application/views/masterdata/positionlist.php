@@ -75,28 +75,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <input type="text" class="form-control" id="positionname" placeholder="Enter Position Name">
                     </div>
                     <div class="form-group">
-                        <label for="">Activity Status</label>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="activitystatusno" name="activitystatus" value="no" >
-                            <label class="custom-control-label" for="defaultUnchecked">No</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="activitystatusyes" name="activitystatus" value="yes" checked>
-                            <label class="custom-control-label" for="defaultChecked">Yes</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="">Delete Status</label>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="deletestatusno" name="deletestatus" value="no" checked>
-                            <label class="custom-control-label" for="defaultChecked">No</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="deletestatusyes" name="deletestatus" value="yes" >
-                            <label class="custom-control-label" for="defaultUnchecked">Yes</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
                       <label for="description">Description</label>
                       <input type="text" class="form-control" id="description" placeholder="Enter Description">
                     </div>

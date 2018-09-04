@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <!-- Main content -->
     <!-- promo section start -->
-    <section class="content">
+    <section class="gymcontent">
 
       <!-- Default box -->
       <div class="box">
@@ -65,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </section>
     <!-- promo section end -->
     <!-- member benefits section start -->
-    <section class="content">
+    <section class="gymcontent">
 
       <!-- Default box -->
       <div class="box">
@@ -109,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </section>
     <!-- benefits end -->
     <!-- faqs section start -->
-    <section class="content">
+    <section class="gymcontent">
 
       <!-- Default box -->
       <div class="box">
@@ -409,6 +409,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     #promoListTable tbody td {
         word-break: break-word;
         vertical-align: top;
+    }
+    .gymcontent {
+      /* min-height: 250px; */
+      padding: 15px;
+      margin-right: auto;
+      margin-left: auto;
+      padding-left: 15px;
+      padding-right: 15px;
     }
 </style>
 <script>

@@ -106,6 +106,7 @@ class MasterDataRole_ extends CI_Model{
         }
         $this->db->where('MenuStatus',"yes");
         $this->db->where('DeleteStatus',"no");
+        $this->db->order_by('DisplayOrderIndex', 'ASC');
         $query = $this->db->get('masterdatamenu');
         if($query){
             if($query->num_rows() > 0){
@@ -133,6 +134,7 @@ class MasterDataRole_ extends CI_Model{
         }
         $this->db->where('SubmenuStatus',"yes");
         $this->db->where('DeleteStatus',"no");
+        $this->db->order_by('DisplayOrderIndex', 'ASC');
         $query = $this->db->get('masterdatasubmenu');
         if($query){
             if($query->num_rows() > 0){
@@ -155,6 +157,7 @@ class MasterDataRole_ extends CI_Model{
         }
         $this->db->where('ScreenStatus',"yes");
         $this->db->where('DeleteStatus',"no");
+        $this->db->order_by('DisplayOrderIndex', 'ASC');
         $query = $this->db->get('masterdatascreen');
         if($query){
             if($query->num_rows() > 0){

@@ -38,6 +38,9 @@ class MasterDataSubMenu extends CI_Controller {
             "FranchiseUserInformation/franchiseUserlist",
             "FranchiseGymInformation/franchisegymlist",
             "GymContent",
+            "ShowGymPhases",
+            "MasterDataGymPhase/gymphaselist",
+            "MasterDataSubGymPhase/subgymphaselist",
             "MasterDataAdminImageGallery/imagelist",
             "MasterDataBulletinBoard/bulletinboardlist",
             "MasterDataTrainingImage/imagelist",
@@ -76,7 +79,7 @@ class MasterDataSubMenu extends CI_Controller {
         $this->form_validation->set_rules('menuid','Menu Name','required');
         $this->form_validation->set_rules('submenuname','SubMenu Name','required');
         $this->form_validation->set_rules('description','Description','required');
-        
+        $this->form_validation->set_rules('displayorder','Display Order','required');
         $data_input =   array(
             'SubMenuName' =>  $this->input->post('submenuname'),
             'Description'   => $this->input->post('description'),
@@ -86,6 +89,7 @@ class MasterDataSubMenu extends CI_Controller {
             'MenuNameID'   => $this->input->post('menuid'),
             'SubmenuStatus'   => $this->input->post('submenustatus'),
             'DeleteStatus'   => $this->input->post('deletestatus'),
+            'DisplayOrderIndex'   => $this->input->post('displayorder'),
             'AddedBy'=>  $this->session->userdata('UserID'),
             'AddedDate'=> date('Y-m-d')
         );
@@ -104,6 +108,7 @@ class MasterDataSubMenu extends CI_Controller {
         $this->form_validation->set_rules('menuid','Menu Name','required');
         $this->form_validation->set_rules('submenuname','SubMenu Name','required');
         $this->form_validation->set_rules('description','Description','required');
+        $this->form_validation->set_rules('displayorder','Display Order','required');
         $id = $this->input->post('submenuID');
         $data_input =   array(
             'SubMenuName' =>  $this->input->post('submenuname'),
@@ -113,6 +118,7 @@ class MasterDataSubMenu extends CI_Controller {
             'FaIcon'   => $this->input->post('submenuicon'),
             'MenuNameID'   => $this->input->post('menuid'),
             'SubmenuStatus'   => $this->input->post('submenustatus'),
+            'DisplayOrderIndex'   => $this->input->post('displayorder'),
             'DeleteStatus'   => $this->input->post('deletestatus'),
             'UpdatedBy'=>  $this->session->userdata('UserID'),
             'UpdatedDate'=> date('Y-m-d')

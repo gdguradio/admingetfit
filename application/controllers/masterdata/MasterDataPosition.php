@@ -26,46 +26,6 @@ class MasterDataPosition extends CI_Controller {
 
     }
 
-
-
-    public function loadlink(){
-        // $class_methods = get_class_methods('MasterDataMenu');
-        // echo json_encode(array_slice($class_methods, 2),JSON_UNESCAPED_UNICODE);
-        $myObj = 'MasterDataMenu';
-        $methods = array(
-            "Welcome",
-            "MasterDataMenu/menulist",
-            "MasterDataSubMenu/submenulist",
-            "MasterDataPosition/positionlist",
-            "MasterDataRole/rolelist",
-            "MainUserInformation/mainUserlist",
-            "MainGymInformation/maingymlist");
-        // foreach (get_class_methods($myObj) as $method) {
-        //     if ((strpos( $method, 'index' ) !== false || strpos( $method, 'list' ) !== false) && $method !== 'index' ) {
-        //         $methods[] = $method;
-        //     }
-        // }
-        // print_r($methods);
-        echo json_encode($methods,JSON_UNESCAPED_UNICODE);
-    }
-    public function loadmenu(){
-        $query = $this->masterdataposition->loadMenu();
-        if($query){
-            echo json_encode($query,JSON_UNESCAPED_UNICODE);
-        }else{
-            echo json_encode(array('error'=> TRUE,'message'=> 'No result found'));
-        }
-    }
-    public function loadsubmenu(){
-        $id = $this->input->post('id');
-        $query = $this->masterdataposition->loadSubMenu($id);
-        if($query){
-            echo json_encode($query,JSON_UNESCAPED_UNICODE);
-        }else{
-            echo json_encode(array('error'=> TRUE,'message'=> 'No result found'));
-        }
-    }
-
     public function ajaxLoadPosition(){
         $query = $this->masterdataposition->loadPosition();
         if($query){

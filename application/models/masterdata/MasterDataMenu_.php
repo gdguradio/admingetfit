@@ -24,10 +24,32 @@ class MasterDataMenu_ extends CI_Model{
         }
     }
     public function deleteMenu($data_array,$id){
+        // $this->db->trans_start();
+        
+        // $this->db->where('SysID',$id);
+        // $this->db->update('masterdatamenu',$data_array);
+
+        // $this->db->where('MenuNameID',$id);
+        // $this->db->update('masterdatasubmenu',$data_array);
+
+        // $this->db->where('MenuNameID',$id);
+        // $this->db->update('masterdatascreen',$data_array);
+
+        // $this->db->trans_complete();
+        // if ($this->db->trans_status() === FALSE){
+        //     return FALSE;
+        // }else{
+        //     return TRUE;
+        // }
+
+
+
+
+
         $this->db->where('SysID',$id);
         $query = $this->db->update('masterdatamenu',$data_array);
-        // $this->db->where('SysID',$id);
-        // $query = $this->db->delete('masterdatamenu');
+        $this->db->where('SysID',$id);
+        $query = $this->db->delete('masterdatamenu');
         if($query){
             return TRUE;
         }

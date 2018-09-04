@@ -39,6 +39,9 @@ class MasterDataScreen extends CI_Controller {
             "FranchiseUserInformation/franchiseUserlist",
             "FranchiseGymInformation/franchisegymlist",
             "GymContent",
+            "ShowGymPhases",
+            "MasterDataGymPhase/gymphaselist",
+            "MasterDataSubGymPhase/subgymphaselist",
             "MasterDataAdminImageGallery/imagelist",
             "MasterDataBulletinBoard/bulletinboardlist",
             "MasterDataTrainingImage/imagelist",
@@ -88,6 +91,7 @@ class MasterDataScreen extends CI_Controller {
         $this->form_validation->set_rules('description','Description','required');
         $this->form_validation->set_rules('screenlink','Screen Link','required');
         $this->form_validation->set_rules('submenuid','SubMenu Name','required');
+        $this->form_validation->set_rules('displayorder','Display Order','required');
         
         $data_input =   array(
             'ScreenName' =>  $this->input->post('screenname'),
@@ -98,6 +102,7 @@ class MasterDataScreen extends CI_Controller {
             'ScreenStatus'   => $this->input->post('screenstatus'),
             'DeleteStatus'   => $this->input->post('deletestatus'),
             'AddedBy'=>  $this->session->userdata('UserID'),
+            'DisplayOrderIndex'   => $this->input->post('displayorder'),
             'AddedDate'=> date('Y-m-d')
         );
         $screen_list = $this->input->post('screen_list');
@@ -117,6 +122,7 @@ class MasterDataScreen extends CI_Controller {
         $this->form_validation->set_rules('description','Description','required');
         $this->form_validation->set_rules('screenlink','Screen Link','required');
         $this->form_validation->set_rules('submenuid','SubMenu Name','required');
+        $this->form_validation->set_rules('displayorder','Display Order','required');
         
         $data_input =   array(
             'ScreenName' =>  $this->input->post('screenname'),
@@ -127,6 +133,7 @@ class MasterDataScreen extends CI_Controller {
             'ScreenStatus'   => $this->input->post('screenstatus'),
             'DeleteStatus'   => $this->input->post('deletestatus'),
             'UpdatedBy'=>  $this->session->userdata('UserID'),
+            'DisplayOrderIndex'   => $this->input->post('displayorder'),
             'UpdatedDate'=> date('Y-m-d')
         );
         if($this->masterdatascreen->duplicate_checker('masterdatascreen','ScreenName',$data_input['ScreenName']) == TRUE){

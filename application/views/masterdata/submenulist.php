@@ -111,6 +111,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <input type="text" class="form-control" id="description" placeholder="Enter Description">
                     </div>
                     <div class="form-group">
+                      <label for="displayorder">Display Order</label>
+                      <input type="text" class="form-control" id="displayorder" placeholder="Enter Display Order">
+                    </div>
+                    <div class="form-group">
                         <label for="">Activity Status</label>
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" id="activitystatusno" name="activitystatus" value="no" >
@@ -193,6 +197,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#submenulink').val(obj.Link);
             $('#submenuicon').val(obj.FaIcon);
             $('#description').val(obj.Description);
+            $('#displayorder').val(obj.DisplayOrderIndex);
             $(":radio[name='activitystatus'][value='"+obj.SubmenuStatus+"']").prop('checked','checked');
             $(":radio[name='deletestatus'][value='"+obj.DeleteStatus+"']").prop('checked','checked');
             
@@ -213,6 +218,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         var description = $('#description').val();
         const submenustatus = $(":radio[name='activitystatus']:checked").val();
         const deletestatus = $(":radio[name='deletestatus']:checked").val();
+        const displayorder =  $('#displayorder').val();
         $.ajax({
             type:'POST',
             url:site_url +'masterdata/MasterDataSubMenu/insertMasterDataSubMenuFromAjax',
@@ -225,7 +231,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 description:description,
                 menuid:menuid,
                submenustatus:submenustatus,
-                deletestatus:deletestatus
+                deletestatus:deletestatus,
+                displayorder:displayorder
             },
             success:function(data)
             {
@@ -251,6 +258,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
        var menuid = $('#menuname option:selected').val();
        const submenustatus = $(":radio[name='activitystatus']:checked").val();
         const deletestatus = $(":radio[name='deletestatus']:checked").val();
+        const displayorder =  $('#displayorder').val();
        $.ajax({
            type:'POST',
            url:site_url +'masterdata/MasterDataSubMenu/updateMasterDataSubMenuFromAjax',
@@ -264,7 +272,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                submenuID:submenuID,
                menuid:menuid,
                submenustatus:submenustatus,
-                deletestatus:deletestatus
+                deletestatus:deletestatus,
+                displayorder:displayorder
            },
            success:function(data)
            {

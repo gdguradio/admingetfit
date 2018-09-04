@@ -36,6 +36,9 @@ class MasterDataMenu extends CI_Controller {
             "FranchiseUserInformation/franchiseUserlist",
             "FranchiseGymInformation/franchisegymlist",
             "GymContent",
+            "ShowGymPhases",
+            "MasterDataGymPhase/gymphaselist",
+            "MasterDataSubGymPhase/subgymphaselist",
             "MasterDataAdminImageGallery/imagelist",
             "MasterDataBulletinBoard/bulletinboardlist",
             "MasterDataTrainingImage/imagelist",
@@ -66,6 +69,7 @@ class MasterDataMenu extends CI_Controller {
         $this->form_validation->set_rules('menuname','Menu Name','required');
         $this->form_validation->set_rules('description','Description','required');
         $this->form_validation->set_rules('menulink','Link','required');
+        $this->form_validation->set_rules('displayorder','Display Order','required');
         
         $data_input =   array(
             'MenuName' =>  $this->input->post('menuname'),
@@ -75,6 +79,7 @@ class MasterDataMenu extends CI_Controller {
             'FaIcon'   => $this->input->post('menuicon'),
             'MenuStatus'   => $this->input->post('menustatus'),
             'DeleteStatus'   => $this->input->post('deletestatus'),
+            'DisplayOrderIndex'   => $this->input->post('displayorder'),
             'AddedBy'=>  $this->session->userdata('UserID'),
             'AddedDate'=> date('Y-m-d')
         );
@@ -93,6 +98,8 @@ class MasterDataMenu extends CI_Controller {
         $this->form_validation->set_rules('description','Description','required');
         $this->form_validation->set_rules('menulink','Link','required');
         $id = $this->input->post('menuID');
+        $this->form_validation->set_rules('displayorder','Display Order','required');
+        
         $data_input =   array(
             'MenuName' =>  $this->input->post('menuname'),
             'Description'   => $this->input->post('description'),
@@ -102,6 +109,7 @@ class MasterDataMenu extends CI_Controller {
             'MenuStatus'   => $this->input->post('menustatus'),
             'DeleteStatus'   => $this->input->post('deletestatus'),
             'UpdatedBy'=>  $this->session->userdata('UserID'),
+            'DisplayOrderIndex'   => $this->input->post('displayorder'),
             'UpdatedDate'=> date('Y-m-d')
         );
         if($this->masterdatamenu->duplicate_checker('masterdatamenu','MenuName',$data_input['MenuName']) == TRUE){

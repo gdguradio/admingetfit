@@ -71,9 +71,12 @@ $route['MasterDataMenu/(:any)'] = 'masterdata/MasterDataMenu/$1';
 $route['MasterDataPosition/(:any)'] = 'masterdata/MasterDataPosition/$1';
 $route['MasterDataSubMenu/(:any)'] = 'masterdata/MasterDataSubMenu/$1';
 $route['MasterDataScreen/(:any)'] = 'masterdata/MasterDataScreen/$1';
+$route['MasterDataGymPhase/(:any)'] = 'masterdata/MasterDataGymPhase/$1';
+$route['MasterDataSubGymPhase/(:any)'] = 'masterdata/MasterDataSubGymPhase/$1';
 
 //gym
 $route['GymContent'] = 'gym/GymContent/index';
+$route['ShowGymPhases'] = 'gym/ShowGymPhases/index';
 
 // $route['login'] = 'Login';
 $route['404_override'] = '';
