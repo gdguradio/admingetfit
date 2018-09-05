@@ -68,7 +68,7 @@ class MasterDataTrainingVideo_ extends CI_Model{
         // $this->db->where('A.VideoStatus','yes');
         
         $query = $this->db->select('A.*')
-                ->from('masterdatatrainingVideo as A')
+                ->from('masterdatatrainingvideo as A')
                 ->get();
         if($query){
             if($query->num_rows() > 0){

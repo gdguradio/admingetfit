@@ -78,6 +78,15 @@ $route['MasterDataSubGymPhase/(:any)'] = 'masterdata/MasterDataSubGymPhase/$1';
 $route['GymContent'] = 'gym/GymContent/index';
 $route['ShowGymPhases'] = 'gym/ShowGymPhases/index';
 
+//resources
+$route['ShowGymResources'] = 'resources/ShowGymResources/index';
+$route['GymResourcesMarketing/(:any)'] = 'resources/GymResourcesMarketing/$1';
+$route['GymResourcesCampaign/(:any)'] = 'resources/GymResourcesCampaign/$1';
+$route['GymResourcesAssetsArtwork/(:any)'] = 'resources/GymResourcesAssetsArtwork/$1';
+$route['GymResourcesDigitalSocialMedia/(:any)'] = 'resources/GymResourcesDigitalSocialMedia/$1';
+
+
+
 // $route['login'] = 'Login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
